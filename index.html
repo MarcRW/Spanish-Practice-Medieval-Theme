@@ -750,7 +750,8 @@ const pedirPreguntarExercises = [
     {text:'Me ___ un favor muy grande.',options:['pidió','preguntó'],correct:0,explanation:'PEDIR: solicitar favor.'},
     {text:'Me ___ mi nombre.',options:['pidió','preguntó'],correct:1,explanation:'PREGUNTAR: solicitar información.'},
     {text:'Voy a ___ una pizza.',options:['pedir','preguntar'],correct:0,explanation:'PEDIR: ordenar comida.'},
-    {text:'Voy a ___ por las direcciones.',options:['pedir','preguntar'],correct:1,explanation:'PREGUNTAR: solicitar información.'},
+    { sentence: "Voy a ___ dónde consigo un mapa.", options: ["pedir", "preguntar"], correct: "preguntar", explanation: "PREGUNTAR: solicitar información" },
+
     {text:'___ disculpas por llegar tarde.',options:['Pedí','Pregunté'],correct:0,explanation:'PEDIR disculpas.'},
     {text:'Le ___ qué hora era.',options:['pedí','pregunté'],correct:1,explanation:'PREGUNTAR: la hora.'},
     {text:'Siempre me ___ dinero prestado.',options:['pide','pregunta'],correct:0,explanation:'PEDIR: solicitar objeto.'},
@@ -770,36 +771,35 @@ const pedirPreguntarExercises = [
 
 // ===== DATOS: VERBOS DE MOVIMIENTO (25 ejercicios) =====
 const movimientoExercises = [
-    {text:'(Tú estás en tu casa, hablando por teléfono) ___ a mi casa esta noche.',options:['Voy','Vengo'],correct:0,explanation:'IR: alejarse del hablante.'},
-    {text:'(Estoy en mi casa) ¿Puedes ___ a mi casa?',options:['ir','venir'],correct:1,explanation:'VENIR: acercarse al hablante.'},
-    {text:'¿Me ___ el libro que te presté?',options:['llevas','traes'],correct:1,explanation:'TRAER: hacia el hablante.'},
-    {text:'Te ___ el libro mañana a tu oficina.',options:['llevo','traigo'],correct:0,explanation:'LLEVAR: lejos del hablante.'},
-    {text:'(En una fiesta) ¡Qué bueno que ___!',options:['fuiste','viniste'],correct:1,explanation:'VENIR: a donde está el hablante.'},
-    {text:'Mañana ___ a la playa.',options:['vamos','venimos'],correct:0,explanation:'IR: a otro lugar.'},
-    {text:'¿Puedes ___ a los niños al colegio?',options:['llevar','traer'],correct:0,explanation:'LLEVAR: a otro lugar.'},
-    {text:'___ a visitarte el domingo.',options:['Voy','Vengo'],correct:0,explanation:'IR: a donde está el otro.'},
-    {text:'(En mi casa) ___ amigos a cenar.',options:['Llevé','Traje'],correct:1,explanation:'TRAER: a donde estoy.'},
-    {text:'No olvides ___ tu pasaporte al aeropuerto.',options:['llevar','traer'],correct:0,explanation:'LLEVAR: a otro lugar.'},
-    {text:'(En el restaurante) El mesero nos ___ la comida.',options:['llevó','trajo'],correct:1,explanation:'TRAER: hacia nosotros.'},
-    {text:'___ tarde a la reunión.',options:['Fui','Vine'],correct:0,explanation:'IR: a otro lugar.'},
-    {text:'(En mi oficina) ¿Ya ___ el correo?',options:['llevaron','trajeron'],correct:1,explanation:'TRAER: a donde estoy.'},
-    {text:'Voy a ___ a mi mamá al doctor.',options:['llevar','traer'],correct:0,explanation:'LLEVAR: a otro lugar.'},
-    {text:'(En casa) Mi esposo ___ flores.',options:['llevó','trajo'],correct:1,explanation:'TRAER: a casa.'},
-    {text:'¿A qué hora ___ anoche?',options:['fuiste','viniste'],correct:1,explanation:'VENIR: a donde estamos.'},
-    {text:'___ al cine con mis amigos.',options:['Fui','Vine'],correct:0,explanation:'IR: a otro lugar.'},
-    {text:'¿Me ___ en tu carro al trabajo?',options:['llevas','traes'],correct:0,explanation:'LLEVAR: a otro lugar.'},
-    {text:'(Fiesta en mi casa) ¿___ algo de beber?',options:['Llevaste','Trajiste'],correct:1,explanation:'TRAER: a mi casa.'},
-    {text:'Mañana ___ a recogerte.',options:['voy','vengo'],correct:0,explanation:'IR: a donde estás tú.'},
-    {text:'(En tu casa) Gracias por ___ a verme.',options:['ir','venir'],correct:1,explanation:'VENIR: a donde estoy yo.'},
-    {text:'___ el paraguas, va a llover.',options:['Lleva','Trae'],correct:0,explanation:'LLEVAR: contigo a otro lugar.'},
-    {text:'(Yo estoy afuera) ___ para adentro.',options:['Voy','Vengo'],correct:0,explanation:'IR: a otro lugar.'},
-    {text:'(Yo estoy adentro) ___ para adentro.',options:['Ve','Ven'],correct:1,explanation:'VENIR: hacia donde estoy.'},
-    {text:'No ___ nada al viaje, todo está incluido.',options:['lleves','traigas'],correct:0,explanation:'LLEVAR: al viaje.'}
+    { sentence: "(Tú estás en tu casa, hablando por teléfono) ___ a mi casa esta noche, te espero.", options: ["Ven", "Ve"], correct: "Ven", explanation: "VENIR: hacia donde está el hablante" },
+    { sentence: "(Estoy en mi casa) ¿Puedes ___ a mi casa?", options: ["ir", "venir"], correct: "venir", explanation: "VENIR: hacia donde está el hablante" },
+    { sentence: "¿Me ___ el libro que te presté a mi habitación?", options: ["llevas", "traes"], correct: "traes", explanation: "TRAER: hacia donde está el hablante" },
+    { sentence: "Te ___ el libro mañana a tu oficina.", options: ["llevo", "traigo"], correct: "llevo", explanation: "LLEVAR: hacia donde está el otro" },
+    { sentence: "(En una fiesta) ¡Qué bueno que ___!", options: ["fuiste", "viniste"], correct: "viniste", explanation: "VENIR: hacia donde está el hablante" },
+    { sentence: "Mañana ___ a la playa.", options: ["vamos", "venimos"], correct: "vamos", explanation: "IR: a otro lugar" },
+    { sentence: "¿Puedes ___ a los niños al colegio?", options: ["llevar", "traer"], correct: "llevar", explanation: "LLEVAR: a otro lugar" },
+    { sentence: "(Estás chateando con un amigo) ___ a visitarte el domingo.", options: ["Voy", "Vengo"], correct: "Voy", explanation: "IR: hacia donde está el otro" },
+    { sentence: "(Estoy en casa con mi hijo) ¿Por qué no ___ unos amigos a cenar?", options: ["llevas", "traes"], correct: "traes", explanation: "TRAER: hacia donde está el hablante" },
+    { sentence: "No olvides ___ tu pasaporte al aeropuerto.", options: ["llevar", "traer"], correct: "llevar", explanation: "LLEVAR: a otro lugar" },
+    { sentence: "(En el restaurante) El mesero nos ___ la comida.", options: ["llevó", "trajo"], correct: "trajo", explanation: "TRAER: hacia nosotros" },
+    { sentence: "Vete ya, si no vas a ___ tarde a la reunión.", options: ["llegar", "venir"], correct: "llegar", explanation: "LLEGAR: arribar a un lugar" },
+    { sentence: "(En mi oficina) ¿Ya ___ el correo para revisarlo?", options: ["llevaron", "trajeron"], correct: "trajeron", explanation: "TRAER: hacia donde estoy" },
+    { sentence: "Voy a ___ a mi mamá al doctor.", options: ["llevar", "traer"], correct: "llevar", explanation: "LLEVAR: a otro lugar" },
+    { sentence: "(En casa) Mi esposo ___ flores.", options: ["llevó", "trajo"], correct: "trajo", explanation: "TRAER: hacia donde estoy" },
+    { sentence: "¿A qué hora ___ anoche?", options: ["fuiste", "viniste"], correct: "viniste", explanation: "VENIR: hacia donde estamos" },
+    { sentence: "Anoche ___ al cine con mis amigos y regresé tarde a casa.", options: ["fui", "vine"], correct: "fui", explanation: "IR: a otro lugar" },
+    { sentence: "¿Me ___ en tu carro al trabajo?", options: ["llevas", "traes"], correct: "llevas", explanation: "LLEVAR: a otro lugar" },
+    { sentence: "(Fiesta en mi casa) ¿___ algo de beber?", options: ["Llevaste", "Trajiste"], correct: "Trajiste", explanation: "TRAER: hacia donde estoy" },
+    { sentence: "Mañana ___ a recogerte.", options: ["voy", "vengo"], correct: "voy", explanation: "IR: hacia donde estás tú" },
+    { sentence: "(En tu casa) Gracias por ___ a verme.", options: ["ir", "venir"], correct: "venir", explanation: "VENIR: hacia donde estoy yo" },
+    { sentence: "___ el paraguas cuando salgas, va a llover.", options: ["Lleva", "Trae"], correct: "Lleva", explanation: "LLEVAR: contigo a otro lugar" },
+    { sentence: "(Yo estoy afuera) ___ para adentro a leer un rato.", options: ["Voy", "Vengo"], correct: "Voy", explanation: "IR: a otro lugar" },
+    { sentence: "(Yo estoy adentro) ___ para adentro y acompáñame.", options: ["Ve", "Ven"], correct: "Ven", explanation: "VENIR: hacia donde estoy" },
+    { sentence: "No ___ nada al hospedaje, todo está incluido.", options: ["lleves", "traigas"], correct: "lleves", explanation: "LLEVAR: a otro lugar" }
 ];
-
 // ===== DATOS: CALCOS DEL INGLÉS (25 ejercicios) =====
 const calcosExercises = [
-    {text:'En el restaurante: "___" (I\'ll have the soup)',options:['"Tendré la sopa"','"Quiero la sopa" / "Me trae la sopa"'],correct:1,explanation:'No "tendré" para ordenar.'},
+    {text:'En el restaurante: "___" (I\'ll have the soup)',options:['"Tendré la sopa"','"Me gustaría la sopa" / "Me trae la sopa"'],correct:1,explanation:'No "tendré" para ordenar.'},
     {text:'"Estoy ___ un trabajo" (applying for)',options:['aplicando para','solicitando'],correct:1,explanation:'Aplicar ≠ apply. Usar solicitar.'},
     {text:'"___ la universidad" (attend)',options:['Atiendo','Asisto a'],correct:1,explanation:'Atender = servir. Asistir = ir.'},
     {text:'"No puedo ___ esto más" (support/tolerate)',options:['soportar','aguantar/tolerar'],correct:1,explanation:'Soportar puede, pero aguantar es más común.'},
@@ -829,7 +829,7 @@ const calcosExercises = [
 // ===== DATOS: A PERSONAL (25 ejercicios) =====
 const aPersonalExercises = [
     {text:'Veo ___ María todos los días.',options:['a','—'],correct:0,explanation:'Persona específica = A personal.'},
-    {text:'Busco ___ un buen mecánico.',options:['a','—'],correct:1,explanation:'Persona indefinida = sin A.'},
+    {text:'Busco ___ un mecánico.',options:['a','—'],correct:1,explanation:'Persona indefinida = sin A.'},
     {text:'Conozco ___ tu hermano.',options:['a','—'],correct:0,explanation:'Persona específica = A personal.'},
     {text:'Necesito ___ un asistente.',options:['a','—'],correct:1,explanation:'Persona indefinida = sin A.'},
     {text:'Llamé ___ mi madre ayer.',options:['a','—'],correct:0,explanation:'Persona específica = A personal.'},
@@ -852,9 +852,11 @@ const aPersonalExercises = [
     {text:'¿Viste ___ Juan en la fiesta?',options:['a','—'],correct:0,explanation:'Persona específica = A personal.'},
     {text:'Describió ___ el sospechoso.',options:['a','—'],correct:0,explanation:'Persona = A personal.'},
     {text:'Esperamos ___ el autobús.',options:['a','—'],correct:1,explanation:'Cosa = sin A.'},
-    {text:'Esperamos ___ María.',options:['a','—'],correct:0,explanation:'Persona = A personal.'}
+    {text:'Esperamos ___ Teresa.',options:['a','—'],correct:0,explanation:'Persona = A personal.'},
+   {text:'Ayer vi ___ tu hermana en el centro.',options:['a','—'],correct:0,explanation:'A personal: persona específica'},
+    {text:'Busco ___ un buen mecánico.',options:['a','—'],correct:0,explanation:'A personal: mecánico específico'},
+    {text:'Necesito ___ alguien que me ayude.',options:['a','—'],correct:0,explanation:'A personal: alguien/nadie siempre llevan a'}
 ];
-
 // ===== DATOS: ARTÍCULOS CON PROFESIONES (20 ejercicios) =====
 const articulosExercises = [
     {text:'___ doctora.',options:['Soy','Soy una'],correct:0,explanation:'Sin artículo: profesión como identidad.'},
@@ -939,14 +941,7 @@ const sentences = [
     {text:'No creo que ella ___ la respuesta.',options:['sabe','sepa','supo','sabía'],correct:1,explanation:'No creo que + subjuntivo.'},
     {text:'Es evidente que tú ___ razón.',options:['tienes','tengas','tuviste','tendrás'],correct:0,explanation:'Es evidente + indicativo.'},
     {text:'Me alegra que ___ aquí conmigo.',options:['estás','estés','estuviste','estarás'],correct:1,explanation:'Emoción + subjuntivo.'},
-    {text:'Ayer vi ___ tu hermana en el centro.',options:['a','—','de','para'],correct:0,explanation:'A personal con persona específica.'},
-    {text:'Busco ___ un buen mecánico.',options:['a','—','de','para'],correct:1,explanation:'Sin A con persona indefinida.'},
-    {text:'Conozco ___ María desde hace años.',options:['a','—','de','con'],correct:0,explanation:'Conocer + persona = A personal.'},
-    {text:'Necesito ___ alguien que me ayude.',options:['a','—','de','para'],correct:1,explanation:'Alguien indefinido en subjuntivo.'},
-    {text:'Invité ___ todos mis amigos a la fiesta.',options:['a','—','para','con'],correct:0,explanation:'A personal con grupo específico.'},
-    {text:'Tengo ___ tres gatos en casa.',options:['a','—','de','con'],correct:1,explanation:'Sin A con animales generales.'},
-    {text:'Llamé ___ mi madre esta mañana.',options:['a','—','para','con'],correct:0,explanation:'A personal con verbos de comunicación.'},
-    {text:'Vi ___ la película que recomendaste.',options:['a','—','de','para'],correct:1,explanation:'Sin A con objetos.'},
+    
     {text:'Todas las mañanas ___ el pelo antes de salir.',options:['me lavo','lavo','me he lavado','lavaré'],correct:0,explanation:'Reflexivo: acción sobre sí mismo.'},
     {text:'Ella ___ a su bebé todas las noches.',options:['se baña','baña','se bañó','bañará'],correct:1,explanation:'No reflexivo: acción sobre otro.'},
     {text:'___ muy feliz con la noticia.',options:['Me siento','Siento','Me sentí','Sentiré'],correct:0,explanation:'Sentirse = estado emocional.'},
