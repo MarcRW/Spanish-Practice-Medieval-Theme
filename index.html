@@ -48,7 +48,7 @@
         .header p { color: var(--ink-light); font-style: italic; }
         .nav-buttons {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
             gap: 8px;
             margin-bottom: 25px;
         }
@@ -273,6 +273,73 @@
         .btn-load { background: var(--burgundy); color: var(--cream); }
         .btn-delete { background: #dc3545; color: white; }
         .auto-save-indicator { font-size: 0.85em; color: var(--ink-light); font-style: italic; margin-top: 5px; }
+        /* Títulos e insignias (Oct 2026) */
+        .title-line { margin-top: 10px; font-family: 'Cinzel', serif; font-size: 0.85em; color: var(--burgundy); display: flex; justify-content: center; align-items: center; gap: 8px; flex-wrap: wrap; }
+        .sound-btn { background: none; border: 1px solid var(--gold); border-radius: 6px; cursor: pointer; font-size: 1em; padding: 2px 6px; }
+        .badge-shelf { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin-top: 8px; font-size: 1.3em; }
+        .badge-shelf span { cursor: pointer; }
+        .badge-toast { position: fixed; top: 18px; left: 50%; transform: translate(-50%, -160%); background: linear-gradient(135deg, var(--cream) 0%, var(--gold-light) 100%); border: 3px solid var(--gold); border-radius: 12px; padding: 14px 22px; box-shadow: 0 8px 30px rgba(107, 29, 43, 0.35); text-align: center; z-index: 1000; font-family: 'Cinzel', serif; color: var(--burgundy); max-width: 90vw; pointer-events: none; transition: transform 0.5s cubic-bezier(0.2, 1.4, 0.4, 1); }
+        .badge-toast.show { transform: translate(-50%, 0); animation: badgeGlow 1.4s ease-in-out 2; }
+        .badge-toast .bt-icon { font-size: 2em; display: block; }
+        .badge-toast .bt-name { font-weight: 700; font-size: 1.05em; }
+        .badge-toast .bt-desc { font-family: 'Crimson Text', serif; font-style: italic; color: var(--ink-light); font-size: 0.95em; }
+        @keyframes badgeGlow { 0%, 100% { box-shadow: 0 8px 30px rgba(107, 29, 43, 0.35); } 50% { box-shadow: 0 0 28px 6px rgba(201, 162, 39, 0.85); } }
+        @media (prefers-reduced-motion: reduce) { .badge-toast { transition: none; } .badge-toast.show { animation: none; } }
+
+        /* ===== Rediseño (Oct 2026): pergamino sobre vidrio, oro con relieve, el verde de la imagen ===== */
+        /* Everything here only overrides the rules above; deleting this block brings the old look back. */
+        :root { --forest: #3E5B3A; --forest-dark: #2C4229; --gilt: linear-gradient(135deg, #E8D48B 0%, #C9A227 35%, #8C6D14 55%, #E8D48B 100%); }
+        /* 1. Parchment on glass: the castle shows through, softly */
+        /* Burnt parchment: the edges darken toward toasted brown; the border is a darker, burnished gold */
+        .header, .card {
+            border: 3px solid transparent;
+            background:
+                radial-gradient(ellipse at center, rgba(247, 242, 228, 0.9) 0%, rgba(245, 236, 214, 0.88) 62%, rgba(214, 186, 140, 0.9) 88%, rgba(150, 100, 50, 0.88) 100%) padding-box,
+                linear-gradient(135deg, #8C6A2A 0%, #5A3E12 40%, #9C7A2E 60%, #4A300C 100%) border-box;
+            /* inner burn + a drop shadow, so the parchment seems to rest slightly above the castle */
+            box-shadow: inset 0 0 30px rgba(120, 70, 20, 0.25), 0 12px 28px rgba(40, 22, 6, 0.45), 0 3px 8px rgba(40, 22, 6, 0.3);
+            -webkit-backdrop-filter: blur(7px); backdrop-filter: blur(7px);
+        }
+        .nav-btn { background: rgba(245, 240, 225, 0.86); -webkit-backdrop-filter: blur(5px); backdrop-filter: blur(5px); }
+        /* 2. Wine and gold with depth */
+        .btn-primary {
+            background: linear-gradient(180deg, #8A2A3B 0%, var(--burgundy) 55%, var(--burgundy-dark) 100%);
+            box-shadow: inset 0 1px 0 rgba(232, 212, 139, 0.35), 0 2px 6px rgba(74, 20, 32, 0.25);
+            transition: transform 0.15s, box-shadow 0.2s, filter 0.2s;
+        }
+        .btn-primary:hover { background: linear-gradient(180deg, #8A2A3B 0%, var(--burgundy) 55%, var(--burgundy-dark) 100%); transform: translateY(-1px); box-shadow: 0 0 0 2px rgba(201, 162, 39, 0.4), 0 6px 14px rgba(74, 20, 32, 0.3); }
+        .btn-primary:active { transform: translateY(1px); }
+        .btn-secondary, .btn-secondary:hover { background: linear-gradient(180deg, #EFDD9A 0%, #C9A227 100%); color: var(--ink); }
+        .btn-secondary:hover { filter: brightness(1.06); }
+        /* Glossy, raised "selected" look (like the old iPhone buttons): a shine across the top half, a soft shadow below */
+        .nav-btn.active, .option-btn.selected {
+            background:
+                linear-gradient(180deg, rgba(255, 255, 255, 0.34) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0) 50%),
+                linear-gradient(180deg, #A53A4D 0%, var(--burgundy) 55%, var(--burgundy-dark) 100%);
+            border-color: #3A0F19;
+            color: var(--cream);
+            text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.45);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), inset 0 -2px 4px rgba(0, 0, 0, 0.25), 0 3px 6px rgba(74, 20, 32, 0.35);
+        }
+        .option-btn { transition: transform 0.12s, background 0.2s, border-color 0.2s; }
+        .option-btn:active { transform: translateY(1px) scale(0.99); }
+        /* 3. The green of the banner and the gem; a soft wine for mistakes */
+        .feedback { position: relative; overflow: hidden; }
+        .feedback:empty { display: none; }   /* no empty colored strip while a new exercise loads */
+        .feedback.correct { background: linear-gradient(135deg, var(--forest) 0%, var(--forest-dark) 100%); color: var(--cream); border: 2px solid #5E7F4F; }
+        .feedback.incorrect { background: rgba(107, 29, 43, 0.08); color: var(--burgundy-dark); border: 2px solid rgba(107, 29, 43, 0.35); }
+        /* 4. Small motions: sections slide in, a gold shimmer on a right answer */
+        .section.active { animation: sectionIn 0.35s ease-out; }
+        @keyframes sectionIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+        .feedback.correct::after { content: ''; position: absolute; inset: 0; background: linear-gradient(110deg, transparent 30%, rgba(232, 212, 139, 0.55) 50%, transparent 70%); transform: translateX(-100%); animation: sheen 1.1s ease-out 0.1s forwards; pointer-events: none; }
+        @keyframes sheen { to { transform: translateX(100%); } }
+        /* 5. The title with a gold glow */
+        .header h1 { text-shadow: 0 0 14px rgba(201, 162, 39, 0.45), 0 1px 0 rgba(255, 255, 255, 0.6); }
+        @media (prefers-reduced-motion: reduce) {
+            .section.active { animation: none; }
+            .feedback.correct::after { display: none; }
+            .btn-primary, .option-btn { transition: none; }
+        }
         @media (max-width: 480px) {
             .header h1 { font-size: 1.4em; }
             .card { padding: 18px; }
@@ -283,19 +350,23 @@
     </style>
 </head>
 <body>
+    <div id="badge-toast" class="badge-toast" aria-live="polite"></div>
     <div class="container">
         <div class="header">
             <h1>📜 Práctica de Español</h1>
             <p>Mejora tu español con ejercicios medievales</p>
+            <div class="title-line">🏅 <span id="player-title">Aprendiz</span> · <span id="badge-count">0</span> insignias <button id="sound-btn" class="sound-btn" onclick="toggleSound()" title="Sonido de las insignias">🔊</button></div>
+            <div id="badge-shelf" class="badge-shelf"></div>
         </div>
 
         <div class="nav-buttons">
             <button class="nav-btn active" onclick="showSection('conjugaciones')">Conjugar</button>
+            <button class="nav-btn" onclick="showSection('mandatos')">Mandatos</button>
             <button class="nav-btn" onclick="showSection('ser-estar')">Ser vs Estar</button>
             <button class="nav-btn" onclick="showSection('regimen')">Régimen Verbal</button>
-            <button class="nav-btn" onclick="showSection('pedir-preguntar')">Pedir/Preguntar</button>
+            <button class="nav-btn" onclick="showSection('pedir-preguntar')">Pedir / Preguntar</button>
             <button class="nav-btn" onclick="showSection('movimiento')">Movimiento</button>
-            <button class="nav-btn" onclick="showSection('calcos')">Calcos</button>
+            <button class="nav-btn" onclick="showSection('calcos')">Amigos Sospechosos</button>
             <button class="nav-btn" onclick="showSection('a-personal')">A Personal</button>
             <button class="nav-btn" onclick="showSection('articulos')">Artículos</button>
             <button class="nav-btn" onclick="showSection('preposiciones')">Por/Para</button>
@@ -326,10 +397,11 @@
                 <h2>Ser vs Estar</h2>
                 <button class="btn-primary btn-secondary" onclick="toggleGuide('ser-estar-guide')" style="margin-bottom:18px;">📖 Ver Guía</button>
                 <div id="ser-estar-guide" class="guide-box">
-                    <h3>Recuerda:</h3>
-                    <p><strong>SER:</strong> Identidad, esencia, características inherentes, origen, material, profesión, hora</p>
-                    <p><strong>ESTAR:</strong> Estado actual, ubicación, resultado de cambio, progresivo</p>
-                    <p><strong>⚠️ Cambian:</strong> ser listo (inteligente) / estar listo (preparado)</p>
+                    <h3>Las reglas:</h3>
+                    <p><strong>SER:</strong> identidad · descripción (personalidad, apariencia, lo propio de algo) · origen · material · profesión · posesión · hora, fecha y día · eventos (dónde o cuándo ocurren) · expresiones impersonales (es importante que…)</p>
+                    <p><strong>ESTAR:</strong> ubicación de personas y cosas · estado o condición (salud, emociones, estados físicos) · resultado de un cambio (roto, abierta, muerto) · progresivo (está jugando) · expresiones fijas (de acuerdo, de vacaciones)</p>
+                    <p><strong>⚠️ Cambian de significado:</strong> listo, rico, malo, despierto, verde, vivo, aburrido, seguro</p>
+                    <p><em>Estar no significa "temporal": el autor ya está muerto; hoy es lunes.</em></p>
                 </div>
                 <div class="sentence" id="ser-estar-sentence"></div>
                 <div class="options" id="ser-estar-options"></div>
@@ -353,6 +425,24 @@
                 <button class="btn-primary" onclick="checkRegimen()">Verificar</button>
                 <div id="regimen-feedback"></div>
                 <div class="score" id="regimen-score">Correctas: 0 | Intentos: 0</div>
+            </div>
+
+            <!-- MANDATOS (Oct 2026) -->
+            <div id="mandatos" class="section">
+                <h2>Mandatos</h2>
+                <button class="btn-primary btn-secondary" onclick="toggleGuide('mandatos-guide')" style="margin-bottom:18px;">📖 Ver Guía</button>
+                <div id="mandatos-guide" class="guide-box">
+                    <h3>Cómo dar órdenes:</h3>
+                    <p><strong>TÚ (afirmativo):</strong> como él/ella en presente → habla, come, escribe.</p>
+                    <p><strong>Irregulares de tú:</strong> di, haz, ve, pon, sal, sé, ten, ven.</p>
+                    <p><strong>TÚ (negativo), USTED, USTEDES, NOSOTROS:</strong> subjuntivo → no hables, hable, hablen, hablemos.</p>
+                    <p><strong>Pronombres:</strong> pegados al final en el afirmativo (dímelo, siéntate); antes del verbo en el negativo (no me lo digas, no te sientes).</p>
+                </div>
+                <div class="sentence" id="mandatos-sentence"></div>
+                <div class="options" id="mandatos-options"></div>
+                <button class="btn-primary" onclick="checkMandatos()">Verificar</button>
+                <div id="mandatos-feedback"></div>
+                <div class="score" id="mandatos-score">Correctas: 0 | Intentos: 0</div>
             </div>
 
             <!-- PEDIR VS PREGUNTAR -->
@@ -393,7 +483,7 @@
 
             <!-- CALCOS DEL INGLÉS -->
             <div id="calcos" class="section">
-                <h2>Calcos del Inglés</h2>
+                <h2>Amigos Sospechosos</h2>
                 <button class="btn-primary btn-secondary" onclick="toggleGuide('calcos-guide')" style="margin-bottom:18px;">📖 Ver Guía</button>
                 <div id="calcos-guide" class="guide-box">
                     <h3>Errores comunes:</h3>
@@ -418,6 +508,7 @@
                     <p>→ Veo a María. / Llamé a mi madre.</p>
                     <p><strong>❌ NO USAR:</strong> Con personas indefinidas o cosas</p>
                     <p>→ Busco (—) un médico. / Veo (—) la casa.</p>
+                    <p><em>Depende del uso:</em> con personas generales muchas regiones omiten la A; con una persona concreta, la A siempre va.</p>
                 </div>
                 <div class="sentence" id="a-personal-sentence"></div>
                 <div class="options" id="a-personal-options"></div>
@@ -501,11 +592,9 @@
             <!-- ORDEN -->
             <div id="orden" class="section">
                 <h2>Orden de Palabras</h2>
-                <div class="question">Ordena las palabras:</div>
-                <div id="word-bank"></div>
-                <div id="sentence-builder"></div>
-                <button class="btn-primary" onclick="checkOrden()" style="margin-bottom:10px;">Verificar</button>
-                <button class="btn-primary btn-secondary" onclick="resetOrden()">Reiniciar</button>
+                <div class="question">¿Cuál está mal?</div>
+                <div class="options" id="orden-options"></div>
+                <button class="btn-primary" onclick="checkOrden()">Verificar</button>
                 <div id="orden-feedback"></div>
                 <div class="score" id="orden-score">Correctas: 0 | Intentos: 0</div>
             </div>
@@ -773,122 +862,144 @@ const irregularVerbs = [
 
 // ===== DATOS: SER VS ESTAR (45+ ejercicios) =====
 const serEstarExercises = [
-    {text:'Mi hermana ___ muy inteligente.',options:['es','está'],correct:0,explanation:'SER: característica inherente.'},
-    {text:'Hoy ___ muy cansada del trabajo.',options:['soy','estoy'],correct:1,explanation:'ESTAR: estado temporal.'},
-    {text:'La comida ___ deliciosa.',options:['es','está'],correct:1,explanation:'ESTAR: sabor actual.'},
-    {text:'Ese restaurante ___ muy bueno.',options:['es','está'],correct:0,explanation:'SER: característica general.'},
-    {text:'Mi hijo ___ enfermo desde ayer.',options:['es','está'],correct:1,explanation:'ESTAR: estado de salud.'},
-    {text:'La reunión ___ en la sala de conferencias.',options:['es','está'],correct:0,explanation:'SER: ubicación de eventos.'},
-    {text:'Mi casa ___ cerca del parque.',options:['es','está'],correct:1,explanation:'ESTAR: ubicación física.'},
-    {text:'___ profesora de español.',options:['Soy','Estoy'],correct:0,explanation:'SER: profesión.'},
-    {text:'Él ___ mi hermano mayor.',options:['es','está'],correct:0,explanation:'SER: identidad.'},
-    {text:'___ de Colombia.',options:['Soy','Estoy'],correct:0,explanation:'SER: origen.'},
-    {text:'Esta mesa ___ de madera.',options:['es','está'],correct:0,explanation:'SER: material.'},
-    {text:'Pedro ___ muy listo, saca buenas notas.',options:['es','está'],correct:0,explanation:'SER listo = inteligente.'},
-    {text:'¿___ listo para salir?',options:['Eres','Estás'],correct:1,explanation:'ESTAR listo = preparado.'},
-    {text:'Esa película ___ muy aburrida.',options:['es','está'],correct:0,explanation:'SER: característica.'},
-    {text:'___ aburrido, no hay nada que hacer.',options:['Soy','Estoy'],correct:1,explanation:'ESTAR: sentimiento actual.'},
-    {text:'Mi tío ___ muy rico.',options:['es','está'],correct:0,explanation:'SER rico = adinerado.'},
-    {text:'La puerta ___ abierta.',options:['es','está'],correct:1,explanation:'ESTAR: resultado de cambio.'},
-    {text:'___ las tres de la tarde.',options:['Son','Están'],correct:0,explanation:'SER: hora.'},
-    {text:'Hoy ___ lunes.',options:['es','está'],correct:0,explanation:'SER: día.'},
-    {text:'El café ___ frío.',options:['es','está'],correct:1,explanation:'ESTAR: estado actual.'},
-    {text:'___ nerviosa por el examen.',options:['Soy','Estoy'],correct:1,explanation:'ESTAR: emoción temporal.'},
-    {text:'Esta silla ___ de plástico.',options:['es','está'],correct:0,explanation:'SER: material.'},
-    {text:'Mi padre ___ policía.',options:['es','está'],correct:0,explanation:'SER: profesión.'},
-    {text:'¡Qué guapa ___ hoy!',options:['eres','estás'],correct:1,explanation:'ESTAR: apariencia en este momento.'},
-    {text:'La fiesta ___ el sábado.',options:['es','está'],correct:0,explanation:'SER: evento + fecha.'},
-    {text:'El agua ___ muy fría.',options:['es','está'],correct:1,explanation:'ESTAR: temperatura actual.'},
-    {text:'Mi abuela ___ muy joven para su edad.',options:['es','está'],correct:1,explanation:'ESTAR: apariencia relativa.'},
-    {text:'Este libro ___ de García Márquez.',options:['es','está'],correct:0,explanation:'SER: autoría/posesión.'},
-    {text:'La ventana ___ rota.',options:['es','está'],correct:1,explanation:'ESTAR: resultado de acción.'},
-    {text:'Ella ___ muy callada hoy.',options:['es','está'],correct:1,explanation:'ESTAR: comportamiento temporal.'},
-    {text:'Mi hermano ___ muy alto.',options:['es','está'],correct:0,explanation:'SER: característica física.'},
-    {text:'___ seguro de que vendrá.',options:['Soy','Estoy'],correct:1,explanation:'ESTAR seguro = certeza actual.'},
-    {text:'El examen ___ difícil.',options:['es','está'],correct:0,explanation:'SER: característica inherente.'},
-    {text:'___ de acuerdo contigo.',options:['Soy','Estoy'],correct:1,explanation:'ESTAR de acuerdo = opinión.'},
-    {text:'La leche ___ cortada.',options:['es','está'],correct:1,explanation:'ESTAR: estado resultante.'},
-    {text:'Este carro ___ de mi padre.',options:['es','está'],correct:0,explanation:'SER: posesión.'},
-    {text:'María ___ embarazada.',options:['es','está'],correct:1,explanation:'ESTAR: estado temporal.'},
-    {text:'El cielo ___ muy nublado.',options:['es','está'],correct:1,explanation:'ESTAR: condición actual.'},
-    {text:'___ importante que estudies.',options:['Es','Está'],correct:0,explanation:'SER: expresión impersonal.'},
-    {text:'La cena ___ lista.',options:['es','está'],correct:1,explanation:'ESTAR: estado resultante.'},
-    {text:'Ella ___ soltera.',options:['es','está'],correct:0,explanation:'SER: estado civil (identidad).'},
-    {text:'El niño ___ dormido.',options:['es','está'],correct:1,explanation:'ESTAR: estado actual.'},
-    {text:'___ obvio que miente.',options:['Es','Está'],correct:0,explanation:'SER: expresión impersonal.'},
-    {text:'Mi gato ___ muy gordo últimamente.',options:['es','está'],correct:1,explanation:'ESTAR: cambio reciente.'},
-    {text:'Esta casa ___ de ladrillo.',options:['es','está'],correct:0,explanation:'SER: material.'},
+    // Cada explicación empieza con su regla (Oct 2026). SER: identidad, descripción, origen, material,
+    // profesión, posesión, hora/fecha/día, eventos, expresiones impersonales. ESTAR: ubicación,
+    // estado o condición, resultado de un cambio, progresivo, expresiones fijas. Y las que cambian de significado.
+    {text:'Mi hermana ___ muy inteligente.',options:['es','está'],correct:0,explanation:'SER, descripción: su personalidad, cómo es ella.'},
+    {text:'Hoy ___ muy cansada del trabajo.',options:['soy','estoy'],correct:1,explanation:'ESTAR, estado o condición: el trabajo me dejó así.'},
+    {text:'Mmm, la comida de hoy ___ deliciosa; felicita al cocinero.',options:['es','está'],correct:1,explanation:'ESTAR, estado o condición: cómo está esta comida hoy. Compara: "La comida tailandesa ES deliciosa" (descripción).'},
+    {text:'Ese restaurante ___ muy bueno.',options:['es','está'],correct:0,explanation:'SER, descripción: cómo es el restaurante.'},
+    {text:'Mi hijo ___ enfermo desde ayer.',options:['es','está'],correct:1,explanation:'ESTAR, estado o condición: la salud, un cambio en su estado normal.'},
+    {text:'La reunión ___ en la sala de conferencias.',options:['es','está'],correct:0,explanation:'SER, eventos: dónde ocurre la reunión.'},
+    {text:'Mi casa ___ cerca del parque.',options:['es','está'],correct:1,explanation:'ESTAR, ubicación: dónde está una cosa.'},
+    {text:'___ profesora de español.',options:['Soy','Estoy'],correct:0,explanation:'SER, profesión.'},
+    {text:'Él ___ mi hermano mayor.',options:['es','está'],correct:0,explanation:'SER, identidad: quién es.'},
+    {text:'___ de Colombia.',options:['Soy','Estoy'],correct:0,explanation:'SER, origen: de dónde soy.'},
+    {text:'Esta mesa ___ de madera.',options:['es','está'],correct:0,explanation:'SER, material: de qué está hecha.'},
+    {text:'Pedro ___ muy listo, saca buenas notas.',options:['es','está'],correct:0,explanation:'Cambian de significado: SER listo = inteligente. Compara: "¿Estás listo?" (preparado).'},
+    {text:'¿___ listo para salir?',options:['Eres','Estás'],correct:1,explanation:'Cambian de significado: ESTAR listo = preparado. Compara: "Pedro es listo" (inteligente).'},
+    {text:'Esa película ___ muy aburrida.',options:['es','está'],correct:0,explanation:'Cambian de significado: SER aburrida = que aburre. Compara: "Estoy aburrido" (me siento así).'},
+    {text:'___ aburrido, no hay nada que hacer.',options:['Soy','Estoy'],correct:1,explanation:'Cambian de significado: ESTAR aburrido = sentirse así. Compara: "La película es aburrida" (aburre).'},
+    {text:'Mi tío ___ muy rico.',options:['es','está'],correct:0,explanation:'Cambian de significado: SER rico = tener dinero.'},
+    {text:'La puerta ___ abierta.',options:['es','está'],correct:1,explanation:'ESTAR, resultado de un cambio: alguien la abrió.'},
+    {text:'___ las tres de la tarde.',options:['Son','Están'],correct:0,explanation:'SER, hora.'},
+    {text:'Hoy ___ lunes.',options:['es','está'],correct:0,explanation:'SER, día: aunque dure solo 24 horas, es ser.'},
+    {text:'El café ___ frío.',options:['es','está'],correct:1,explanation:'ESTAR, estado o condición: el café se enfrió.'},
+    {text:'___ nerviosa por el examen.',options:['Soy','Estoy'],correct:1,explanation:'ESTAR, estado o condición: una emoción causada por algo (el examen).'},
+    {text:'Esta silla ___ de plástico.',options:['es','está'],correct:0,explanation:'SER, material.'},
+    {text:'Mi padre ___ policía.',options:['es','está'],correct:0,explanation:'SER, profesión.'},
+    {text:'¡Qué guapa ___ hoy!',options:['eres','estás'],correct:1,explanation:'ESTAR, estado o condición: cómo te ves hoy. Compara: "Eres guapa" (descripción).'},
+    {text:'La fiesta ___ el sábado.',options:['es','está'],correct:0,explanation:'SER, eventos: cuándo ocurre.'},
+    {text:'El agua ___ muy fría.',options:['es','está'],correct:1,explanation:'ESTAR, estado o condición: el estado del agua ahora.'},
+    {text:'Mi abuela ___ muy joven para su edad.',options:['es','está'],correct:1,explanation:'ESTAR, estado o condición: cómo se ve, no cuántos años tiene.'},
+    {text:'Este libro ___ de García Márquez.',options:['es','está'],correct:0,explanation:'SER, posesión: de quién es (el autor).'},
+    {text:'La ventana ___ rota.',options:['es','está'],correct:1,explanation:'ESTAR, resultado de un cambio: alguien la rompió.'},
+    {text:'Ella ___ muy callada hoy.',options:['es','está'],correct:1,explanation:'ESTAR, estado o condición: hoy algo la tiene así. Compara: "Es callada" (descripción).'},
+    {text:'Mi hermano ___ muy alto.',options:['es','está'],correct:0,explanation:'SER, descripción: apariencia.'},
+    {text:'___ seguro de que vendrá.',options:['Soy','Estoy'],correct:1,explanation:'Cambian de significado: ESTAR seguro = tener certeza. Compara: "Es seguro" (no tiene peligro).'},
+    {text:'El examen ___ difícil.',options:['es','está'],correct:0,explanation:'SER, descripción: cómo es el examen.'},
+    {text:'___ de acuerdo contigo.',options:['Soy','Estoy'],correct:1,explanation:'ESTAR, expresión fija: estar de acuerdo.'},
+    {text:'La leche ___ cortada.',options:['es','está'],correct:1,explanation:'ESTAR, resultado de un cambio: la leche se cortó.'},
+    {text:'Este carro ___ de mi padre.',options:['es','está'],correct:0,explanation:'SER, posesión.'},
+    {text:'María ___ embarazada.',options:['es','está'],correct:1,explanation:'ESTAR, estado o condición: un cambio en el estado normal, como estar enferma.'},
+    {text:'El cielo ___ muy nublado.',options:['es','está'],correct:1,explanation:'ESTAR, estado o condición: el estado del cielo ahora.'},
+    {text:'___ importante que estudies.',options:['Es','Está'],correct:0,explanation:'SER, expresión impersonal.'},
+    {text:'La cena ___ lista.',options:['es','está'],correct:1,explanation:'Cambian de significado: ESTAR lista = preparada.'},
+    {text:'Machu Picchu ___ en Perú; lleva más de 500 años en esa montaña.',options:['es','está'],correct:1,explanation:'ESTAR, ubicación: dónde está algo, aunque lleve 500 años ahí. Estar no significa temporal.'},
+    {text:'El niño ___ dormido.',options:['es','está'],correct:1,explanation:'ESTAR, estado o condición: el niño se durmió.'},
+    {text:'___ obvio que miente.',options:['Es','Está'],correct:0,explanation:'SER, expresión impersonal.'},
+    {text:'Mi gato ___ muy gordo últimamente.',options:['es','está'],correct:1,explanation:'ESTAR, resultado de un cambio: engordó últimamente.'},
+    {text:'Esta casa ___ de ladrillo.',options:['es','está'],correct:0,explanation:'SER, material.'},
     // SER VS ESTAR NUEVOS - Variados (70)
-{text:'Mi abuelo ___ médico durante cuarenta años.',options:['fue','estuvo'],correct:0,explanation:'SER: profesión.'},
-{text:'La sopa ___ muy caliente, espera un poco.',options:['es','está'],correct:1,explanation:'ESTAR: estado temporal.'},
-{text:'Nosotros ___ de vacaciones en México.',options:['somos','estamos'],correct:1,explanation:'ESTAR: situación temporal.'},
-{text:'¿De dónde ___ tus padres?',options:['son','están'],correct:0,explanation:'SER: origen.'},
-{text:'El concierto ___ en el estadio.',options:['es','está'],correct:0,explanation:'SER: eventos.'},
-{text:'Mis llaves ___ en la mesa.',options:['son','están'],correct:1,explanation:'ESTAR: ubicación de objetos.'},
-{text:'Ella ___ muy alta para su edad.',options:['es','está'],correct:0,explanation:'SER: característica física.'},
-{text:'Hoy ___ muy contento porque aprobé el examen.',options:['soy','estoy'],correct:1,explanation:'ESTAR: emoción temporal.'},
-{text:'Este libro ___ de mi hermana.',options:['es','está'],correct:0,explanation:'SER: posesión.'},
-{text:'La ventana ___ abierta, por eso hace frío.',options:['es','está'],correct:1,explanation:'ESTAR: resultado de acción.'},
-{text:'Mi mejor amigo ___ brasileño.',options:['es','está'],correct:0,explanation:'SER: nacionalidad.'},
-{text:'¿Cómo ___ tu madre? ¿Mejor del resfriado?',options:['es','está'],correct:1,explanation:'ESTAR: estado de salud.'},
-{text:'La fiesta ___ el sábado a las ocho.',options:['es','está'],correct:0,explanation:'SER: fecha/hora de evento.'},
-{text:'No puedo salir, ___ ocupado con el trabajo.',options:['soy','estoy'],correct:1,explanation:'ESTAR: estado temporal.'},
-{text:'Esta camisa ___ de algodón.',options:['es','está'],correct:0,explanation:'SER: material.'},
-{text:'El café ___ frío, ¿quieres que lo caliente?',options:['es','está'],correct:1,explanation:'ESTAR: temperatura actual.'},
-{text:'Mi vecino ___ muy amable con todos.',options:['es','está'],correct:0,explanation:'SER: característica de personalidad.'},
-{text:'___ las diez de la noche.',options:['Son','Están'],correct:0,explanation:'SER: hora.'},
-{text:'La tienda ___ cerrada los domingos.',options:['es','está'],correct:1,explanation:'ESTAR: estado temporal.'},
-{text:'Ella ___ doctora en el hospital central.',options:['es','está'],correct:0,explanation:'SER: profesión.'},
-{text:'Yo ___ cansada de tanto trabajar.',options:['soy','estoy'],correct:1,explanation:'ESTAR: estado físico temporal.'},
-{text:'Este vino ___ de España.',options:['es','está'],correct:0,explanation:'SER: origen.'},
-{text:'Los niños ___ jugando en el parque.',options:['son','están'],correct:1,explanation:'ESTAR: acción en progreso.'},
-{text:'Mi hermano ___ el más alto de la familia.',options:['es','está'],correct:0,explanation:'SER: característica comparativa.'},
-{text:'La comida ___ lista, vengan a comer.',options:['es','está'],correct:1,explanation:'ESTAR listo = preparado.'},
-{text:'Ella ___ muy lista, siempre saca buenas notas.',options:['es','está'],correct:0,explanation:'SER listo = inteligente.'},
-{text:'Tú ___ muy guapo hoy.',options:['eres','estás'],correct:1,explanation:'ESTAR: apariencia temporal.'},
-{text:'Él ___ muy guapo, todas lo admiran.',options:['es','está'],correct:0,explanation:'SER: característica permanente.'},
-{text:'La película ___ muy aburrida, me dormí.',options:['es','está'],correct:0,explanation:'SER aburrido = característica.'},
-{text:'___ aburrido porque no hay nada que hacer.',options:['Soy','Estoy'],correct:1,explanation:'ESTAR aburrido = sentirse aburrido.'},
-{text:'Mi tío ___ rico, tiene varias empresas.',options:['es','está'],correct:0,explanation:'SER rico = adinerado.'},
-{text:'Este pastel ___ muy rico.',options:['es','está'],correct:1,explanation:'ESTAR rico = saber bien.'},
-{text:'El agua ___ muy fría para nadar.',options:['es','está'],correct:1,explanation:'ESTAR: temperatura actual.'},
-{text:'El hielo ___ frío por naturaleza.',options:['es','está'],correct:0,explanation:'SER: característica inherente.'},
-{text:'Nosotros ___ estudiantes de español.',options:['somos','estamos'],correct:0,explanation:'SER: identidad.'},
-{text:'Ellos ___ en la biblioteca estudiando.',options:['son','están'],correct:1,explanation:'ESTAR: ubicación.'},
-{text:'¿Qué hora ___?',options:['es','está'],correct:0,explanation:'SER: hora.'},
-{text:'Hoy ___ martes, ¿verdad?',options:['es','está'],correct:0,explanation:'SER: día.'},
-{text:'El cielo ___ nublado esta mañana.',options:['es','está'],correct:1,explanation:'ESTAR: condición temporal.'},
-{text:'El cielo ___ azul.',options:['es','está'],correct:0,explanation:'SER: característica general.'},
-{text:'Yo ___ uno de los mejores estudiantes.',options:['soy','estoy'],correct:0,explanation:'SER: identidad/clasificación.'},
-{text:'Ella ___ embarazada de cinco meses.',options:['es','está'],correct:1,explanation:'ESTAR: condición temporal.'},
-{text:'El problema ___ que no tenemos dinero.',options:['es','está'],correct:0,explanation:'SER: definición.'},
-{text:'Todo ___ bien, no te preocupes.',options:['es','está'],correct:1,explanation:'ESTAR: estado actual.'},
-{text:'Mi padre ___ muy serio, nunca sonríe.',options:['es','está'],correct:0,explanation:'SER: personalidad.'},
-{text:'Mi padre ___ muy serio hoy, ¿qué le pasa?',options:['es','está'],correct:1,explanation:'ESTAR: actitud temporal.'},
-{text:'La boda ___ en la iglesia del centro.',options:['es','está'],correct:0,explanation:'SER: evento y lugar.'},
-{text:'¿Dónde ___ el baño, por favor?',options:['es','está'],correct:1,explanation:'ESTAR: ubicación.'},
-{text:'Esta casa ___ de mi abuela.',options:['es','está'],correct:0,explanation:'SER: posesión.'},
-{text:'La luz ___ encendida toda la noche.',options:['es','está'],correct:1,explanation:'ESTAR: estado.'},
-{text:'Él ___ ingeniero y trabaja en una empresa grande.',options:['es','está'],correct:0,explanation:'SER: profesión.'},
-{text:'Yo ___ seguro de que va a llover.',options:['soy','estoy'],correct:1,explanation:'ESTAR seguro = sentirse seguro.'},
-{text:'Esta información ___ segura y confidencial.',options:['es','está'],correct:0,explanation:'SER seguro = característica.'},
-{text:'Los platos ya ___ lavados.',options:['son','están'],correct:1,explanation:'ESTAR: resultado de acción.'},
-{text:'Estos platos ___ de cerámica.',options:['son','están'],correct:0,explanation:'SER: material.'},
-{text:'Ella ___ muy delgada últimamente.',options:['es','está'],correct:1,explanation:'ESTAR: cambio reciente.'},
-{text:'Ella ___ muy delgada, siempre lo ha sido.',options:['es','está'],correct:0,explanation:'SER: característica permanente.'},
-{text:'Yo ___ de acuerdo contigo.',options:['soy','estoy'],correct:1,explanation:'ESTAR de acuerdo = expresión fija.'},
-{text:'La reunión ___ a las tres en punto.',options:['es','está'],correct:0,explanation:'SER: hora de evento.'},
-{text:'Él ___ muerto de hambre, no ha comido.',options:['es','está'],correct:1,explanation:'ESTAR muerto = expresión figurativa.'},
-{text:'El autor de este libro ya ___ muerto.',options:['es','está'],correct:1,explanation:'ESTAR muerto = estado.'},
-{text:'Ella ___ muy viva y alegre.',options:['es','está'],correct:0,explanation:'SER vivo = personalidad.'},
-{text:'El perro todavía ___ vivo.',options:['es','está'],correct:1,explanation:'ESTAR vivo = estado.'},
-{text:'Esta manzana ___ verde, no está madura.',options:['es','está'],correct:1,explanation:'ESTAR verde = no maduro.'},
-{text:'La hierba ___ verde.',options:['es','está'],correct:0,explanation:'SER verde = color inherente.'},
-{text:'Yo ___ loco por el chocolate.',options:['soy','estoy'],correct:1,explanation:'ESTAR loco por = expresión.'},
-{text:'Él ___ loco, necesita ayuda.',options:['es','está'],correct:0,explanation:'SER loco = condición permanente.'},
-{text:'¿___ tú el nuevo empleado?',options:['Eres','Estás'],correct:0,explanation:'SER: identidad.'},
-{text:'¿___ tú bien? Te ves pálido.',options:['Eres','Estás'],correct:1,explanation:'ESTAR: estado de salud.'},
-{text:'La situación ___ difícil pero vamos a salir adelante.',options:['es','está'],correct:0,explanation:'SER: característica de situación.'}
+{text:'Mi abuelo ___ médico durante cuarenta años.',options:['fue','estuvo'],correct:0,explanation:'SER, profesión: aunque ya haya terminado, es ser.'},
+{text:'La sopa ___ muy caliente, espera un poco.',options:['es','está'],correct:1,explanation:'ESTAR, estado o condición: el estado de la sopa ahora.'},
+{text:'Nosotros ___ de vacaciones en México.',options:['somos','estamos'],correct:1,explanation:'ESTAR, expresión fija: estar de vacaciones.'},
+{text:'¿De dónde ___ tus padres?',options:['son','están'],correct:0,explanation:'SER, origen.'},
+{text:'El concierto ___ en el estadio.',options:['es','está'],correct:0,explanation:'SER, eventos: dónde ocurre.'},
+{text:'Mis llaves ___ en la mesa.',options:['son','están'],correct:1,explanation:'ESTAR, ubicación.'},
+{text:'Ella ___ muy alta, como toda su familia.',options:['es','está'],correct:0,explanation:'SER, descripción: apariencia, algo propio de ella y de su familia.'},
+{text:'Hoy ___ muy contento porque aprobé el examen.',options:['soy','estoy'],correct:1,explanation:'ESTAR, estado o condición: aprobé y me puse contento.'},
+{text:'Este libro ___ de mi hermana.',options:['es','está'],correct:0,explanation:'SER, posesión.'},
+{text:'La ventana ___ abierta, por eso hace frío.',options:['es','está'],correct:1,explanation:'ESTAR, resultado de un cambio: alguien la abrió.'},
+{text:'Mi mejor amigo ___ brasileño.',options:['es','está'],correct:0,explanation:'SER, origen: la nacionalidad.'},
+{text:'¿Cómo ___ tu madre? ¿Mejor del resfriado?',options:['es','está'],correct:1,explanation:'ESTAR, estado o condición: la salud.'},
+{text:'La fiesta ___ el sábado a las ocho.',options:['es','está'],correct:0,explanation:'SER, eventos: cuándo ocurre.'},
+{text:'No puedo salir, ___ ocupado con el trabajo.',options:['soy','estoy'],correct:1,explanation:'ESTAR, estado o condición: la situación en que me encuentro.'},
+{text:'Esta camisa ___ de algodón.',options:['es','está'],correct:0,explanation:'SER, material.'},
+{text:'El café ___ frío, ¿quieres que lo caliente?',options:['es','está'],correct:1,explanation:'ESTAR, estado o condición: el café se enfrió.'},
+{text:'Mi vecino ___ muy amable con todos.',options:['es','está'],correct:0,explanation:'SER, descripción: su personalidad.'},
+{text:'___ las diez de la noche.',options:['Son','Están'],correct:0,explanation:'SER, hora.'},
+{text:'La tienda ___ cerrada los domingos.',options:['es','está'],correct:1,explanation:'ESTAR, estado o condición: abierta o cerrada, aunque sea todos los domingos.'},
+{text:'Ella ___ doctora en el hospital central.',options:['es','está'],correct:0,explanation:'SER, profesión.'},
+{text:'Yo ___ cansada de tanto trabajar.',options:['soy','estoy'],correct:1,explanation:'ESTAR, estado o condición: tanto trabajo me dejó así.'},
+{text:'Este vino ___ de España.',options:['es','está'],correct:0,explanation:'SER, origen.'},
+{text:'Los niños ___ jugando en el parque.',options:['son','están'],correct:1,explanation:'ESTAR, progresivo: estar + -ndo.'},
+{text:'Mi hermano ___ el más alto de la familia.',options:['es','está'],correct:0,explanation:'SER, descripción: comparación entre personas.'},
+{text:'La comida ___ lista, vengan a comer.',options:['es','está'],correct:1,explanation:'Cambian de significado: ESTAR lista = preparada.'},
+{text:'Ella ___ muy lista, siempre saca buenas notas.',options:['es','está'],correct:0,explanation:'Cambian de significado: SER lista = inteligente.'},
+{text:'Tú ___ muy guapo hoy.',options:['eres','estás'],correct:1,explanation:'ESTAR, estado o condición: cómo te ves hoy (te arreglaste). Compara: "Él es guapo" (descripción).'},
+{text:'Él ___ muy guapo, todas lo admiran.',options:['es','está'],correct:0,explanation:'SER, descripción: apariencia. Compara: "Estás muy guapo hoy" (cómo te ves hoy).'},
+{text:'Esa película ___ muy aburrida; me dormí las dos veces que intenté verla.',options:['es','está'],correct:0,explanation:'Cambian de significado: SER aburrida = que aburre.'},
+{text:'___ aburrido porque no hay nada que hacer.',options:['Soy','Estoy'],correct:1,explanation:'Cambian de significado: ESTAR aburrido = sentirse así.'},
+{text:'Mi tío ___ rico, tiene varias empresas.',options:['es','está'],correct:0,explanation:'Cambian de significado: SER rico = tener dinero.'},
+{text:'Este pastel ___ muy rico.',options:['es','está'],correct:1,explanation:'Cambian de significado: ESTAR rico = saber bien.'},
+{text:'El agua ___ muy fría para nadar.',options:['es','está'],correct:1,explanation:'ESTAR, estado o condición: el estado del agua hoy.'},
+{text:'El hielo ___ frío por naturaleza.',options:['es','está'],correct:0,explanation:'SER, descripción: algo propio del hielo.'},
+{text:'Nosotros ___ estudiantes de español.',options:['somos','estamos'],correct:0,explanation:'SER, identidad: quiénes somos.'},
+{text:'Ellos ___ en la biblioteca estudiando.',options:['son','están'],correct:1,explanation:'ESTAR, ubicación.'},
+{text:'¿Qué hora ___?',options:['es','está'],correct:0,explanation:'SER, hora.'},
+{text:'Hoy ___ martes, ¿verdad?',options:['es','está'],correct:0,explanation:'SER, día.'},
+{text:'El cielo ___ nublado esta mañana.',options:['es','está'],correct:1,explanation:'ESTAR, estado o condición: el estado del cielo esta mañana.'},
+{text:'El cielo ___ azul.',options:['es','está'],correct:0,explanation:'SER, descripción: el color propio del cielo.'},
+{text:'Yo ___ uno de los mejores estudiantes.',options:['soy','estoy'],correct:0,explanation:'SER, identidad: quién soy dentro de un grupo.'},
+{text:'Ella ___ embarazada de cinco meses.',options:['es','está'],correct:1,explanation:'ESTAR, estado o condición: un cambio en el estado normal, como estar enferma.'},
+{text:'El problema ___ que no tenemos dinero.',options:['es','está'],correct:0,explanation:'SER, identidad: qué es el problema (una definición).'},
+{text:'Todo ___ bien, no te preocupes.',options:['es','está'],correct:1,explanation:'ESTAR, estado o condición: cómo están las cosas.'},
+{text:'Mi padre ___ muy serio, nunca sonríe.',options:['es','está'],correct:0,explanation:'SER, descripción: su personalidad.'},
+{text:'Mi padre ___ muy serio hoy, ¿qué le pasa?',options:['es','está'],correct:1,explanation:'ESTAR, estado o condición: algo le pasó y cambió su estado.'},
+{text:'La boda ___ en la iglesia del centro.',options:['es','está'],correct:0,explanation:'SER, eventos: dónde ocurre.'},
+{text:'¿Dónde ___ el baño, por favor?',options:['es','está'],correct:1,explanation:'ESTAR, ubicación.'},
+{text:'Esta casa ___ de mi abuela.',options:['es','está'],correct:0,explanation:'SER, posesión.'},
+{text:'La luz ___ encendida toda la noche.',options:['es','está'],correct:1,explanation:'ESTAR, resultado de un cambio: alguien la encendió.'},
+{text:'Él ___ ingeniero y trabaja en una empresa grande.',options:['es','está'],correct:0,explanation:'SER, profesión.'},
+{text:'Yo ___ seguro de que va a llover.',options:['soy','estoy'],correct:1,explanation:'Cambian de significado: ESTAR seguro = tener certeza.'},
+{text:'Esta información ___ segura y confidencial.',options:['es','está'],correct:0,explanation:'Cambian de significado: SER seguro = que no tiene peligro.'},
+{text:'Los platos ya ___ lavados.',options:['son','están'],correct:1,explanation:'ESTAR, resultado de un cambio: alguien los lavó.'},
+{text:'Estos platos ___ de cerámica.',options:['son','están'],correct:0,explanation:'SER, material.'},
+{text:'Ella ___ muy delgada últimamente.',options:['es','está'],correct:1,explanation:'ESTAR, resultado de un cambio: adelgazó últimamente.'},
+{text:'Ella ___ muy delgada, siempre lo ha sido.',options:['es','está'],correct:0,explanation:'SER, descripción: apariencia, así es ella.'},
+{text:'Yo ___ de acuerdo contigo.',options:['soy','estoy'],correct:1,explanation:'ESTAR, expresión fija: estar de acuerdo.'},
+{text:'La reunión ___ a las tres en punto.',options:['es','está'],correct:0,explanation:'SER, eventos: cuándo ocurre.'},
+{text:'Él ___ muerto de hambre, no ha comido.',options:['es','está'],correct:1,explanation:'ESTAR, expresión fija: estar muerto de hambre (tener muchísima hambre).'},
+{text:'El autor de este libro ya ___ muerto.',options:['es','está'],correct:1,explanation:'ESTAR, resultado de un cambio: estaba vivo y ahora está muerto. Es permanente, y aun así es estar.'},
+{text:'Ella ___ muy viva y alegre.',options:['es','está'],correct:0,explanation:'Cambian de significado: SER vivo = despierto, lleno de energía.'},
+{text:'El perro todavía ___ vivo.',options:['es','está'],correct:1,explanation:'Cambian de significado: ESTAR vivo = no estar muerto.'},
+{text:'Esta manzana ___ verde, no está madura.',options:['es','está'],correct:1,explanation:'Cambian de significado: ESTAR verde = no estar madura.'},
+{text:'La hierba ___ verde.',options:['es','está'],correct:0,explanation:'Cambian de significado: SER verde = el color.'},
+{text:'Yo ___ loco por el chocolate.',options:['soy','estoy'],correct:1,explanation:'ESTAR, expresión fija: estar loco por algo (que te encante).'},
+{text:'Mi perro ___ un labrador muy juguetón.',options:['es','está'],correct:0,explanation:'SER, identidad: qué es (un labrador).'},
+{text:'¿___ tú el nuevo empleado?',options:['Eres','Estás'],correct:0,explanation:'SER, identidad: quién eres.'},
+{text:'¿___ tú bien? Te ves pálido.',options:['Eres','Estás'],correct:1,explanation:'ESTAR, estado o condición: la salud.'},
+{text:'Aprender a manejar ___ difícil al principio.',options:['es','está'],correct:0,explanation:'SER, descripción: cómo es una actividad.'},
+    // SER VS ESTAR - Parejas de contraste (Oct 2026): cada una muestra a su gemela en la explicación
+{text:'La comida tailandesa ___ deliciosa; por eso es mi favorita.',options:['es','está'],correct:0,explanation:'SER, descripción: cómo es la comida tailandesa. Compara: "Esta sopa ESTÁ deliciosa" (el estado de esta sopa).'},
+{text:'Mmm, prueba esta sopa que hizo mi abuela: ¡___ deliciosa!',options:['es','está'],correct:1,explanation:'ESTAR, estado o condición: cómo está esta sopa. Compara: "La comida tailandesa ES deliciosa" (descripción).'},
+{text:'Las uchuvas ___ ácidas por naturaleza, pero a mí me encantan.',options:['son','están'],correct:0,explanation:'SER, descripción: cómo son las uchuvas. Compara: "Estas uchuvas ESTÁN muy ácidas" (su estado).'},
+{text:'¡Uy! Estas uchuvas ___ muy ácidas; todavía les falta madurar.',options:['son','están'],correct:1,explanation:'ESTAR, estado o condición: les falta madurar. Compara: "Las uchuvas SON ácidas" (descripción).'},
+{text:'Skye ___ muy tranquila; casi nunca hace travesuras.',options:['es','está'],correct:0,explanation:'SER, descripción: su personalidad. Compara: "Phoebe ESTÁ tranquila porque ya comió" (estado).'},
+{text:'Por fin Phoebe ___ tranquila: ya comió y se durmió al sol.',options:['es','está'],correct:1,explanation:'ESTAR, estado o condición: comió y se calmó. Compara: "Skye ES tranquila" (personalidad).'},
+{text:'Mi tío ___ rico: tiene tres fincas y dos carros.',options:['es','está'],correct:0,explanation:'Cambian de significado: SER rico = tener dinero. Compara: "Ese tipo ESTÁ rico" (es muy atractivo).'},
+{text:'¿Viste al actor nuevo de la telenovela? ¡Ese tipo ___ rico!',options:['es','está'],correct:1,explanation:'Cambian de significado: ESTAR rico, hablando de una persona = ser muy atractivo (informal). Compara: "Mi tío ES rico" (tiene dinero).'},
+{text:'Mi hermano ___ muy callado; en las fiestas casi nunca habla.',options:['es','está'],correct:0,explanation:'SER, descripción: su personalidad. Compara: "Mi hermano ESTÁ callado hoy" (algo le pasa).'},
+{text:'Mi hermano ___ muy callado hoy; algo le pasa.',options:['es','está'],correct:1,explanation:'ESTAR, estado o condición: algo le pasa hoy. Compara: "Mi hermano ES muy callado" (personalidad).'},
+{text:'La clase de español ___ en el salón 3.',options:['es','está'],correct:0,explanation:'SER, eventos: dónde ocurre la clase. Compara: "La profesora ESTÁ en el salón 3" (ubicación de una persona).'},
+{text:'La profesora ya ___ en el salón 3, esperando a los estudiantes.',options:['es','está'],correct:1,explanation:'ESTAR, ubicación: dónde está una persona. Compara: "La clase ES en el salón 3" (evento).'},
+{text:'Ese niño ___ muy despierto: aprende todo rapidísimo.',options:['es','está'],correct:0,explanation:'Cambian de significado: SER despierto = listo, avispado. Compara: "El niño ESTÁ despierto" (no está dormido).'},
+{text:'Ya es medianoche y el niño todavía ___ despierto.',options:['es','está'],correct:1,explanation:'Cambian de significado: ESTAR despierto = no estar dormido. Compara: "Ese niño ES muy despierto" (es listo).'},
+{text:'El villano de la telenovela ___ malo: engaña a todo el mundo.',options:['es','está'],correct:0,explanation:'Cambian de significado: SER malo = mala persona. Compara: "La leche ESTÁ mala" (dañada).'},
+{text:'No te tomes esa leche, que ___ mala; huele rarísimo.',options:['es','está'],correct:1,explanation:'Cambian de significado: ESTAR mala = dañada. Compara: "El villano ES malo" (mala persona).'},
+{text:'Ese señor ___ ciego de nacimiento.',options:['es','está'],correct:0,explanation:'SER, descripción: así es él, nació así. (En México también se dice "está ciego".) Compara: "Después del accidente estuvo ciego un mes" (estado).'},
+{text:'Después del accidente, ___ ciego durante un mes.',options:['fue','estuvo'],correct:1,explanation:'ESTAR, estado o condición: un cambio después del accidente. Compara: "Es ciego de nacimiento" (descripción).'}
 ];
 
 // ===== DATOS: RÉGIMEN VERBAL (25 ejercicios) =====
@@ -923,7 +1034,7 @@ const regimenExercises = [
 {text:'No te olvides ___ cerrar la puerta.',options:['a','de','en','con'],correct:1,explanation:'olvidarse DE'},
 {text:'Me alegro ___ verte tan bien.',options:['de','por','a','en'],correct:0,explanation:'alegrarse DE'},
 {text:'Nos despedimos ___ nuestros amigos.',options:['a','de','con','en'],correct:1,explanation:'despedirse DE'},
-{text:'Siempre me quejo ___ el tráfico.',options:['por','de','con','en'],correct:1,explanation:'quejarse DE'},
+{text:'Siempre me quejo ___ tráfico.',options:['por el','del','con el','en el'],correct:1,explanation:'quejarse DE (de + el = del)'},
 {text:'Tengo que acostumbrarme ___ madrugar.',options:['de','en','a','con'],correct:2,explanation:'acostumbrarse A'},
 {text:'Se atrevió ___ decir la verdad.',options:['de','a','en','con'],correct:1,explanation:'atreverse A'},
 {text:'Empezó ___ llover de repente.',options:['de','en','a','por'],correct:2,explanation:'empezar A'},
@@ -940,7 +1051,7 @@ const regimenExercises = [
 {text:'Cuento ___ tu apoyo siempre.',options:['de','en','a','con'],correct:3,explanation:'contar CON'},
 {text:'Me conformo ___ poco.',options:['de','en','a','con'],correct:3,explanation:'conformarse CON'},
 {text:'Se casó ___ un extranjero.',options:['a','de','con','en'],correct:2,explanation:'casarse CON'},
-{text:'Amenazó ___ irse de la casa.',options:['de','en','a','con'],correct:2,explanation:'amenazar CON'},
+{text:'Amenazó ___ irse de la casa.',options:['de','en','a','con'],correct:3,explanation:'amenazar CON'},
 {text:'Sueña ___ ser astronauta.',options:['de','en','con','a'],correct:2,explanation:'soñar CON'},
 {text:'Chocó ___ un árbol.',options:['a','de','con','en'],correct:2,explanation:'chocar CON'},
 {text:'Estoy harto ___ esperar.',options:['con','en','a','de'],correct:3,explanation:'estar harto DE'},
@@ -992,7 +1103,7 @@ const pedirPreguntarExercises = [
     {text:'Le ___ matrimonio anoche.',options:['pedí','pregunté'],correct:0,explanation:'PEDIR: proponer matrimonio.'},
     {text:'Le ___ si quería casarse.',options:['pedí','pregunté'],correct:1,explanation:'PREGUNTAR: hacer pregunta.'},
     {text:'___ una explicación ahora mismo.',options:['Exijo/Pido','Pregunto'],correct:0,explanation:'PEDIR: exigir algo.'},
-    {text:'___ por tu salud siempre.',options:['Pido','Pregunto'],correct:1,explanation:'PREGUNTAR: mostrar interés.'},
+    {text:'___ por tu salud cada vez que hablo con tu mamá.',options:['Pido','Pregunto'],correct:1,explanation:'PREGUNTAR por alguien: mostrar interés. (Pedir por alguien = rezar por esa persona.)'},
     {text:'No ___ nada a cambio.',options:['pido','pregunto'],correct:0,explanation:'PEDIR: solicitar.'},
     // PEDIR/PREGUNTAR NUEVOS - Animales Parlantes (+45)
 {text:'El gato le ___ más comida a su dueño.',options:['pidió','preguntó'],correct:0,explanation:'PEDIR: solicitar objeto.'},
@@ -1059,7 +1170,7 @@ const movimientoExercises = [
     { sentence: "(En mi oficina) ¿Ya ___ el correo para revisarlo?", options: ["llevaron", "trajeron"], correct: "trajeron", explanation: "TRAER: hacia donde estoy" },
     { sentence: "Voy a ___ a mi mamá al doctor.", options: ["llevar", "traer"], correct: "llevar", explanation: "LLEVAR: a otro lugar" },
     { sentence: "(En casa) Mi esposo ___ flores.", options: ["llevó", "trajo"], correct: "trajo", explanation: "TRAER: hacia donde estoy" },
-    { sentence: "¿A qué hora ___ anoche?", options: ["fuiste", "viniste"], correct: "viniste", explanation: "VENIR: hacia donde estamos" },
+    { sentence: "(Estamos en mi casa) ¿A qué hora ___ anoche? No te oí llegar.", options: ["fuiste", "viniste"], correct: "viniste", explanation: "VENIR: hacia donde está el hablante (mi casa)." },
     { sentence: "Anoche ___ al cine con mis amigos y regresé tarde a casa.", options: ["fui", "vine"], correct: "fui", explanation: "IR: a otro lugar" },
     { sentence: "¿Me ___ en tu carro al trabajo?", options: ["llevas", "traes"], correct: "llevas", explanation: "LLEVAR: a otro lugar" },
     { sentence: "(Fiesta en mi casa) ¿___ algo de beber?", options: ["Llevaste", "Trajiste"], correct: "Trajiste", explanation: "TRAER: hacia donde estoy" },
@@ -1082,7 +1193,7 @@ const movimientoExercises = [
 {sentence:'(El espejo del baño habla) "¡Qué bueno que ___ a verme tan temprano!"',options:['fuiste','viniste'],correct:1,explanation:'VENIR: hacia donde está el hablante.'},
 {sentence:'(El reloj está en la pared) "___ estas agujas al relojero."',options:['Lleva','Trae'],correct:0,explanation:'LLEVAR: a otro lugar.'},
 {sentence:'(La escoba está en el closet) "Siempre me ___ al patio a trabajar."',options:['llevan','traen'],correct:0,explanation:'LLEVAR: a otro lugar.'},
-{sentence:'(El refrigerador habla) "Los vegetales ___ ayer muy frescos."',options:['llevaron','trajeron'],correct:1,explanation:'TRAER: hacia donde está el hablante.'},
+{sentence:'(El refrigerador habla) "Ayer me ___ los vegetales muy frescos."',options:['llevaron','trajeron'],correct:1,explanation:'TRAER: hacia donde está el hablante.'},
 {sentence:'(La licuadora está en la cocina) "___ a la tienda a que me reparen."',options:['Voy','Vengo'],correct:0,explanation:'IR: a otro lugar.'},
 {sentence:'(El florero de la mesa habla) "¿Me ___ agua fresca?"',options:['llevas','traes'],correct:1,explanation:'TRAER: hacia donde está el hablante.'},
 {sentence:'(El jabón está en el baño) "___ a la cocina, me necesitan allá."',options:['Voy','Vengo'],correct:0,explanation:'IR: a otro lugar.'},
@@ -1102,7 +1213,7 @@ const movimientoExercises = [
 {sentence:'(El sofá habla) "El gato siempre ___ pelos a mi superficie."',options:['lleva','trae'],correct:1,explanation:'TRAER: hacia donde está el hablante.'},
 {sentence:'(La cafetera está en la cocina) "___ café al dormitorio."',options:['Llevo','Traigo'],correct:0,explanation:'LLEVAR: a otro lugar.'},
 {sentence:'(La maleta habla) "Mañana ___ de viaje otra vez."',options:['voy','vengo'],correct:0,explanation:'IR: a otro lugar.'},
-{sentence:'(La cortina habla desde la ventana) "El sol ___ muy fuerte hoy."',options:['fue','vino'],correct:1,explanation:'VENIR: hacia donde está el hablante.'},
+{sentence:'(La cortina habla desde la ventana) "El sol ___ a visitarme muy temprano hoy."',options:['fue','vino'],correct:1,explanation:'VENIR: hacia donde está el hablante.'},
 {sentence:'(El vaso está en el gabinete) "Siempre me ___ al lavavajillas."',options:['llevan','traen'],correct:0,explanation:'LLEVAR: a otro lugar.'},
 {sentence:'(El escritorio habla) "Los papeles ___ y nunca se van."',options:['van','vienen'],correct:1,explanation:'VENIR: hacia donde está el hablante.'},
 {sentence:'(La sábana está en la cama) "___ a la lavadora, estoy sucia."',options:['Voy','Vengo'],correct:0,explanation:'IR: a otro lugar.'},
@@ -1119,21 +1230,21 @@ const movimientoExercises = [
 // ===== DATOS: CALCOS DEL INGLÉS (25 ejercicios) =====
 const calcosExercises = [
     {text:'En el restaurante: "___" (I\'ll have the soup)',options:['"Tendré la sopa"','"Me gustaría la sopa" / "Me trae la sopa"'],correct:1,explanation:'No "tendré" para ordenar.'},
-    {text:'"Estoy ___ un trabajo" (applying for)',options:['aplicando para','solicitando'],correct:1,explanation:'Aplicar ≠ apply. Usar solicitar.'},
+    {text:'"Hoy voy a ___ para el trabajo del hotel." (fill out an application)',options:['aplicar','llenar una solicitud'],correct:1,explanation:'Se LLENA una solicitud, o se manda la hoja de vida. Aplicar = poner algo sobre algo (una crema). Aplicarse = esforzarse (un niño aplicado).'},
     {text:'"___ la universidad" (attend)',options:['Atiendo','Asisto a'],correct:1,explanation:'Atender = servir. Asistir = ir.'},
-    {text:'"No puedo ___ esto más" (support/tolerate)',options:['soportar','aguantar/tolerar'],correct:1,explanation:'Soportar puede, pero aguantar es más común.'},
+    {text:'"Después del almuerzo vamos a ___ la reunión." (resume)',options:['resumir','reanudar'],correct:1,explanation:'REANUDAR = resume, continuar. Resumir = summarize.'},
     {text:'"___ que estaba equivocado" (realized)',options:['Realicé','Me di cuenta de'],correct:1,explanation:'Realizar ≠ realize (en este sentido).'},
     {text:'"Esto no ___ sentido" (make sense)',options:['hace','tiene'],correct:1,explanation:'TENER sentido, no hacer.'},
-    {text:'"Voy a ___ una siesta" (take a nap)',options:['tomar','echar/dormir'],correct:1,explanation:'ECHAR una siesta, no tomar.'},
+    {text:'"Te quiero ___ a mi hermana." (introduce)',options:['introducir','presentar'],correct:1,explanation:'PRESENTAR a alguien. Introducir = meter algo dentro.'},
     {text:'"___ una decisión" (make a decision)',options:['Hacer','Tomar'],correct:1,explanation:'TOMAR una decisión.'},
-    {text:'"___ una foto" (take a picture)',options:['Tomar','Sacar'],correct:1,explanation:'SACAR una foto (más común).'},
-    {text:'"Me ___ Juan" (my name is)',options:['nombre es','llamo'],correct:1,explanation:'Me LLAMO, no mi nombre es.'},
+    {text:'En el viaje ___ muchísimas fotos del castillo. (took / shot)',options:['disparé','tomé / saqué'],correct:1,explanation:'TOMAR o SACAR fotos: las dos se usan, depende de la región. Disparar = shoot (un arma). Disparar fotos es calco del inglés.'},
+    {text:'"Me ___ Juan" (my name is)',options:['nombre es','llamo'],correct:1,explanation:'Me LLAMO Juan. (Mi nombre es Juan también es correcto, pero la frase empieza con Me.)'},
     {text:'"Estoy ___ " (I\'m excited)',options:['excitado/a','emocionado/a'],correct:1,explanation:'Excitado = aroused. Emocionado = excited.'},
     {text:'"El libro es ___ Ana" (by)',options:['por','de'],correct:1,explanation:'Libro DE autor, no por.'},
-    {text:'"___ un buen tiempo" (have a good time)',options:['Tener','Pasarla bien'],correct:1,explanation:'PASARLA bien, no tener tiempo.'},
-    {text:'"Estoy ___ de ti" (proud)',options:['orgulloso/a','orgulloso/a de'],correct:1,explanation:'Orgulloso DE, no solo orgulloso.'},
-    {text:'"___ en la mañana" (in the morning)',options:['En','Por'],correct:1,explanation:'POR la mañana.'},
-    {text:'"___ la radio" (on the radio)',options:['En','Por'],correct:1,explanation:'POR la radio (medio).'},
+    {text:'"___" (have a good time)',options:['Tener un buen tiempo','Pasarla bien'],correct:1,explanation:'PASARLA bien, no tener tiempo.'},
+    {text:'"Estoy ___ ti" (proud of you)',options:['orgulloso/a','orgulloso/a de'],correct:1,explanation:'Orgulloso DE, no solo orgulloso.'},
+    {text:'"Mi hijo estudia ingeniería en ___." (college)',options:['el colegio','la universidad'],correct:1,explanation:'UNIVERSIDAD = college. Colegio = school (primaria o bachillerato).'},
+    {text:'"Van a ___ el nuevo perfume en televisión todo el mes." (advertise)',options:['advertir','anunciar'],correct:1,explanation:'ANUNCIAR = advertise. Advertir = warn (te advierto que...).'},
     {text:'"Estoy buscando ___ trabajo" (looking for)',options:['por','—'],correct:1,explanation:'Buscar NO lleva preposición.'},
     {text:'"___ del autobús" (get off)',options:['Salir','Bajar'],correct:1,explanation:'BAJAR del autobús.'},
     {text:'"___ al autobús" (get on)',options:['Entrar','Subir'],correct:1,explanation:'SUBIR al autobús.'},
@@ -1148,47 +1259,53 @@ const calcosExercises = [
 {text:'Isabella llora: "¡Estoy tan ___ de verte!" (excited)',options:['excitada','emocionada'],correct:1,explanation:'Excitado = aroused. Emocionado = excited.'},
 {text:'El villano dice: "Voy a ___ para presidente." (run for)',options:['correr','postularme/presentarme'],correct:1,explanation:'Correr ≠ run for office.'},
 {text:'La heroína susurra: "Esto no ___ sentido." (make sense)',options:['hace','tiene'],correct:1,explanation:'TENER sentido, no hacer.'},
-{text:'El doctor anuncia: "Ella está ___ un bebé." (expecting)',options:['esperando','esperando'],correct:0,explanation:'Esperar sí funciona aquí. (Truco: ambas correctas)'},
+{text:'El doctor anuncia: "Ella está ___ un bebé." (expecting)',options:['esperando','expectando'],correct:0,explanation:'ESPERAR un bebé: aquí el inglés sí coincide. "Expectar" no existe.'},
 {text:'Valentina exclama: "___ 25 años hoy." (I\'m 25)',options:['Soy','Tengo'],correct:1,explanation:'TENER años, no ser.'},
 {text:'El mayordomo pregunta: "¿___ frío, señora?" (Are you cold?)',options:['Está','Tiene'],correct:1,explanation:'TENER frío, no estar.'},
 {text:'La villana confiesa: "Yo ___ que estaba equivocada." (realized)',options:['realicé','me di cuenta de'],correct:1,explanation:'Realizar ≠ realize (darse cuenta).'},
 {text:'Fernando declara: "¡Voy a ___ una decisión!" (make a decision)',options:['hacer','tomar'],correct:1,explanation:'TOMAR una decisión.'},
-{text:'La sirvienta dice: "Voy a ___ una foto del bebé." (take a picture)',options:['tomar','sacar'],correct:1,explanation:'SACAR una foto es más común.'},
-{text:'El abuelo grita: "¡___ un buen tiempo en la fiesta!" (have a good time)',options:['Ten','Pásala bien'],correct:1,explanation:'PASARLA bien, no tener tiempo.'},
-{text:'Camila solloza: "Estoy tan ___ de ti." (proud)',options:['orgullosa','orgullosa de'],correct:1,explanation:'Orgulloso DE, necesita preposición.'},
-{text:'El cura anuncia: "La boda es ___ la mañana." (in the morning)',options:['en','por'],correct:1,explanation:'POR la mañana.'},
-{text:'La protagonista dice: "Lo escuché ___ la radio." (on the radio)',options:['en','por'],correct:1,explanation:'POR la radio (medio).'},
+{text:'La sirvienta dice: "Este vestido es de una ___ muy fina; no lo laves en la lavadora." (fabric)',options:['fábrica','tela'],correct:1,explanation:'TELA = fabric. Fábrica = factory.'},
+{text:'El abuelo grita: "¡___ en la fiesta!" (have a good time)',options:['Ten un buen tiempo','Pásala bien'],correct:1,explanation:'PASARLA bien, no tener tiempo.'},
+{text:'Camila solloza: "Estoy tan ___ ti." (proud of you)',options:['orgullosa','orgullosa de'],correct:1,explanation:'Orgulloso DE, necesita preposición.'},
+{text:'El cura anuncia: "El niño ___ estar enfermo para no venir a la misa." (pretended)',options:['pretendió','fingió'],correct:1,explanation:'FINGIR = pretend. Pretender = intentar, aspirar a algo (pretende ser presidente) o cortejar.'},
+{text:'La protagonista confiesa: "Todos creen que amo a Rodrigo, pero ___ nunca lo quise." (actually)',options:['actualmente','en realidad'],correct:1,explanation:'EN REALIDAD = actually. Actualmente = currently, hoy en día.'},
 {text:'Ricardo confiesa: "Estoy buscando ___ trabajo." (looking for)',options:['por','—'],correct:1,explanation:'Buscar NO lleva preposición.'},
 {text:'La abuela ordena: "¡___ del carro ahora!" (get out)',options:['Sal','Bájate'],correct:1,explanation:'BAJARSE del carro.'},
 {text:'El chofer dice: "¡___ al carro, señorita!" (get in)',options:['Entre','Suba'],correct:1,explanation:'SUBIRSE al carro.'},
 {text:'Luciana llora: "¡Tengo ___!" (I\'m hot)',options:['caliente','calor'],correct:1,explanation:'TENER calor. Caliente = otra cosa.'},
-{text:'El detective pregunta: "¿___ lo que pasó?" (Did you attend?)',options:['Atendiste','Presenciaste'],correct:1,explanation:'Atender = servir. Presenciar = witness.'},
+{text:'El detective pregunta: "¿___ a la reunión?" (Did you attend?)',options:['Atendiste','Asististe'],correct:1,explanation:'Atender = servir o prestar atención. ASISTIR a = ir.'},
 {text:'Victoria grita: "¡Voy a ___ un error!" (make a mistake)',options:['hacer','cometer'],correct:1,explanation:'COMETER un error.'},
 {text:'El padre dice: "Este libro es ___ Gabriel García Márquez." (by)',options:['por','de'],correct:1,explanation:'Libro DE autor.'},
-{text:'La enfermera anuncia: "Ella va a ___ una siesta." (take a nap)',options:['tomar','echar'],correct:1,explanation:'ECHAR una siesta.'},
-{text:'Alejandro susurra: "Me ___ Alejandro." (My name is)',options:['nombre es','llamo'],correct:1,explanation:'Me LLAMO, no mi nombre es.'},
+{text:'La criada susurra: "El precio ___ fue mucho más alto que el de la etiqueta." (actual)',options:['actual','real'],correct:1,explanation:'Actual = de ahora (current). REAL = actual en inglés.'},
+{text:'Alejandro susurra: "Me ___ Alejandro." (My name is)',options:['nombre es','llamo'],correct:1,explanation:'Me LLAMO Alejandro. (Mi nombre es Alejandro también es correcto, pero la frase empieza con Me.)'},
 {text:'La condesa exclama: "¡Estoy ___ contigo!" (I agree)',options:['acordando','de acuerdo'],correct:1,explanation:'ESTAR de acuerdo.'},
-{text:'El empresario dice: "Voy a ___ para ese puesto." (apply)',options:['aplicar','solicitar'],correct:1,explanation:'Solicitar un puesto, no aplicar.'},
-{text:'Mariana llora: "¡___ que irme!" (I have to)',options:['Tengo','Tengo que'],correct:1,explanation:'TENER QUE + infinitivo.'},
+{text:'El empresario dice: "Voy a ___ para ese puesto." (apply for)',options:['aplicar','presentarme'],correct:1,explanation:'PRESENTARSE para un puesto. Aplicar = poner algo sobre algo (aplicar una crema) o usar una regla.'},
+{text:'Mariana llora: "¡___ irme!" (I have to)',options:['Tengo','Tengo que'],correct:1,explanation:'TENER QUE + infinitivo.'},
 {text:'El fantasma del abuelo dice: "___ veinte años que morí." (It\'s been)',options:['Son','Hace'],correct:1,explanation:'HACE + tiempo.'},
-{text:'Isabella grita: "¡Él ___ a mí primero!" (He looked at)',options:['miró a','me miró'],correct:1,explanation:'Mirar A alguien, o mirarme.'},
+{text:'Isabella grita: "¡Él ___ a mí primero!" (He looked at)',options:['miró','me miró'],correct:1,explanation:'Falta el pronombre de objeto directo: Él ME miró a mí. El ME siempre tiene que estar, aunque al final digas a mí. Él miró a mí está incompleto. En inglés no hace falta (He looked at me).'},
 {text:'El villano ríe: "Esto ___ un sueño." (looks like)',options:['mira como','parece'],correct:1,explanation:'PARECER, no mirar como.'},
 {text:'La detective dice: "___ el asesino." (I\'m looking for)',options:['Estoy mirando por','Estoy buscando'],correct:1,explanation:'BUSCAR, no mirar por.'},
 {text:'Roberto confiesa: "No puedo ___ esto más." (stand/tolerate)',options:['parar','soportar/aguantar'],correct:1,explanation:'Soportar = tolerar, no parar.'},
-{text:'La doctora anuncia: "Necesita ___ medicina." (take medicine)',options:['tomar','tomar'],correct:0,explanation:'Tomar medicina sí es correcto.'},
-{text:'El abogado dice: "Vamos a ___ una reunión." (have a meeting)',options:['tener','tener'],correct:0,explanation:'Tener una reunión es correcto.'},
-{text:'Valentina solloza: "¡Estoy ___ de tu mentira!" (tired)',options:['cansada','harta'],correct:1,explanation:'Estar HARTO de = fed up.'},
-{text:'El chef grita: "¡La comida está ___!" (ready)',options:['lista','lista'],correct:0,explanation:'Lista sí es correcto.'},
+{text:'Camila solloza: "Mis padres nunca me ___ cuando decidí casarme con Rodrigo." (supported)',options:['soportaron','apoyaron'],correct:1,explanation:'APOYAR = support. Soportar = aguantar (no soporto este calor).'},
+{text:'El abogado dice: "___ el juez va a descubrir la verdad; es cuestión de tiempo." (eventually)',options:['Eventualmente','Tarde o temprano'],correct:1,explanation:'Eventually = tarde o temprano, al final. Eventualmente = posiblemente, de vez en cuando.'},
+{text:'Valentina le dice a su hermana: "Si sigues practicando, vas a ___ en el torneo." (succeed)',options:['suceder','tener éxito'],correct:1,explanation:'TENER ÉXITO = succeed. Suceder = happen.'},
+{text:'El chef grita desde la cocina: "¡La comida ___ lista! ¡Vengan a la mesa antes de que se enfríe!" (is ready)',options:['está','es'],correct:0,explanation:'ESTAR lista = preparada. SER lista = inteligente: ¡la comida no es inteligente!'},
 {text:'La reina ordena: "___ atención a mis palabras." (pay attention)',options:['Paga','Pon/Presta'],correct:1,explanation:'PONER o PRESTAR atención.'},
 {text:'Fernando exclama: "¡Ella me ___ loco!" (drives me crazy)',options:['maneja','vuelve'],correct:1,explanation:'VOLVER loco, no manejar.'},
 {text:'La criada susurra: "No ___ la diferencia." (I don\'t know)',options:['conozco','sé'],correct:1,explanation:'SABER información, conocer personas.'},
 {text:'El conde dice: "___ razón, mi amor." (You\'re right)',options:['Eres','Tienes'],correct:1,explanation:'TENER razón.'},
-{text:'Camila llora: "¡Tengo que ___ una confesión!" (make a confession)',options:['hacer','hacer'],correct:0,explanation:'Hacer confesión sí funciona.'},
+{text:'Rodrigo dice: "Mi amor, desde ayer lloras por todo. Hoy estás muy ___." (sensitive)',options:['sensitiva','sensible'],correct:1,explanation:'Una persona está SENSIBLE (se emociona o se ofende fácil). Sensitivo es para los sentidos y las etiquetas (piel sensitiva), no para el ánimo.'},
 {text:'El jardinero dice: "Voy a ___ cargo de las flores." (take charge)',options:['tomar','hacerme'],correct:1,explanation:'HACERSE cargo.'},
 {text:'La villana ríe: "Voy a ___ ventaja de la situación." (take advantage)',options:['tomar','sacar'],correct:1,explanation:'SACAR ventaja / aprovecharse.'},
 {text:'Roberto grita: "¡No ___ la culpa!" (It\'s not my fault)',options:['es mi culpa','tengo la culpa'],correct:1,explanation:'TENER la culpa.'},
 {text:'La princesa dice: "Quiero ___ un paseo." (take a walk)',options:['tomar','dar'],correct:1,explanation:'DAR un paseo.'},
-{text:'El doctor anuncia: "Vamos a ___ una operación." (perform)',options:['performar','realizar'],correct:1,explanation:'REALIZAR una operación (aquí sí funciona).'}
+{text:'El doctor anuncia: "Vamos a ___ una operación." (perform)',options:['performar','realizar'],correct:1,explanation:'REALIZAR una operación (aquí sí funciona).'},
+    // AMIGOS SOSPECHOSOS - nuevos (Oct 2026)
+{text:'El conde dice: "Pasé toda la tarde en la ___ del castillo leyendo crónicas antiguas." (library)',options:['librería','biblioteca'],correct:1,explanation:'BIBLIOTECA = library (se leen o se prestan libros). Librería = bookstore (se compran).'},
+{text:'"Mis ___ viven en Ohio; me llaman todos los domingos." (parents)',options:['parientes','padres'],correct:1,explanation:'PADRES = parents. Parientes = relatives (cualquier familiar: tíos, primos, abuelos).'},
+{text:'"La obra de teatro fue un gran ___: todas las funciones se agotaron." (success)',options:['suceso','éxito'],correct:1,explanation:'ÉXITO = success. Suceso = event, incident (lo que sale en la sección de sucesos del periódico).'},
+{text:'"El profesor dio una ___ sobre los vikingos en la universidad." (lecture)',options:['lectura','conferencia'],correct:1,explanation:'CONFERENCIA = lecture. Lectura = reading (la lectura de un libro).'},
+{text:'El pirata grita: "¡Amarren el barco al muelle con una ___!" (rope)',options:['ropa','cuerda'],correct:1,explanation:'CUERDA = rope. Ropa = clothes.'}
 ];
 
 // ===== DATOS: A PERSONAL (25 ejercicios) =====
@@ -1203,9 +1320,9 @@ const aPersonalExercises = [
     {text:'Encontré ___ las llaves.',options:['a','—'],correct:1,explanation:'Cosa = sin A.'},
     {text:'Tengo ___ dos gatos.',options:['a','—'],correct:1,explanation:'Animales (general) = sin A.'},
     {text:'Quiero ___ mi perro mucho.',options:['a','—'],correct:0,explanation:'Mascota querida = A personal.'},
-    {text:'Escucho ___ el profesor.',options:['a','—'],correct:0,explanation:'Persona específica = A personal.'},
+    {text:'Escucho ___ profesor.',options:['al','el'],correct:0,explanation:'Persona específica = A personal (a + el = al).'},
     {text:'Leo ___ García Márquez.',options:['a','—'],correct:0,explanation:'Autor específico = A personal.'},
-    {text:'Busco ___ alguien que sepa inglés.',options:['a','—'],correct:1,explanation:'Indefinido + subjuntivo = sin A.'},
+    {text:'Busco ___ alguien que sepa inglés.',options:['a','—'],correct:0,explanation:'Con alguien y nadie la norma pide A: Busco A alguien. Pero depende del uso: cuando la persona es general (cualquiera que cumpla), en muchas regiones se omite la A (busco alguien, buscamos secretaria). Cuando es concreta, la A siempre va: busco a mi hermana.'},
     {text:'Encontré ___ alguien que sabe inglés.',options:['a','—'],correct:0,explanation:'Específico + indicativo = A personal.'},
     {text:'Vi ___ la película nueva.',options:['a','—'],correct:1,explanation:'Cosa = sin A.'},
     {text:'Extraño ___ mis padres.',options:['a','—'],correct:0,explanation:'Personas específicas = A personal.'},
@@ -1215,11 +1332,11 @@ const aPersonalExercises = [
     {text:'Llevé ___ los niños al parque.',options:['a','—'],correct:0,explanation:'Personas específicas = A personal.'},
     {text:'No conozco ___ nadie aquí.',options:['a','—'],correct:0,explanation:'Nadie = A personal.'},
     {text:'¿Viste ___ Juan en la fiesta?',options:['a','—'],correct:0,explanation:'Persona específica = A personal.'},
-    {text:'Describió ___ el sospechoso.',options:['a','—'],correct:0,explanation:'Persona = A personal.'},
+    {text:'Describió ___ sospechoso.',options:['al','el'],correct:0,explanation:'Persona = A personal (a + el = al).'},
     {text:'Esperamos ___ el autobús.',options:['a','—'],correct:1,explanation:'Cosa = sin A.'},
     {text:'Esperamos ___ Teresa.',options:['a','—'],correct:0,explanation:'Persona = A personal.'},
    {text:'Ayer vi ___ tu hermana en el centro.',options:['a','—'],correct:0,explanation:'A personal: persona específica'},
-    {text:'Busco ___ un buen mecánico.',options:['a','—'],correct:0,explanation:'A personal: mecánico específico'},
+    {text:'Busco ___ un buen mecánico.',options:['a','—'],correct:1,explanation:'Persona general = sin A: Busco un buen mecánico (cualquiera que sea bueno). Persona concreta = con A: Busco A mi mecánico. Depende del uso: en algunas regiones también se oye con A.'},
     {text:'Necesito ___ alguien que me ayude.',options:['a','—'],correct:0,explanation:'A personal: alguien/nadie siempre llevan a'},
     // A PERSONAL NUEVOS - Cuentos de Hadas (+42)
 {text:'Cenicienta buscaba ___ un príncipe.',options:['a','—'],correct:1,explanation:'Persona indefinida = sin A.'},
@@ -1233,11 +1350,11 @@ const aPersonalExercises = [
 {text:'El gigante buscaba ___ un niño para comer.',options:['a','—'],correct:1,explanation:'Indefinido = sin A.'},
 {text:'Pinocho quería ___ su padre Gepetto.',options:['a','—'],correct:0,explanation:'Persona específica = A personal.'},
 {text:'La Bella Durmiente no conocía ___ nadie en el castillo.',options:['a','—'],correct:0,explanation:'Nadie = A personal.'},
-{text:'El gato con botas engañó ___ el ogro.',options:['a','—'],correct:0,explanation:'Personaje específico = A personal.'},
+{text:'El gato con botas engañó ___ ogro.',options:['al','el'],correct:0,explanation:'Personaje específico = A personal (a + el = al).'},
 {text:'Cenicienta perdió ___ su zapato en la escalera.',options:['a','—'],correct:1,explanation:'Cosa = sin A.'},
-{text:'Los tres cerditos temían ___ el lobo feroz.',options:['a','—'],correct:0,explanation:'Personaje específico = A personal.'},
+{text:'Los tres cerditos temían ___ lobo feroz.',options:['al','el'],correct:0,explanation:'Personaje específico = A personal (a + el = al).'},
 {text:'El espejo mágico veía ___ todas las mujeres del reino.',options:['a','—'],correct:0,explanation:'Personas específicas (todas) = A personal.'},
-{text:'Rumpelstiltskin quería ___ el bebé de la reina.',options:['a','—'],correct:0,explanation:'Persona específica (bebé) = A personal.'},
+{text:'Rumpelstiltskin quería ___ bebé de la reina.',options:['al','el'],correct:0,explanation:'Persona específica (bebé) = A personal (a + el = al).'},
 {text:'La sirenita abandonó ___ su familia.',options:['a','—'],correct:0,explanation:'Personas específicas = A personal.'},
 {text:'El flautista de Hamelín hipnotizó ___ los niños.',options:['a','—'],correct:0,explanation:'Personas específicas = A personal.'},
 {text:'Jack plantó ___ las habichuelas mágicas.',options:['a','—'],correct:1,explanation:'Cosas = sin A.'},
@@ -1251,7 +1368,7 @@ const aPersonalExercises = [
 {text:'El rey buscaba ___ una esposa para su hijo.',options:['a','—'],correct:1,explanation:'Persona indefinida = sin A.'},
 {text:'Peter Pan nunca olvidó ___ Wendy.',options:['a','—'],correct:0,explanation:'Persona específica = A personal.'},
 {text:'Aladino encontró ___ la lámpara mágica.',options:['a','—'],correct:1,explanation:'Cosa = sin A.'},
-{text:'Aladino liberó ___ el genio de la lámpara.',options:['a','—'],correct:0,explanation:'Personaje específico = A personal.'},
+{text:'Aladino liberó ___ genio de la lámpara.',options:['al','el'],correct:0,explanation:'Personaje específico = A personal (a + el = al).'},
 {text:'Shrek rescató ___ la princesa Fiona.',options:['a','—'],correct:0,explanation:'Persona específica = A personal.'},
 {text:'La bruja necesitaba ___ una princesa para su hechizo.',options:['a','—'],correct:1,explanation:'Persona indefinida = sin A.'},
 {text:'El dragón protegía ___ la torre.',options:['a','—'],correct:1,explanation:'Cosa = sin A.'},
@@ -1283,10 +1400,10 @@ const articulosExercises = [
     {text:'___ arquitecto brillante.',options:['Es','Es un'],correct:1,explanation:'Con artículo: con adjetivo.'},
     {text:'Quiero ser ___ veterinario.',options:['—','un'],correct:0,explanation:'Sin artículo después de ser.'},
     {text:'María trabaja como ___ secretaria.',options:['—','una'],correct:0,explanation:'Sin artículo después de como.'},
-    {text:'Lo contrataron como ___ consultor externo.',options:['—','un'],correct:1,explanation:'Con artículo: descripción.'},
+    {text:'Lo contrataron como ___ consultor externo.',options:['—','un'],correct:0,explanation:'Sin artículo después de como (función). Como un = like a.'},
     {text:'___ músico profesional.',options:['Soy','Soy un'],correct:1,explanation:'Con artículo: con adjetivo.'},
     {text:'___ cantante.',options:['Soy','Soy una'],correct:0,explanation:'Sin artículo: profesión simple.'},
-    {text:'___ atleta de alto rendimiento.',options:['Es','Es un/una'],correct:1,explanation:'Con artículo: especificación.'},
+    {text:'___ atleta increíble: ganó tres medallas de oro.',options:['Es','Es un/una'],correct:1,explanation:'Con artículo: profesión con adjetivo (increíble).'},
     // ARTÍCULOS CON PROFESIONES NUEVOS - D&D/Fantasía (+50)
 {text:'En la taberna: "___."',options:['Soy bardo','Soy un bardo'],correct:0,explanation:'Sin artículo: profesión simple.'},
 {text:'En el gremio: "___ del Reino del Norte."',options:['Soy mago','Soy un mago'],correct:1,explanation:'Con artículo: con especificación.'},
@@ -1317,7 +1434,7 @@ const articulosExercises = [
 {text:'La bárbara grita: "¡___!"',options:['Soy guerrera','Soy una guerrera'],correct:0,explanation:'Sin artículo: profesión simple.'},
 {text:'La bárbara ruge: "¡___ del Clan de la Tormenta!"',options:['Soy guerrera','Soy una guerrera'],correct:1,explanation:'Con artículo: con clan.'},
 {text:'El elfo oscuro dice: "Trabajo como ___."',options:['asesino','un asesino'],correct:0,explanation:'Sin artículo después de como.'},
-{text:'El elfo oscuro admite: "Trabajo como ___ del gremio de las sombras."',options:['asesino','un asesino'],correct:1,explanation:'Con artículo: con especificación.'},
+{text:'El elfo oscuro admite: "___ muy temido en todo el reino."',options:['Soy asesino','Soy un asesino'],correct:1,explanation:'Con artículo: profesión con descripción (muy temido).'},
 {text:'La sanadora dice: "___."',options:['Soy curandera','Soy una curandera'],correct:0,explanation:'Sin artículo: profesión simple.'},
 {text:'La sanadora explica: "___ con poderes divinos."',options:['Soy curandera','Soy una curandera'],correct:1,explanation:'Con artículo: con descripción.'},
 {text:'El dragón habla: "___ antiguo."',options:['Soy dragón','Soy un dragón'],correct:1,explanation:'Con artículo: con adjetivo.'},
@@ -1326,7 +1443,7 @@ const articulosExercises = [
 {text:'La halfling dice: "Mi hermana ___."',options:['es pícara','es una pícara'],correct:0,explanation:'Sin artículo: profesión simple.'},
 {text:'La halfling cuenta: "Mi hermana ___ famosa en tres reinos."',options:['es pícara','es una pícara'],correct:1,explanation:'Con artículo: con fama descrita.'},
 {text:'El ranger se presenta: "___."',options:['Soy cazador','Soy un cazador'],correct:0,explanation:'Sin artículo: profesión simple.'},
-{text:'El ranger explica: "___ de monstruos."',options:['Soy cazador','Soy un cazador'],correct:1,explanation:'Con artículo: con especialidad.'},
+{text:'El ranger explica: "___ de monstruos muy famoso en el reino."',options:['Soy cazador','Soy un cazador'],correct:1,explanation:'Con artículo: profesión con descripción (muy famoso).'},
 {text:'La sirena canta: "___."',options:['Soy sirena','Soy una sirena'],correct:0,explanation:'Sin artículo: identidad simple.'},
 {text:'La sirena advierte: "___ peligrosa."',options:['Soy sirena','Soy una sirena'],correct:1,explanation:'Con artículo: con adjetivo.'},
 {text:'El hombre lobo aúlla: "¡___!"',options:['Soy licántropo','Soy un licántropo'],correct:0,explanation:'Sin artículo: identidad simple.'},
@@ -1370,14 +1487,14 @@ const prepositionExercises = [
 {sentence:'Caminamos ___ el cráter lunar buscando minerales.',options:['por','para','en','a'],correct:0,explanation:'POR: movimiento a través de área.'},
 {sentence:'Este traje espacial es ___ ti, astronauta.',options:['por','para','de','a'],correct:1,explanation:'PARA: destinatario.'},
 {sentence:'La estación orbital fue destruida ___ un asteroide.',options:['por','para','de','con'],correct:0,explanation:'POR: causa.'},
-{sentence:'Estudié astrofísica ___ cinco años.',options:['por','para','durante','en'],correct:0,explanation:'POR: duración de tiempo.'},
+{sentence:'Estudié astrofísica ___ cinco años.',options:['por','para','a','en'],correct:0,explanation:'POR: duración de tiempo.'},
 {sentence:'El mensaje viajó ___ el universo a la velocidad de la luz.',options:['por','para','en','a'],correct:0,explanation:'POR: movimiento a través de.'},
-{sentence:'Vamos ___ la luna, preparen los motores.',options:['por','para','a','en'],correct:1,explanation:'PARA: destino con intención.'},
+{sentence:'Vamos ___ la luna, preparen los motores.',options:['por','para','de','en'],correct:1,explanation:'PARA: destino con intención.'},
 {sentence:'Gracias ___ salvarme de los alienígenas.',options:['por','para','de','a'],correct:0,explanation:'POR: razón de agradecimiento.'},
 {sentence:'El androide trabaja ___ nosotros sin descanso.',options:['por','para','con','de'],correct:1,explanation:'PARA: beneficiario.'},
 {sentence:'Pagamos mil créditos ___ el combustible.',options:['por','para','de','con'],correct:0,explanation:'POR: intercambio/precio.'},
 {sentence:'___ ser un robot, tiene muchas emociones.',options:['Por','Para','De','Con'],correct:1,explanation:'PARA: considerando que es.'},
-{sentence:'Salimos ___ la mañana antes de que amanezca.',options:['por','para','en','a'],correct:0,explanation:'POR: tiempo aproximado.'},
+{sentence:'Salimos ___ la mañana, justo después del desayuno.',options:['por','para','a','de'],correct:0,explanation:'POR: parte del día (por la mañana).'},
 {sentence:'Este láser es ___ cortar metales.',options:['por','para','de','a'],correct:1,explanation:'PARA: propósito/uso.'},
 {sentence:'El capitán fue reemplazado ___ un clon.',options:['por','para','de','con'],correct:0,explanation:'POR: sustitución.'},
 {sentence:'Mandaron un mensaje ___ nosotros desde Neptuno.',options:['por','para','a','de'],correct:1,explanation:'PARA: destinatario.'},
@@ -1390,7 +1507,7 @@ const prepositionExercises = [
 {sentence:'Entrenamos duro ___ la misión a Júpiter.',options:['por','para','de','en'],correct:1,explanation:'PARA: preparación con propósito.'},
 {sentence:'El alien se comunicó ___ telepatía.',options:['por','para','con','de'],correct:0,explanation:'POR: medio.'},
 {sentence:'Dejé mi planeta ___ siempre.',options:['por','para','de','en'],correct:1,explanation:'PARA siempre: expresión fija.'},
-{sentence:'Buscaban ___ toda la galaxia una cura.',options:['por','para','en','a'],correct:0,explanation:'POR: a través de área.'},
+{sentence:'Buscaban ___ toda la galaxia una cura.',options:['por','para','a','de'],correct:0,explanation:'POR: a través de área.'},
 {sentence:'Este portal es ___ viajar en el tiempo.',options:['por','para','de','a'],correct:1,explanation:'PARA: propósito.'},
 {sentence:'Votamos ___ el nuevo comandante de la nave.',options:['por','para','a','de'],correct:0,explanation:'POR: en favor de.'},
 {sentence:'La nave estará lista ___ el martes.',options:['por','para','en','a'],correct:1,explanation:'PARA: fecha límite.'},
@@ -1518,8 +1635,8 @@ const sentences = [
     {text:'Es posible que ___ mañana.',options:['llueve','llueva','llovió','lloverá'],correct:1,explanation:'Es posible que + subjuntivo.'},
     {text:'Quiero que tú ___ conmigo.',options:['vienes','vengas','viniste','vendrás'],correct:1,explanation:'Querer que + subjuntivo.'},
     {text:'Espero que todo ___ bien.',options:['sale','salga','salió','saldrá'],correct:1,explanation:'Esperar que + subjuntivo.'},
-    {text:'Aunque ___ cansado, voy a ir.',options:['estoy','esté','estuve','estaré'],correct:0,explanation:'Aunque + indicativo = certeza.'},
-    {text:'Aunque ___ cansado, iría.',options:['estoy','esté','estuve','estaré'],correct:1,explanation:'Aunque + subjuntivo = hipótesis.'},
+    {text:'(Después de un día larguísimo) Aunque ___ cansado, voy a ir a la fiesta.',options:['estoy','esté','estuve','estaré'],correct:0,explanation:'Aunque + indicativo: sé que estoy cansado, es un hecho.'},
+    {text:'Aunque ___ cansado, iría.',options:['estoy','estuviera','estuve','estaré'],correct:1,explanation:'Aunque + imperfecto de subjuntivo = hipótesis (con condicional: iría).'},
     {text:'Te lo digo para que lo ___.',options:['sabes','sepas','supiste','sabrás'],correct:1,explanation:'Para que + subjuntivo.'},
     {text:'Antes de que ___, quiero hablar contigo.',options:['te vas','te vayas','te fuiste','te irás'],correct:1,explanation:'Antes de que + subjuntivo.'},
     {text:'Después de que ___, cenamos.',options:['llegó','llegara','llega','llegue'],correct:0,explanation:'Después de que + indicativo (pasado).'},
@@ -1527,16 +1644,16 @@ const sentences = [
     {text:'Busco un apartamento que ___ cerca.',options:['está','esté','estuvo','estará'],correct:1,explanation:'Indefinido + subjuntivo.'},
     {text:'Conozco un restaurante que ___ comida mexicana.',options:['sirve','sirva','sirvió','servirá'],correct:0,explanation:'Conocido/definido + indicativo.'},
     {text:'Ojalá ___ venir a la fiesta.',options:['puedes','puedas','pudiste','podrás'],correct:1,explanation:'Ojalá + presente subjuntivo.'},
-    {text:'Ojalá ___ ayer.',options:['venías','vinieras','vienes','vengas'],correct:1,explanation:'Ojalá + imperfecto subjuntivo.'},
+    {text:'Ojalá ___ ayer.',options:['venías','hubieras venido','vienes','vengas'],correct:1,explanation:'Ojalá + pluscuamperfecto de subjuntivo para el pasado.'},
     {text:'Cuando ___ joven, quería ser astronauta.',options:['soy','era','fui','sea'],correct:1,explanation:'Imperfecto para descripciones.'},
     {text:'Ayer ___ todo el día.',options:['llovía','llovió','llueve','lloverá'],correct:1,explanation:'Pretérito: acción completa.'},
     {text:'Mientras yo ___, él cocinaba.',options:['limpiaba','limpié','limpio','limpiaré'],correct:0,explanation:'Imperfecto: acciones simultáneas.'},
     {text:'De niño, siempre ___ helado los domingos.',options:['comía','comí','como','comeré'],correct:0,explanation:'Imperfecto: hábito pasado.'},
     {text:'___ las ocho cuando llegamos.',options:['Eran','Fueron','Son','Serán'],correct:0,explanation:'Imperfecto para hora en pasado.'},
-    {text:'No sabía que tú ___ español.',options:['hablas','hablaras','hablaste','hablarás'],correct:1,explanation:'No sabía que + imperfecto subj.'},
+    {text:'No sabía que tú ___ español.',options:['hablabas','hables','hablaste','hablarás'],correct:0,explanation:'No sabía que + imperfecto: hablabas (era verdad; yo no lo sabía).'},
     {text:'Me pidió que le ___ el libro.',options:['doy','diera','di','daré'],correct:1,explanation:'Pedir que + imperfecto subj.'},
     {text:'Si hubiera sabido, te lo ___ dicho.',options:['había','habría','he','haya'],correct:1,explanation:'Condicional perfecto.'},
-    {text:'Ojalá ___ más temprano.',options:['llegaba','hubiera llegado','llego','llegue'],correct:1,explanation:'Ojalá + pluscuamperfecto subj.'},
+    {text:'Ojalá ___ más temprano; el tren ya se fue.',options:['llegaba','hubiera llegado','llego','llegue'],correct:1,explanation:'Ojalá + pluscuamperfecto de subjuntivo: un deseo sobre el pasado que ya no se puede cambiar.'},
     {text:'Cuando ___ el libro, te lo presto.',options:['termino','termine','terminé','terminaré'],correct:1,explanation:'Cuando + subjuntivo (futuro).'},
     {text:'Es una lástima que no ___ venir.',options:['puedes','puedas','pudiste','podrás'],correct:1,explanation:'Lástima que + subjuntivo.'},
     {text:'Me sorprende que él no ___ aquí.',options:['está','esté','estuvo','estará'],correct:1,explanation:'Sorprender que + subjuntivo.'},
@@ -1553,14 +1670,14 @@ const sentences = [
 {text:'Los aventureros ___ en la taberna cada noche.',options:['reunían','se reunían','reunieron','se reunieron'],correct:1,explanation:'Reunirse es reflexivo, imperfecto para hábito.'},
 {text:'Es importante que el sanador ___ las heridas.',options:['cura','cure','curó','curara'],correct:1,explanation:'Es importante que + subjuntivo.'},
 {text:'No creo que ese cofre ___ oro de verdad.',options:['contiene','contenga','contenía','contuviera'],correct:1,explanation:'No creer que + subjuntivo.'},
-{text:'El caballero ___ muy valiente, nunca huía.',options:['era','estaba','fue','estuvo'],correct:0,explanation:'Ser para característica permanente.'},
-{text:'El dragón ___ dormido cuando entramos a la cueva.',options:['era','estaba','fue','estuvo'],correct:1,explanation:'Estar para estado temporal.'},
+{text:'El caballero ___ muy valiente, nunca huía.',options:['era','estaba','fue','estuvo'],correct:0,explanation:'SER, descripción: su personalidad, así era el caballero.'},
+{text:'El dragón ___ dormido cuando entramos a la cueva.',options:['era','estaba','fue','estuvo'],correct:1,explanation:'ESTAR, estado o condición: el estado en que encontramos al dragón.'},
 {text:'Ayer el paladín ___ a tres trolls él solo.',options:['derrotó','derrotaba','ha derrotado','derrotaría'],correct:0,explanation:'Pretérito para acción completada.'},
-{text:'Nunca ___ a un unicornio, pero dicen que existen.',options:['vi','he visto','veía','vería'],correct:1,explanation:'Presente perfecto para experiencia de vida.'},
+{text:'Nunca ___ a un unicornio, pero dicen que existen.',options:['veo','he visto','veía','vería'],correct:1,explanation:'Presente perfecto para experiencia de vida. (Según la región también se dice: nunca vi un unicornio.)'},
 {text:'Si ___ más pociones ayer, no habríamos muerto.',options:['compramos','compráramos','hubiéramos comprado','compraríamos'],correct:2,explanation:'Si + pluscuamperfecto subjuntivo para pasado irreal.'},
 {text:'El hechicero llevaba tres horas ___ el conjuro.',options:['preparar','preparando','preparado','prepara'],correct:1,explanation:'Llevar + tiempo + gerundio.'},
 {text:'Tan pronto como ___ el sol, los vampiros saldrán.',options:['cae','caiga','cayó','caería'],correct:1,explanation:'Tan pronto como + subjuntivo para futuro.'},
-{text:'Aunque el calabozo ___ peligroso, entramos.',options:['es','sea','era','fuera'],correct:2,explanation:'Aunque + indicativo = hecho real pasado.'},
+{text:'Aunque el calabozo ___ peligroso (ya lo sabíamos), entramos.',options:['es','sea','era','fuera'],correct:2,explanation:'Aunque + indicativo: un hecho que conocíamos.'},
 {text:'Aunque ___ un ejército de orcos, lucharíamos.',options:['hay','haya','había','hubiera'],correct:3,explanation:'Aunque + subjuntivo = hipotético.'},
 {text:'El bárbaro ___ su espada con orgullo.',options:['levanta','se levanta','levantó','se levantó'],correct:0,explanation:'Levantar objeto, no reflexivo.'},
 {text:'El guerrero ___ temprano para entrenar.',options:['levanta','se levanta','levantó','se levantó'],correct:1,explanation:'Levantarse es reflexivo.'},
@@ -1581,7 +1698,7 @@ const sentences = [
 {text:'Después de que ___ al dragón, celebramos.',options:['vencimos','venciéramos','vencemos','venzamos'],correct:0,explanation:'Después de que + indicativo para pasado real.'},
 {text:'Sigue ___ aunque perdiste tu espada.',options:['luchar','luchando','luchado','luchas'],correct:1,explanation:'Seguir + gerundio.'},
 {text:'Si yo ___ el Dungeon Master, habría más dragones.',options:['soy','fuera','era','sea'],correct:1,explanation:'Si + imperfecto subjuntivo.'},
-{text:'¿Ya ___ tu ficha de personaje?',options:['creaste','has creado','creabas','crearías'],correct:1,explanation:'Presente perfecto para acción reciente.'},
+{text:'¿Ya ___ tu ficha de personaje?',options:['crea','has creado','creabas','crearías'],correct:1,explanation:'Presente perfecto para acción reciente. (Según la región también se dice: ¿ya creaste tu ficha?)'},
 {text:'Cuando llegamos, el monstruo ya ___.',options:['escapó','había escapado','escapaba','escaparía'],correct:1,explanation:'Pluscuamperfecto para acción anterior.'},
 {text:'El tabernero nos preguntó si ___ habitación.',options:['queremos','querríamos','queríamos','quisiéramos'],correct:2,explanation:'Discurso indirecto: imperfecto.'},
 {text:'Le prometí al rey que ___ la princesa.',options:['rescato','rescataría','rescataba','rescate'],correct:1,explanation:'Discurso indirecto: condicional.'},
@@ -1590,82 +1707,186 @@ const sentences = [
 {text:'Conozco a un mercader que ___ pociones mágicas.',options:['vende','venda','vendía','vendiera'],correct:0,explanation:'Conocer algo definido + indicativo.'},
 {text:'El clérigo ___ las heridas del guerrero.',options:['curó','se curó','curaba','se curaba'],correct:0,explanation:'Curar a otro, no reflexivo.'},
 {text:'Después de la batalla, el guerrero ___ las heridas.',options:['curó','se curó','curaba','se curaba'],correct:1,explanation:'Curarse a sí mismo, reflexivo.'},
-{text:'Ojalá ___ suficiente oro para comprar esa espada.',options:['tengo','tenga','tuve','tuviera'],correct:3,explanation:'Ojalá + imperfecto subjuntivo para deseo difícil.'}
+{text:'Ojalá ___ suficiente oro para esa espada, pero estoy en la ruina.',options:['tengo','tenga','tuve','tuviera'],correct:3,explanation:'Ojalá + imperfecto de subjuntivo: un deseo que no es posible ahora.'},
+    // COMPLETAR - Indicativo o subjuntivo, en parejas (Oct 2026)
+{text:'(Mirando por la ventana) Aunque ___ a cántaros, voy a salir: tengo paraguas.',options:['llueve','llueva'],correct:0,explanation:'Aunque + indicativo: sé que está lloviendo, es un hecho. Compara: "Aunque llueva mañana, voy a salir" (no sé si va a llover).'},
+{text:'No sé qué tiempo va a hacer mañana, pero aunque ___, voy a salir a caminar.',options:['llueve','llueva'],correct:1,explanation:'Aunque + subjuntivo: no sé si va a llover. Compara: "Aunque llueve a cántaros, voy a salir" (lo estoy viendo).'},
+{text:'Cuando ___ de leer, siempre me cuentas qué pasó.',options:['terminas','termines'],correct:0,explanation:'Cuando + indicativo: algo que pasa siempre (hábito). Compara: "Cuando termines de leer el capítulo, me cuentas" (todavía no ha pasado).'},
+{text:'Cuando ___ de leer el capítulo, me cuentas qué pasó.',options:['terminas','termines'],correct:1,explanation:'Cuando + subjuntivo: algo que todavía no ha pasado. Compara: "Cuando terminas de leer, siempre me cuentas" (hábito).'},
+{text:'Creo que mi amiga ___ a la fiesta; ya compró el vestido.',options:['vendrá','venga'],correct:0,explanation:'Creer que + indicativo: lo afirmo. Compara: "No creo que venga" (lo dudo).'},
+{text:'No creo que mi amiga ___ a la fiesta; odia bailar.',options:['vendrá','venga'],correct:1,explanation:'No creer que + subjuntivo: lo dudo. Compara: "Creo que vendrá" (lo afirmo).'},
+{text:'El médico dice que el paciente ___ mejor hoy.',options:['está','esté'],correct:0,explanation:'Decir que + indicativo = informar. Compara: "El médico dice que descanse" (es una orden: subjuntivo).'},
+{text:'El médico dice que ___ mucho y tome agua.',options:['descansa','descanse'],correct:1,explanation:'Decir que + subjuntivo = pedir u ordenar. Compara: "Dice que el paciente está mejor" (informa).'},
+{text:'Tengo un libro que ___ la historia de Ursúa.',options:['cuenta','cuente'],correct:0,explanation:'Algo que existe + indicativo. Compara: "Busco un libro que cuente..." (no sé si existe).'},
+{text:'Busco un libro que ___ la historia de los castillos medievales.',options:['cuenta','cuente'],correct:1,explanation:'Algo que no sé si existe + subjuntivo. Compara: "Tengo un libro que cuenta..." (existe).'},
+{text:'Es verdad que el dragón ___ en la cueva; yo lo vi.',options:['vive','viva'],correct:0,explanation:'Es verdad que + indicativo: certeza. Compara: "No es verdad que viva ahí" (lo niego).'},
+{text:'No es verdad que el dragón ___ en la cueva; es un cuento para asustar a los niños.',options:['vive','viva'],correct:1,explanation:'No es verdad que + subjuntivo: lo niego. Compara: "Es verdad que vive ahí" (certeza).'}
 ];
 
-// ===== DATOS: ORDEN DE PALABRAS (20 ejercicios) =====
+// ===== DATOS: ORDEN, ¿CUÁL ESTÁ MAL? (70, Oct 2026) =====
+// Four sentences with the same words: three are right, one has an order mistake an English speaker
+// would make. The four are shuffled each time; "type" picks the explanation in ORDEN_TIPOS.
+const ORDEN_TIPOS={
+    A:'El pronombre va antes del verbo conjugado: me levanto, lo quema. En inglés va después (I get up, it burns), en español no.',
+    B:'Nada se mete entre el pronombre y el verbo: la cantan, lo saben.',
+    C:'Nada se mete entre haber y el participio: he visto, ha llegado. En inglés sí (I have never seen), en español no.',
+    D:'Con dos verbos, el pronombre va antes del primero (te lo quiero dar) o pegado al infinitivo (quiero dártelo), nunca en medio.',
+    E:'Con dos pronombres, primero me/te/se/nos y después lo/la: se lo di, me lo contó.',
+    F:'El NO va antes de los pronombres: no lo sé, no me siento bien.',
+    G:'Correcto solo si eres Yoda. En español, el verbo ser va entre el sujeto y lo que se dice de él.'
+};
 const ordenExercises = [
-    {words:['zapatos','nuevos','compré','unos'],correct:'compré unos zapatos nuevos',variations:['compré unos nuevos zapatos']},
-    {words:['está','mi','en','hermana','la','escuela'],correct:'mi hermana está en la escuela',variations:[]},
-    {words:['gusta','mucho','me','el','chocolate'],correct:'me gusta mucho el chocolate',variations:['el chocolate me gusta mucho']},
-    {words:['a','voy','ir','cine','al','mañana'],correct:'voy a ir al cine mañana',variations:['mañana voy a ir al cine']},
-    {words:['casa','grande','una','tienen','muy'],correct:'tienen una casa muy grande',variations:[]},
-    {words:['libro','interesante','un','leyendo','estoy'],correct:'estoy leyendo un libro interesante',variations:[]},
-    {words:['temprano','levanto','me','siempre'],correct:'siempre me levanto temprano',variations:['me levanto temprano siempre']},
-    {words:['roja','la','camisa','prefiero'],correct:'prefiero la camisa roja',variations:[]},
-    {words:['no','español','habla','bien','él'],correct:'él no habla bien español',variations:['él no habla español bien']},
-    {words:['comida','preparó','deliciosa','una','mamá','mi'],correct:'mi mamá preparó una comida deliciosa',variations:[]},
-    {words:['le','el','di','libro','a','María'],correct:'le di el libro a María',variations:['a María le di el libro']},
-    {words:['gustan','no','las','me','verduras'],correct:'no me gustan las verduras',variations:['las verduras no me gustan']},
-    {words:['ayer','vi','la','película','nueva'],correct:'ayer vi la película nueva',variations:['vi la película nueva ayer']},
-    {words:['trabajo','cada','en','el','día','voy'],correct:'cada día voy al trabajo',variations:['voy al trabajo cada día']},
-    {words:['hermoso','un','es','día','hoy'],correct:'hoy es un día hermoso',variations:['es un día hermoso hoy']},
-    {words:['puede','nadie','problema','resolver','el'],correct:'nadie puede resolver el problema',variations:[]},
-    {words:['dónde','sabes','vive','él'],correct:'sabes dónde vive él',variations:['¿sabes dónde vive él?']},
-    {words:['lo','no','sé','todavía'],correct:'todavía no lo sé',variations:['no lo sé todavía']},
-    {words:['comer','vamos','a','juntos'],correct:'vamos a comer juntos',variations:[]},
-    {words:['carta','una','escribió','larga','muy'],correct:'escribió una carta muy larga',variations:[]},
-    // ORDEN DE PALABRAS - Noticias Absurdas (50)
-{words:['dragones','en','aparecen','Mordavia','tres'],correct:'tres dragones aparecen en Mordavia',variations:['aparecen tres dragones en Mordavia']},
-{words:['alcalde','el','de','Fantasmópolis','renunció'],correct:'el alcalde de Fantasmópolis renunció',variations:['renunció el alcalde de Fantasmópolis']},
-{words:['gigante','pulpo','un','ataca','Atlanticia'],correct:'un pulpo gigante ataca Atlanticia',variations:['ataca Atlanticia un pulpo gigante']},
-{words:['llueve','en','chocolate','Dulcilandia'],correct:'llueve chocolate en Dulcilandia',variations:['en Dulcilandia llueve chocolate']},
-{words:['presidente','unicornio','el','de','Arcoiristán','es','un'],correct:'el presidente de Arcoiristán es un unicornio',variations:[]},
-{words:['desaparece','misteriosamente','la','luna','sobre','Nocturnalia'],correct:'la luna desaparece misteriosamente sobre Nocturnalia',variations:[]},
-{words:['robots','los','de','Mecánica','piden','vacaciones'],correct:'los robots de Mecánica piden vacaciones',variations:[]},
-{words:['nuevo','un','volcán','aparece','en','Magmaria'],correct:'un nuevo volcán aparece en Magmaria',variations:['aparece un nuevo volcán en Magmaria']},
-{words:['zombis','bailan','los','de','Necrópolis','salsa'],correct:'los zombis de Necrópolis bailan salsa',variations:[]},
-{words:['prohíben','en','Silencilandia','hablar','alto'],correct:'prohíben hablar alto en Silencilandia',variations:['en Silencilandia prohíben hablar alto']},
-{words:['gigantes','hormigas','invaden','Miniatura'],correct:'hormigas gigantes invaden Miniatura',variations:['invaden Miniatura hormigas gigantes']},
-{words:['rey','el','de','Absurdistán','un','nombra','gato','ministro'],correct:'el rey de Absurdistán nombra un gato ministro',variations:[]},
-{words:['tiburones','voladores','en','avistan','Imposibilia'],correct:'avistan tiburones voladores en Imposibilia',variations:['en Imposibilia avistan tiburones voladores']},
-{words:['terremoto','queso','de','un','sacude','Lactonia'],correct:'un terremoto de queso sacude Lactonia',variations:[]},
-{words:['extraterrestres','los','visitan','Pueblito','Pequeño'],correct:'los extraterrestres visitan Pueblito Pequeño',variations:[]},
-{words:['brujas','las','de','Hechicera','protestan','hoy'],correct:'las brujas de Hechicera protestan hoy',variations:['hoy las brujas de Hechicera protestan']},
-{words:['nuevo','descubren','un','continente','invisible'],correct:'descubren un nuevo continente invisible',variations:['un nuevo continente invisible descubren']},
-{words:['fantasmas','los','de','Espectria','pagan','impuestos','ahora'],correct:'los fantasmas de Espectria ahora pagan impuestos',variations:['ahora los fantasmas de Espectria pagan impuestos']},
-{words:['piratas','regresan','los','a','Bucanería'],correct:'los piratas regresan a Bucanería',variations:['regresan los piratas a Bucanería']},
-{words:['vampiros','donan','los','de','Sanguinia','sangre'],correct:'los vampiros de Sanguinia donan sangre',variations:[]},
-{words:['científicos','crean','de','Laboratorvia','monstruo','un'],correct:'científicos de Laboratorvia crean un monstruo',variations:[]},
-{words:['sirenas','las','de','Maristán','protegen','océano','el'],correct:'las sirenas de Maristán protegen el océano',variations:[]},
-{words:['árbol','un','parlante','encuentran','en','Florestia'],correct:'encuentran un árbol parlante en Florestia',variations:['en Florestia encuentran un árbol parlante']},
-{words:['elfos','los','declaran','de','Boscania','independencia'],correct:'los elfos de Boscania declaran independencia',variations:[]},
-{words:['ovnis','aterrizan','tres','en','Granjelandia'],correct:'tres ovnis aterrizan en Granjelandia',variations:['aterrizan tres ovnis en Granjelandia']},
-{words:['momia','una','despierta','museo','el','en','de','Egiptonia'],correct:'una momia despierta en el museo de Egiptonia',variations:[]},
-{words:['nieva','verano','en','en','Tropicalia'],correct:'nieva en verano en Tropicalia',variations:['en Tropicalia nieva en verano']},
-{words:['gigante','una','araña','teje','ciudad','una','en','Aracnia'],correct:'una araña gigante teje una ciudad en Aracnia',variations:[]},
-{words:['duendes','los','de','Mágica','abren','banco','un'],correct:'los duendes de Mágica abren un banco',variations:[]},
-{words:['plantas','carnívoras','las','de','Junglandia','votan'],correct:'las plantas carnívoras de Junglandia votan',variations:[]},
-{words:['yetis','los','de','Nevadia','ganan','mundial','el'],correct:'los yetis de Nevadia ganan el mundial',variations:[]},
-{words:['tornado','un','de','gatos','azota','Felinópolis'],correct:'un tornado de gatos azota Felinópolis',variations:[]},
-{words:['hadas','las','de','Cristalia','construyen','hospital','un'],correct:'las hadas de Cristalia construyen un hospital',variations:[]},
-{words:['kraken','el','de','Profundistán','pide','disculpas'],correct:'el kraken de Profundistán pide disculpas',variations:[]},
-{words:['muertos','los','de','Cementerópolis','celebran','festival','un'],correct:'los muertos de Cementerópolis celebran un festival',variations:[]},
-{words:['ogros','los','de','Pantanesia','abren','restaurante','un'],correct:'los ogros de Pantanesia abren un restaurante',variations:[]},
-{words:['hombre','un','lobo','de','Licantropía','gana','lotería','la'],correct:'un hombre lobo de Licantropía gana la lotería',variations:[]},
-{words:['centauros','los','protestan','de','Equinia','hoy'],correct:'los centauros de Equinia protestan hoy',variations:['hoy los centauros de Equinia protestan']},
-{words:['cíclope','un','de','Gigantia','es','nuevo','alcalde','el'],correct:'un cíclope de Gigantia es el nuevo alcalde',variations:[]},
-{words:['magos','los','de','Encantaria','prohíben','magia','la'],correct:'los magos de Encantaria prohíben la magia',variations:[]},
-{words:['trol','un','de','Puentia','cobra','peaje'],correct:'un trol de Puentia cobra peaje',variations:[]},
-{words:['goblins','los','de','Minería','encuentran','oro'],correct:'los goblins de Minería encuentran oro',variations:['encuentran oro los goblins de Minería']},
-{words:['fénix','un','renace','en','Cenizópolis','hoy'],correct:'un fénix renace en Cenizópolis hoy',variations:['hoy un fénix renace en Cenizópolis']},
-{words:['medusa','una','de','Petricoria','abre','salón','belleza','de'],correct:'una medusa de Petricoria abre salón de belleza',variations:[]},
-{words:['genio','un','de','Lamparia','concede','deseos','gratis'],correct:'un genio de Lamparia concede deseos gratis',variations:[]},
-{words:['ninjas','los','invisibles','de','Sombría','aparecen'],correct:'los ninjas invisibles de Sombría aparecen',variations:['aparecen los ninjas invisibles de Sombría']},
-{words:['bruja','la','de','Caldería','inventa','sopa','nueva','una'],correct:'la bruja de Caldería inventa una sopa nueva',variations:['la bruja de Caldería inventa una nueva sopa']},
-{words:['esqueletos','los','de','Osaria','forman','banda','una'],correct:'los esqueletos de Osaria forman una banda',variations:[]},
-{words:['grifo','un','de','Aérea','inaugura','aeropuerto','el'],correct:'un grifo de Aérea inaugura el aeropuerto',variations:[]},
-{words:['cíclope','el','de','Monóculo','necesita','lentes'],correct:'el cíclope de Monóculo necesita lentes',variations:[]}
+{type:'A',ok:['Siempre me levanto temprano.','Me levanto temprano siempre.','Me levanto siempre temprano.'],bad:'Siempre levanto me temprano.'},
+{type:'A',ok:['Mañana te lo explico en clase.','Te lo explico mañana en clase.','En clase te lo explico mañana.'],bad:'Mañana te explico lo en clase.'},
+{type:'C',ok:['Nunca he visto un dragón en el bosque.','En el bosque nunca he visto un dragón.','Nunca he visto en el bosque un dragón.'],bad:'He nunca visto un dragón en el bosque.'},
+{type:'D',ok:['Voy a levantarme temprano mañana.','Mañana voy a levantarme temprano.','Mañana me voy a levantar temprano.'],bad:'Mañana voy a me levantar temprano.'},
+{type:'E',ok:['Se lo di a María ayer.','Ayer se lo di a María.','A María se lo di ayer.'],bad:'Ayer lo se di a María.'},
+{type:'F',ok:['La verdad, todavía no lo sé.','Todavía no lo sé, la verdad.','La verdad, no lo sé todavía.'],bad:'La verdad, todavía lo no sé.'},
+{type:'G',ok:['Un cíclope es el nuevo alcalde de Gigantia.','El nuevo alcalde de Gigantia es un cíclope.','Es un cíclope el nuevo alcalde de Gigantia.'],bad:'Un cíclope el nuevo alcalde de Gigantia es.'},
+{type:'A',ok:['El dragón lo quema todo.','El dragón todo lo quema.','Todo lo quema el dragón.'],bad:'El dragón quema lo todo.'},
+{type:'B',ok:['Los elfos siempre la cantan en otoño.','En otoño los elfos siempre la cantan.','Los elfos la cantan siempre en otoño.'],bad:'Los elfos la siempre cantan en otoño.'},
+{type:'C',ok:['Los piratas ya han llegado al puerto.','Los piratas han llegado ya al puerto.','Ya han llegado los piratas al puerto.'],bad:'Los piratas han ya llegado al puerto.'},
+{type:'D',ok:['La bruja quiere dártelo esta noche.','La bruja te lo quiere dar esta noche.','Esta noche la bruja quiere dártelo.'],bad:'La bruja quiere te lo dar esta noche.'},
+{type:'E',ok:['El rey me lo contó anoche.','Anoche el rey me lo contó.','Anoche me lo contó el rey.'],bad:'El rey lo me contó anoche.'},
+{type:'F',ok:['El mago no lo encontró en la torre.','En la torre el mago no lo encontró.','No lo encontró el mago en la torre.'],bad:'El mago lo no encontró en la torre.'},
+{type:'A',ok:['Mi abuela me cuenta historias cada noche.','Cada noche mi abuela me cuenta historias.','Mi abuela cada noche me cuenta historias.'],bad:'Mi abuela cuenta me historias cada noche.'},
+{type:'C',ok:['Esta semana ya he leído dos capítulos.','Ya he leído dos capítulos esta semana.','Esta semana he leído ya dos capítulos.'],bad:'Esta semana he ya leído dos capítulos.'},
+{type:'D',ok:['Tengo que decírselo hoy.','Hoy tengo que decírselo.','Se lo tengo que decir hoy.'],bad:'Tengo que se lo decir hoy.'},
+{type:'A',ok:['La princesa lo lee todos los viernes.','Todos los viernes la princesa lo lee.','Lo lee la princesa todos los viernes.'],bad:'La princesa lee lo todos los viernes.'},
+{type:'B',ok:['El caballero también la conoce.','También la conoce el caballero.','El caballero la conoce también.'],bad:'El caballero la también conoce.'},
+{type:'C',ok:['El tren ya ha salido de la estación.','Ya ha salido el tren de la estación.','El tren ha salido ya de la estación.'],bad:'El tren ha ya salido de la estación.'},
+{type:'E',ok:['¿Me lo prestas el lunes, por favor?','¿El lunes me lo prestas, por favor?','Por favor, ¿me lo prestas el lunes?'],bad:'¿Lo me prestas el lunes, por favor?'},
+{type:'A',ok:['Los ogros me invitan a cenar los domingos.','Los domingos los ogros me invitan a cenar.','Los ogros los domingos me invitan a cenar.'],bad:'Los ogros invitan me a cenar los domingos.'},
+{type:'B',ok:['Mi gata siempre me despierta a las cinco.','A las cinco mi gata siempre me despierta.','Mi gata me despierta siempre a las cinco.'],bad:'Mi gata me siempre despierta a las cinco.'},
+{type:'C',ok:['Este año he viajado dos veces a México.','He viajado dos veces a México este año.','Este año he viajado a México dos veces.'],bad:'Este año he dos veces viajado a México.'},
+{type:'D',ok:['Vamos a contárselo mañana.','Mañana vamos a contárselo.','Se lo vamos a contar mañana.'],bad:'Vamos a se lo contar mañana.'},
+{type:'E',ok:['La reina se lo regaló en su cumpleaños.','En su cumpleaños la reina se lo regaló.','Se lo regaló la reina en su cumpleaños.'],bad:'La reina lo se regaló en su cumpleaños.'},
+{type:'F',ok:['Yo todavía no la conozco.','Yo no la conozco todavía.','Todavía no la conozco yo.'],bad:'Yo la no conozco todavía.'},
+{type:'A',ok:['El bardo nos canta una canción cada noche.','Cada noche el bardo nos canta una canción.','El bardo cada noche nos canta una canción.'],bad:'El bardo canta nos una canción cada noche.'},
+{type:'B',ok:['Los niños ya lo saben.','Ya lo saben los niños.','Los niños lo saben ya.'],bad:'Los niños lo ya saben.'},
+{type:'C',ok:['El herrero ha terminado por fin la espada.','Por fin el herrero ha terminado la espada.','El herrero por fin ha terminado la espada.'],bad:'El herrero ha por fin terminado la espada.'},
+{type:'D',ok:['Puedes llamarme después de la cena.','Después de la cena puedes llamarme.','Me puedes llamar después de la cena.'],bad:'Puedes me llamar después de la cena.'},
+{type:'E',ok:['El mago te lo enseña mañana.','Mañana el mago te lo enseña.','Mañana te lo enseña el mago.'],bad:'El mago lo te enseña mañana.'},
+{type:'F',ok:['Los guardias no nos vieron anoche.','Anoche los guardias no nos vieron.','No nos vieron los guardias anoche.'],bad:'Los guardias nos no vieron anoche.'},
+{type:'A',ok:['La profesora nos da tarea los jueves.','Los jueves la profesora nos da tarea.','La profesora los jueves nos da tarea.'],bad:'La profesora da nos tarea los jueves.'},
+{type:'B',ok:['Mi hermano también me escribe cartas.','También me escribe cartas mi hermano.','Mi hermano me escribe cartas también.'],bad:'Mi hermano me también escribe cartas.'},
+{type:'C',ok:['Los aventureros ya han encontrado el tesoro.','Ya han encontrado el tesoro los aventureros.','Los aventureros han encontrado ya el tesoro.'],bad:'Los aventureros han ya encontrado el tesoro.'},
+{type:'D',ok:['Quiero verte antes del viaje.','Antes del viaje quiero verte.','Te quiero ver antes del viaje.'],bad:'Quiero te ver antes del viaje.'},
+{type:'E',ok:['El dragón nos lo robó todo.','Todo nos lo robó el dragón.','El dragón todo nos lo robó.'],bad:'El dragón lo nos robó todo.'},
+{type:'F',ok:['La verdad, hoy no me siento bien.','Hoy, la verdad, no me siento bien.','La verdad, no me siento bien hoy.'],bad:'La verdad, hoy me no siento bien.'},
+{type:'A',ok:['El guardia les abre la puerta a los viajeros.','A los viajeros el guardia les abre la puerta.','El guardia a los viajeros les abre la puerta.'],bad:'El guardia abre les la puerta a los viajeros.'},
+{type:'B',ok:['La sanadora siempre nos cura las heridas.','La sanadora nos cura siempre las heridas.','Siempre nos cura las heridas la sanadora.'],bad:'La sanadora nos siempre cura las heridas.'},
+{type:'C',ok:['Mi vecino ha comprado finalmente un carro.','Finalmente mi vecino ha comprado un carro.','Mi vecino finalmente ha comprado un carro.'],bad:'Mi vecino ha finalmente comprado un carro.'},
+{type:'D',ok:['Necesito hablarte de algo importante.','Te necesito hablar de algo importante.','De algo importante necesito hablarte.'],bad:'Necesito te hablar de algo importante.'},
+{type:'E',ok:['Mi mamá me la compró en el mercado.','En el mercado mi mamá me la compró.','Me la compró mi mamá en el mercado.'],bad:'Mi mamá la me compró en el mercado.'},
+{type:'F',ok:['El niño no lo quiere comer.','El niño no quiere comerlo.','No lo quiere comer el niño.'],bad:'El niño lo no quiere comer.'},
+{type:'A',ok:['Por la tarde el viento nos trae el olor del mar.','El viento nos trae el olor del mar por la tarde.','El viento por la tarde nos trae el olor del mar.'],bad:'Por la tarde el viento trae nos el olor del mar.'},
+{type:'B',ok:['Los gatos ya me conocen.','Ya me conocen los gatos.','Los gatos me conocen ya.'],bad:'Los gatos me ya conocen.'},
+{type:'C',ok:['Ella siempre ha vivido en este castillo.','Ella ha vivido siempre en este castillo.','Siempre ha vivido ella en este castillo.'],bad:'Ella ha siempre vivido en este castillo.'},
+{type:'D',ok:['Deberías llamarla esta noche.','Esta noche deberías llamarla.','La deberías llamar esta noche.'],bad:'Deberías la llamar esta noche.'},
+{type:'E',ok:['El juglar se la cantó a la reina.','A la reina se la cantó el juglar.','El juglar a la reina se la cantó.'],bad:'El juglar la se cantó a la reina.'},
+{type:'F',ok:['Mis padres no me dejan salir de noche.','De noche mis padres no me dejan salir.','No me dejan salir de noche mis padres.'],bad:'Mis padres me no dejan salir de noche.'},
+{type:'G',ok:['Un unicornio es el presidente de Arcoiristán.','El presidente de Arcoiristán es un unicornio.','Es un unicornio el presidente de Arcoiristán.'],bad:'El presidente de Arcoiristán un unicornio es.'},
+{type:'G',ok:['Un gato es el nuevo ministro de Absurdistán.','El nuevo ministro de Absurdistán es un gato.','Es un gato el nuevo ministro de Absurdistán.'],bad:'El nuevo ministro de Absurdistán un gato es.'},
+{type:'A',ok:['La lechuza nos visita todas las noches.','Todas las noches la lechuza nos visita.','Todas las noches nos visita la lechuza.'],bad:'La lechuza visita nos todas las noches.'},
+{type:'B',ok:['El príncipe todavía la recuerda.','Todavía la recuerda el príncipe.','El príncipe la recuerda todavía.'],bad:'El príncipe la todavía recuerda.'},
+{type:'C',ok:['Los magos han prohibido otra vez la magia.','Otra vez los magos han prohibido la magia.','Los magos han prohibido la magia otra vez.'],bad:'Los magos han otra vez prohibido la magia.'},
+{type:'D',ok:['Van a construirla en la montaña.','En la montaña van a construirla.','La van a construir en la montaña.'],bad:'Van a la construir en la montaña.'},
+{type:'E',ok:['El trol nos lo cobró dos veces.','Dos veces nos lo cobró el trol.','Nos lo cobró dos veces el trol.'],bad:'El trol lo nos cobró dos veces.'},
+{type:'F',ok:['La momia no se despertó hasta la medianoche.','Hasta la medianoche la momia no se despertó.','No se despertó la momia hasta la medianoche.'],bad:'La momia se no despertó hasta la medianoche.'},
+{type:'A',ok:['El genio te concede tres deseos hoy.','Hoy el genio te concede tres deseos.','Hoy te concede el genio tres deseos.'],bad:'El genio concede te tres deseos hoy.'},
+{type:'B',ok:['Los centauros a veces nos ayudan.','A veces nos ayudan los centauros.','Los centauros nos ayudan a veces.'],bad:'Los centauros nos a veces ayudan.'},
+{type:'C',ok:['Los yetis han ganado por primera vez el mundial.','Por primera vez los yetis han ganado el mundial.','Los yetis han ganado el mundial por primera vez.'],bad:'Los yetis han por primera vez ganado el mundial.'},
+{type:'D',ok:['Puedo prestártelo esta tarde.','Esta tarde puedo prestártelo.','Te lo puedo prestar esta tarde.'],bad:'Puedo te lo prestar esta tarde.'},
+{type:'E',ok:['La médium se lo reveló a la familia.','A la familia se lo reveló la médium.','La médium a la familia se lo reveló.'],bad:'La médium lo se reveló a la familia.'},
+{type:'F',ok:['Esta vez el fénix no se rinde.','El fénix no se rinde esta vez.','Esta vez no se rinde el fénix.'],bad:'Esta vez el fénix se no rinde.'},
+{type:'A',ok:['La medusa les vende espejos a los turistas.','A los turistas la medusa les vende espejos.','La medusa a los turistas les vende espejos.'],bad:'La medusa vende les espejos a los turistas.'},
+{type:'B',ok:['Los ninjas casi siempre nos encuentran.','Casi siempre nos encuentran los ninjas.','Los ninjas nos encuentran casi siempre.'],bad:'Los ninjas nos casi siempre encuentran.'},
+{type:'C',ok:['La bruja ha inventado hoy una sopa nueva.','Hoy la bruja ha inventado una sopa nueva.','La bruja ha inventado una sopa nueva hoy.'],bad:'La bruja ha hoy inventado una sopa nueva.'},
+{type:'D',ok:['Quieren enseñarnos a bailar.','Nos quieren enseñar a bailar.','A bailar quieren enseñarnos.'],bad:'Quieren nos enseñar a bailar.'},
+{type:'E',ok:['El grifo me lo trajo volando.','Volando me lo trajo el grifo.','Me lo trajo volando el grifo.'],bad:'El grifo lo me trajo volando.'},
+{type:'F',ok:['El cíclope no los encuentra sin lentes.','Sin lentes el cíclope no los encuentra.','No los encuentra el cíclope sin lentes.'],bad:'El cíclope los no encuentra sin lentes.'}
+];
+
+// ===== DATOS: MANDATOS (70, Oct 2026) =====
+const mandatosExercises = [
+    // TÚ afirmativo, regulares
+{text:'El maestro le dice a su aprendiz (tú): "___ la puerta del laboratorio, por favor."',options:['Cierra','Cierres'],correct:0,explanation:'Tú afirmativo = como él/ella en presente: cierra. Cierres es para el negativo: no cierres.'},
+{text:'La reina le dice a su paje (tú): "___ esta carta al castillo del norte."',options:['Lleva','Lleves'],correct:0,explanation:'Tú afirmativo: lleva. Lleves es para el negativo: no lleves.'},
+{text:'El bardo le dice a su aprendiz (tú): "___ más fuerte, que no te oyen al fondo de la taberna."',options:['Canta','Cantes'],correct:0,explanation:'Tú afirmativo: canta. Cantes es para el negativo: no cantes.'},
+{text:'La sanadora le dice al guerrero herido (tú): "___ esta poción despacio."',options:['Bebe','Bebas'],correct:0,explanation:'Tú afirmativo: bebe. Bebas es para el negativo: no bebas.'},
+{text:'El mago le dice a su aprendiz (tú): "___ el hechizo en tu libro para no olvidarlo."',options:['Escribe','Escribas'],correct:0,explanation:'Tú afirmativo: escribe. Escribas es para el negativo: no escribas.'},
+{text:'La capitana le dice al grumete (tú): "___ el mapa con cuidado; es muy viejo."',options:['Abre','Abras'],correct:0,explanation:'Tú afirmativo: abre. Abras es para el negativo: no abras.'},
+{text:'El herrero le dice a su ayudante (tú): "___ más carbón para el fuego."',options:['Trae','Traigas'],correct:0,explanation:'Tú afirmativo: trae. Traigas es para el negativo: no traigas.'},
+{text:'La abuela le dice a su nieta (tú): "___ la sopa y dime si le falta sal."',options:['Prueba','Pruebes'],correct:0,explanation:'Tú afirmativo: prueba. Pruebes es para el negativo: no pruebes.'},
+{text:'El anciano le dice al viajero (tú): "___ este mapa; te va a servir en el bosque."',options:['Toma','Tomas','Tomes'],correct:0,explanation:'Tú afirmativo: toma. Tomas = presente (you take); tomes = negativo (no tomes).'},
+{text:'La maga le dice a su aprendiz (tú): "___ tu varita y concéntrate."',options:['Saca','Sacas','Saques'],correct:0,explanation:'Tú afirmativo: saca. Sacas = presente; saques = negativo (no saques).'},
+    // TÚ afirmativo, irregulares
+{text:'El caballero le dice a su escudero (tú): "___ aquí inmediatamente."',options:['Ven','Vienes','Venga'],correct:0,explanation:'VENIR → ven (irregular). Vienes = presente; venga = usted.'},
+{text:'El juez le dice al ladrón (tú): "___ la verdad: ¿quién robó el tesoro?"',options:['Di','Dice','Digas'],correct:0,explanation:'DECIR → di (irregular). Dice = él/ella; digas = negativo (no digas).'},
+{text:'La madre le dice a su hijo (tú): "___ la tarea antes de jugar."',options:['Haz','Hace','Hagas'],correct:0,explanation:'HACER → haz (irregular). Hace = él/ella; hagas = negativo (no hagas).'},
+{text:'El rey le dice al mensajero (tú): "___ al pueblo y avisa que viene el dragón."',options:['Ve','Vas','Vayas'],correct:0,explanation:'IR → ve (irregular). Vas = presente; vayas = negativo (no vayas).'},
+{text:'La cocinera le dice a su ayudante (tú): "___ la mesa, que ya llegan los invitados."',options:['Pon','Pone','Pongas'],correct:0,explanation:'PONER → pon (irregular). Pone = él/ella; pongas = negativo (no pongas).'},
+{text:'El guardia le grita al intruso (tú): "¡___ de aquí ahora mismo!"',options:['Sal','Sale','Salgas'],correct:0,explanation:'SALIR → sal (irregular). Sale = él/ella; salgas = negativo (no salgas).'},
+{text:'El padre le dice a su hija antes del torneo (tú): "___ valiente, pero no imprudente."',options:['Sé','Eres','Seas'],correct:0,explanation:'SER → sé (irregular, con tilde para no confundirlo con se). Seas = negativo (no seas).'},
+{text:'La sanadora le dice al paciente (tú): "___ paciencia; la herida tarda en sanar."',options:['Ten','Tienes','Tengas'],correct:0,explanation:'TENER → ten (irregular). Tienes = presente; tengas = negativo (no tengas).'},
+    // TÚ negativo
+{text:'El maestro le dice a su aprendiz (tú): "No ___ ese libro; está maldito."',options:['abre','abras'],correct:1,explanation:'Tú negativo = no + subjuntivo: no abras. Compara: Abre el libro (afirmativo).'},
+{text:'La reina le dice a su paje (tú): "No ___ nada de esto a nadie."',options:['di','digas','dices'],correct:1,explanation:'Tú negativo: no digas. Compara: Di la verdad (afirmativo).'},
+{text:'La posadera le dice al viajero (tú): "No ___ tarde; cerramos las puertas al anochecer."',options:['llegas','llegues'],correct:1,explanation:'Tú negativo: no llegues. Llegas es el presente.'},
+{text:'El capitán le dice al grumete (tú): "No ___ solo al bosque de noche."',options:['ve','vayas','vas'],correct:1,explanation:'IR: ve → no vayas.'},
+{text:'La madre le dice al niño (tú): "No ___ las manos cerca del fuego."',options:['pon','pongas'],correct:1,explanation:'PONER: pon → no pongas.'},
+{text:'El mago le dice a su aprendiz (tú): "No ___ ruido; el dragón está dormido."',options:['haz','hagas'],correct:1,explanation:'HACER: haz → no hagas.'},
+{text:'La guardiana le dice al explorador (tú): "No ___ de la torre hasta que amanezca."',options:['sal','salgas'],correct:1,explanation:'SALIR: sal → no salgas.'},
+{text:'El padre le dice a su hijo (tú): "No ___ tan terco; escucha a tu hermana."',options:['seas','eres','sé'],correct:0,explanation:'SER: sé → no seas.'},
+{text:'La sanadora le dice al niño (tú): "No ___ miedo; la medicina no duele."',options:['ten','tengas'],correct:1,explanation:'TENER: ten → no tengas.'},
+{text:'El bibliotecario le dice al estudiante (tú): "No ___ en los libros antiguos."',options:['escribe','escribas'],correct:1,explanation:'Tú negativo: no escribas. Compara: Escribe en tu cuaderno (afirmativo).'},
+{text:'La cocinera le dice a su ayudante (tú): "No ___ la sopa todavía; le falta sal."',options:['sirve','sirvas'],correct:1,explanation:'SERVIR: sirve → no sirvas.'},
+{text:'El caballero le dice a su escudero (tú): "No ___ la espada así; te vas a cortar."',options:['tomas','tomes'],correct:1,explanation:'Tú negativo: no tomes. Tomas es el presente.'},
+    // USTED
+{text:'El posadero le dice a un viajero (usted): "___, por favor; la sopa está lista."',options:['Siéntese','Siéntate'],correct:0,explanation:'Usted: siéntese. Tú: siéntate.'},
+{text:'El médico le dice a la paciente (usted): "___ esta pastilla cada ocho horas."',options:['Tome','Toma','Tomes'],correct:0,explanation:'Usted afirmativo = subjuntivo: tome. Toma es tú.'},
+{text:'La secretaria le dice al señor (usted): "___ aquí, por favor."',options:['Firme','Firma'],correct:0,explanation:'Usted: firme. Firma es tú.'},
+{text:'El guardia le dice al anciano (usted): "No se ___; yo lo acompaño hasta la puerta."',options:['preocupe','preocupa','preocupes'],correct:0,explanation:'Usted: no se preocupe. Tú: no te preocupes.'},
+{text:'La vendedora le dice a la clienta (usted): "___ lo que quiera; todo está en oferta."',options:['Escoja','Escoge'],correct:0,explanation:'Usted: escoja. Escoge es tú.'},
+{text:'El juez le dice al testigo (usted): "___ la verdad, nada más que la verdad."',options:['Diga','Di','Dice'],correct:0,explanation:'DECIR, usted: diga. Di es tú; dice es el presente.'},
+{text:'El rey le dice al embajador (usted): "___ a su país y lleve este mensaje."',options:['Vuelva','Vuelve'],correct:0,explanation:'Usted: vuelva. Vuelve es tú.'},
+{text:'La enfermera le dice al paciente (usted): "No ___ nada antes del examen."',options:['coma','come','comas'],correct:0,explanation:'Usted negativo: no coma. Tú: no comas.'},
+{text:'El conductor le dice al pasajero (usted): "No ___ la cabeza por la ventana."',options:['saque','saca','saques'],correct:0,explanation:'Usted negativo: no saque. Tú: no saques.'},
+{text:'La profesora le dice a un papá (usted): "___ a la reunión del jueves, por favor."',options:['Venga','Ven','Viene'],correct:0,explanation:'VENIR, usted: venga. Ven es tú; viene es el presente.'},
+    // USTEDES
+{text:'La capitana les dice a los marineros (ustedes): "¡___ las velas!"',options:['Icen','Izan','Izad'],correct:0,explanation:'IZAR, ustedes = subjuntivo: icen (la z cambia a c antes de e). Izan es el presente; izad es vosotros (España).'},
+{text:'El maestro les dice a los aprendices (ustedes): "___ en silencio y escuchen."',options:['Siéntense','Siéntanse','Se sientan'],correct:0,explanation:'Ustedes: sienten + se = siéntense. El pronombre va al final, después de la -n.'},
+{text:'La reina les dice a los guardias (ustedes): "No ___ entrar a nadie."',options:['dejen','dejan'],correct:0,explanation:'Ustedes negativo: no dejen. Dejan es el presente.'},
+{text:'El chef les dice a sus ayudantes (ustedes): "___ las manos antes de cocinar."',options:['Lávense','Lávanse','Se lavan'],correct:0,explanation:'Ustedes: laven + se = lávense.'},
+{text:'El guía les dice a los turistas (ustedes): "No se ___ del grupo en el bosque."',options:['separen','separan'],correct:0,explanation:'Ustedes negativo: no se separen. Separan es el presente.'},
+{text:'La abuela les dice a sus nietos (ustedes): "___ a comer, que se enfría."',options:['Vengan','Vienen','Venid'],correct:0,explanation:'VENIR, ustedes: vengan. Vienen es el presente; venid es vosotros (España).'},
+    // NOSOTROS
+{text:'El capitán le dice a su tripulación (nosotros): "¡___ al puerto antes de la tormenta!" (let\'s go)',options:['Vamos','Vayan'],correct:0,explanation:'IR, nosotros: vamos. Vayan es ustedes.'},
+{text:'Los aventureros se dicen (nosotros): "Ya es tarde. ¡___!" (let\'s leave)',options:['Vámonos','Vamosnos'],correct:0,explanation:'Vamos + nos = vámonos: se cae la s.'},
+{text:'La druida le dice al grupo (nosotros): "___ aquí a descansar un rato." (let\'s sit)',options:['Sentémonos','Sentemosnos'],correct:0,explanation:'Sentemos + nos = sentémonos: se cae la s.'},
+{text:'El bardo dice en la taberna (nosotros): "¡___ por la victoria!" (let\'s toast)',options:['Brindemos','Brindamos'],correct:0,explanation:'Nosotros = subjuntivo: brindemos. Brindamos es el presente (we toast).'},
+{text:'El mago le dice al grupo (nosotros): "No ___ el mapa; lo vamos a necesitar." (let\'s not lose)',options:['perdamos','perdemos'],correct:0,explanation:'Nosotros negativo: no perdamos. Perdemos es el presente.'},
+{text:'La exploradora le dice al grupo (nosotros): "___ el río por el puente, no a nado." (let\'s cross)',options:['Crucemos','Cruzamos'],correct:0,explanation:'Nosotros: crucemos (la z cambia a c antes de e). Cruzamos es el presente.'},
+    // PRONOMBRES: pegados en el afirmativo, antes del verbo en el negativo
+{text:'El rey le dice al mensajero (tú): "Si sabes el secreto, ___." (tell it to me)',options:['dímelo','me lo di','dimelo'],correct:0,explanation:'Afirmativo: los pronombres van pegados al final: di + me + lo = dímelo (con tilde).'},
+{text:'El rey le dice al mensajero (tú): "Si es un secreto, ___." (don\'t tell it to me)',options:['no me lo digas','no dímelo'],correct:0,explanation:'Negativo: los pronombres van antes del verbo: no me lo digas.'},
+{text:'La madre le dice al niño (tú): "___; ya es tarde." (go to bed)',options:['Acuéstate','Te acuestas','Acuéstese'],correct:0,explanation:'Tú afirmativo: acuesta + te = acuéstate. Acuéstese es usted.'},
+{text:'La madre le dice al niño (tú): "No ___ todavía; primero lávate los dientes." (don\'t go to bed)',options:['te acuestes','acuéstate'],correct:0,explanation:'Negativo: el pronombre va antes: no te acuestes.'},
+{text:'El maestro le dice a su aprendiz (tú): "___ derecho; un mago no se encorva." (sit)',options:['Siéntate','Siéntete'],correct:0,explanation:'Siéntate = sit (sentarse). Siéntete = feel (sentirse): siéntete en casa.'},
+{text:'La posadera le dice al viajero (tú): "___ como en tu casa." (feel)',options:['Siéntete','Siéntate'],correct:0,explanation:'Siéntete = feel (sentirse). Siéntate = sit (sentarse).'},
+{text:'El caballero le dice a su escudero (tú): "Esa espada es mía. ___ ahora." (give it to me)',options:['Dámela','Dame la','Damela'],correct:0,explanation:'Da + me + la = dámela (todo junto y con tilde).'},
+{text:'El caballero le dice a su escudero (tú): "No ___ a nadie; es la espada del rey." (don\'t give it)',options:['se la des','dásela','le la des'],correct:0,explanation:'Negativo: pronombres antes del verbo: no se la des. (Le + la cambia a se la.)'},
+{text:'La cocinera le dice a su ayudante (tú): "Las papas están crudas. ___ al fuego otra vez." (put them)',options:['Ponlas','Las pon'],correct:0,explanation:'Afirmativo: pon + las = ponlas.'},
+{text:'El médico le dice al paciente (usted): "Esta pastilla, ___ con agua." (take it)',options:['tómela','la tome','tómala'],correct:0,explanation:'Usted afirmativo: tome + la = tómela. Tómala es tú.'},
+{text:'El médico le dice al paciente (usted): "Y por favor, no ___ con alcohol." (don\'t take it)',options:['la tome','tómela'],correct:0,explanation:'Usted negativo: el pronombre va antes: no la tome.'},
+{text:'La reina les dice a los guardias (ustedes): "El prisionero escapó. ¡___!" (find him)',options:['Búsquenlo','Lo busquen','Búscanlo'],correct:0,explanation:'Ustedes afirmativo: busquen + lo = búsquenlo.'},
+{text:'El maestro le dice a su aprendiz (tú): "Ese libro es peligroso. ___." (don\'t open it)',options:['No lo abras','No ábrelo'],correct:0,explanation:'Negativo: el pronombre va antes: no lo abras.'},
+{text:'La abuela le dice a su nieto (tú): "Tu abrigo está en la silla. ___; hace frío." (put it on)',options:['Póntelo','Te lo pones','Pónmelo'],correct:0,explanation:'Pon + te + lo = póntelo. Pónmelo sería ponérmelo a mí.'},
+{text:'El guardia le dice al viajero (tú): "___ cuidado con los lobos en el camino." (be careful)',options:['Ten','Haz','Sé'],correct:0,explanation:'TENER cuidado → ten cuidado.'},
+{text:'La maestra le dice a la niña (tú): "___ buena con tu hermanito." (be good)',options:['Sé','Seas','Eres'],correct:0,explanation:'SER, tú afirmativo: sé. Seas es el negativo: no seas.'},
+{text:'El capitán le dice al grumete (tú): "___ quieto; viene un barco pirata." (stay still)',options:['Quédate','Te quedas','Quédese'],correct:0,explanation:'Tú: queda + te = quédate. Quédese es usted.'},
+{text:'El rey le dice a su hija (tú): "Hija, ___ y deja de llorar." (calm down)',options:['cálmate','te calmas','cálmese'],correct:0,explanation:'Tú: calma + te = cálmate. Cálmese es usted.'}
 ];
 
 // ===== DATOS: FLASHCARDS (200+ con vocabulario moderno) =====
@@ -1944,9 +2165,9 @@ const flashcards = [
 // ===== ESTADO Y VARIABLES =====
 let currentVerb=null,currentSentence=null,currentFlashcard=0,currentPreposition=null,currentObject=null;
 let currentOrden=null,currentSerEstar=null,currentRegimen=null,currentPedir=null;
-let currentMovimiento=null,currentCalcos=null,currentAPersonal=null,currentArticulos=null;
+let currentMovimiento=null,currentCalcos=null,currentAPersonal=null,currentArticulos=null,currentMandatos=null;
 let selectedOption=null,selectedWords=[];
-let scores={conjugaciones:{correct:0,attempts:0},frases:{correct:0,attempts:0},preposiciones:{correct:0,attempts:0},objetos:{correct:0,attempts:0},orden:{correct:0,attempts:0},serEstar:{correct:0,attempts:0},regimen:{correct:0,attempts:0},pedir:{correct:0,attempts:0},movimiento:{correct:0,attempts:0},calcos:{correct:0,attempts:0},aPersonal:{correct:0,attempts:0},articulos:{correct:0,attempts:0}};
+let scores={conjugaciones:{correct:0,attempts:0},frases:{correct:0,attempts:0},preposiciones:{correct:0,attempts:0},objetos:{correct:0,attempts:0},orden:{correct:0,attempts:0},serEstar:{correct:0,attempts:0},regimen:{correct:0,attempts:0},pedir:{correct:0,attempts:0},movimiento:{correct:0,attempts:0},calcos:{correct:0,attempts:0},aPersonal:{correct:0,attempts:0},articulos:{correct:0,attempts:0},mandatos:{correct:0,attempts:0}};
 let autoSaveTimeout=null,currentWritingId=null;
 const accentChars=['á','é','í','ó','ú','ñ','ü','Á','É','Í','Ó','Ú','Ñ','Ü','¿','¡'];
 
@@ -1971,14 +2192,194 @@ function showSection(section){
     if(section==='calcos')loadNewCalcos();
     if(section==='a-personal')loadNewAPersonal();
     if(section==='articulos')loadNewArticulos();
+    if(section==='mandatos')loadNewMandatos();
     if(section==='escritura')displayWritings();
 }
 
 function updateScore(section){
     const s=scores[section];
-    const ids={'conjugaciones':'conj-score','frases':'sentence-score','preposiciones':'prep-score','objetos':'object-score','orden':'orden-score','serEstar':'ser-estar-score','regimen':'regimen-score','pedir':'pedir-score','movimiento':'movimiento-score','calcos':'calcos-score','aPersonal':'a-personal-score','articulos':'articulos-score'};
+    const ids={'conjugaciones':'conj-score','frases':'sentence-score','preposiciones':'prep-score','objetos':'object-score','orden':'orden-score','serEstar':'ser-estar-score','regimen':'regimen-score','pedir':'pedir-score','movimiento':'movimiento-score','calcos':'calcos-score','aPersonal':'a-personal-score','articulos':'articulos-score','mandatos':'mandatos-score'};
     const el=document.getElementById(ids[section]);
     if(el)el.textContent=`Correctas: ${s.correct} | Intentos: ${s.attempts}`;
+    saveProgress();
+    // A new attempt (not the page loading its saved scores): check badges and titles
+    if(lastAttempts[section]!==undefined&&s.attempts>lastAttempts[section])onAnswer(section);
+}
+
+// ===== MAZO Y PROGRESO GUARDADO (Oct 2026) =====
+// Each section deals from its own shuffled deck: nothing repeats until the whole set has been seen.
+// Scores and decks are kept in this browser (like the writings), so closing the page doesn't lose progress.
+// If the browser won't store anything (private mode), the app works the same and just doesn't remember.
+let decks={};
+function loadProgress(){
+    try{
+        const saved=JSON.parse(localStorage.getItem('spanishScores')||'null');
+        if(saved)Object.keys(scores).forEach(k=>{if(saved[k])scores[k]=saved[k];});
+        decks=JSON.parse(localStorage.getItem('spanishDecks')||'{}')||{};
+    }catch(e){decks={};}
+    Object.keys(scores).forEach(updateScore);
+}
+function saveProgress(){
+    try{localStorage.setItem('spanishScores',JSON.stringify(scores));localStorage.setItem('spanishDecks',JSON.stringify(decks));}catch(e){}
+}
+function drawFrom(name,list){
+    let d=decks[name];
+    // New deck when it runs out, or when exercises were added to this section
+    if(!d||d.size!==list.length||!d.left||!d.left.length){
+        const idx=list.map((_,i)=>i);
+        for(let i=idx.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[idx[i],idx[j]]=[idx[j],idx[i]];}
+        const last=d?d.last:null;
+        // The last one seen doesn't open the new deck (cards are dealt from the end)
+        if(last!=null&&idx.length>1&&idx[idx.length-1]===last)[idx[0],idx[idx.length-1]]=[idx[idx.length-1],idx[0]];
+        d=decks[name]={size:list.length,left:idx,last};
+    }
+    const i=d.left.pop();
+    d.last=i;
+    saveProgress();
+    return list[i];
+}
+
+// ===== TÍTULOS E INSIGNIAS (Oct 2026) =====
+// Rewards decorate and never lock anything. Earned badges are kept forever; nothing breaks if she misses a day.
+// Names work for anyone (aprendiz, trotamundos, cronista, leyenda), so the app can serve any student.
+const TITLES=[{min:0,name:'Aprendiz'},{min:50,name:'Trotamundos'},{min:150,name:'Cronista'},{min:400,name:'Leyenda'}];
+const SECTION_GOAL=20;
+const SECTION_BADGES={conjugaciones:['📜','Conjugar'],mandatos:['👑','Mandatos'],serEstar:['⚖️','Ser y Estar'],regimen:['🔗','Régimen Verbal'],pedir:['🗝️','Pedir y Preguntar'],movimiento:['🐎','Movimiento'],calcos:['🎭','Amigos Sospechosos'],aPersonal:['🧝','A Personal'],articulos:['⚒️','Artículos'],preposiciones:['🧭','Por y Para'],objetos:['🔮','OD/OI'],frases:['✒️','Completar'],orden:['🏰','Orden']};
+const ACHIEVEMENTS={
+    primerPaso:['🌱','Primer paso','Tu primera respuesta correcta.'],
+    cincoCaminos:['🛤️','Cinco caminos','Probaste 5 secciones distintas.'],
+    mapaCompleto:['🗺️','Mapa completo','Probaste todas las secciones.'],
+    constancia:['🕯️','Constancia','Practicaste 3 días seguidos.'],
+    juramento:['🛡️','Juramento de paladín','Practicaste 7 días seguidos.'],
+    maraton:['📚','Maratón de fin de semana','50 respuestas en un mismo fin de semana.'],
+    racha:['⚡','Racha perfecta','10 respuestas correctas seguidas.'],
+    buho:['🦉','Búho nocturno','Practicaste después de las 10 de la noche.'],
+    escriba:['✍️','Escriba','Guardaste un texto en Escritura.'],
+    deVuelta:['🌅','De vuelta al camino','Volviste después de una semana.']
+};
+let stats={earned:{},days:[],weekends:{},run:0,lastVisit:0,title:'Aprendiz',pendingReturn:false};
+let soundMuted=false,lastAttempts={},lastCorrect={},toastQueue=[],toastBusy=false;
+
+const dayKey=d=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+function weekendKey(d){const s=new Date(d.getTime());if(s.getDay()===0)s.setDate(s.getDate()-1);return dayKey(s);}  // the Saturday of that weekend
+const totalCorrect=()=>Object.values(scores).reduce((n,x)=>n+x.correct,0);
+const titleFor=n=>TITLES.filter(t=>n>=t.min).pop().name;
+function streakDays(){let n=0;const d=new Date();while(stats.days.includes(dayKey(d))){n++;d.setDate(d.getDate()-1);}return n;}
+
+function loadStats(){
+    try{
+        const s=JSON.parse(localStorage.getItem('spanishStats')||'null');
+        if(s)stats=Object.assign(stats,s);
+        soundMuted=localStorage.getItem('spanishSound')==='off';
+    }catch(e){}
+    Object.keys(scores).forEach(k=>{lastAttempts[k]=scores[k].attempts;lastCorrect[k]=scores[k].correct;});
+    stats.title=titleFor(totalCorrect());
+    // Coming back after a while: a warm hello (no sound: the browser only plays it after a tap)
+    const away=stats.lastVisit?Date.now()-stats.lastVisit:0;
+    if(away>=3*864e5)showToast('🌄','¡Qué bueno verte de nuevo!','Todo sigue donde lo dejaste.',false);
+    if(away>=7*864e5)stats.pendingReturn=true;   // the badge comes with the next answer, horn included
+    updateSoundButton();
+    renderBadges();
+}
+function saveStats(){try{localStorage.setItem('spanishStats',JSON.stringify(stats));}catch(e){}}
+
+// Called after every answer, in any section
+function onAnswer(section){
+    const s=scores[section];
+    const wasCorrect=s.correct>(lastCorrect[section]||0);
+    lastAttempts[section]=s.attempts;lastCorrect[section]=s.correct;
+    const now=new Date(),day=dayKey(now),dow=now.getDay();
+    if(!stats.days.includes(day)){stats.days.push(day);stats.days=stats.days.slice(-60);}
+    if(dow===0||dow===6){const wk=weekendKey(now);stats.weekends={[wk]:(stats.weekends[wk]||0)+1};}
+    stats.run=wasCorrect?stats.run+1:0;
+    stats.lastVisit=Date.now();
+    const total=totalCorrect();
+    const tried=Object.values(scores).filter(x=>x.attempts>0).length;
+    if(total>=1)award('primerPaso');
+    if(tried>=5)award('cincoCaminos');
+    if(tried>=Object.keys(scores).length)award('mapaCompleto');
+    const streak=streakDays();
+    if(streak>=3)award('constancia');
+    if(streak>=7)award('juramento');
+    if((dow===0||dow===6)&&stats.weekends[weekendKey(now)]>=50)award('maraton');
+    if(stats.run>=10)award('racha');
+    const h=now.getHours();if(h>=22||h<4)award('buho');
+    if(stats.pendingReturn){stats.pendingReturn=false;award('deVuelta');}
+    if(SECTION_BADGES[section]&&s.correct>=SECTION_GOAL)award('sec_'+section);
+    const t=titleFor(total);
+    if(t!==stats.title){stats.title=t;showToast('🏅','Nuevo título: '+t,'Ya llevas '+total+' respuestas correctas.',true);}
+    saveStats();renderBadges();
+}
+function badgeInfo(id){
+    if(id.startsWith('sec_')){const [icon,name]=SECTION_BADGES[id.slice(4)];return [icon,name,SECTION_GOAL+' respuestas correctas en '+name+'.'];}
+    return ACHIEVEMENTS[id];
+}
+function award(id){
+    if(stats.earned[id])return;
+    stats.earned[id]=dayKey(new Date());
+    const [icon,name,desc]=badgeInfo(id);
+    showToast(icon,name,desc,true);
+}
+
+function renderBadges(){
+    const t=document.getElementById('player-title');if(t)t.textContent=stats.title;
+    const order=Object.keys(ACHIEVEMENTS).concat(Object.keys(SECTION_BADGES).map(k=>'sec_'+k));
+    const earned=order.filter(id=>stats.earned[id]);
+    const c=document.getElementById('badge-count');if(c)c.textContent=earned.length;
+    const shelf=document.getElementById('badge-shelf');if(!shelf)return;
+    shelf.innerHTML='';
+    earned.forEach(id=>{
+        const [icon,name,desc]=badgeInfo(id);
+        const s=document.createElement('span');
+        s.textContent=icon;s.title=name;
+        s.onclick=()=>showToast(icon,name,desc,false);   // looking at a badge again: no horn
+        shelf.appendChild(s);
+    });
+}
+
+// The card: slides down, glows, leaves after ~3 s. Several at once wait their turn.
+function showToast(icon,name,desc,withSound){toastQueue.push({icon,name,desc,withSound});if(!toastBusy)nextToast();}
+function nextToast(){
+    const el=document.getElementById('badge-toast');
+    const item=toastQueue.shift();
+    if(!el||!item){toastBusy=false;return;}
+    toastBusy=true;
+    el.innerHTML='';
+    [['bt-icon',item.icon],['bt-name',item.name],['bt-desc',item.desc]].forEach(([cls,txt])=>{const d=document.createElement('div');d.className=cls;d.textContent=txt;el.appendChild(d);});
+    el.classList.add('show');
+    if(item.withSound)playHorn();
+    setTimeout(()=>{el.classList.remove('show');setTimeout(nextToast,600);},3200);
+}
+
+// The herald's horn: three brassy notes rising (ta-ta-taaa), made by the browser itself, soft volume.
+let audioCtx=null;
+function playHorn(){
+    if(soundMuted)return;
+    try{
+        audioCtx=audioCtx||new (window.AudioContext||window.webkitAudioContext)();
+        const t0=audioCtx.currentTime+0.03;
+        [[392,0,0.16],[523.25,0.18,0.16],[659.25,0.36,0.75]].forEach(([f,start,dur])=>{
+            const o=audioCtx.createOscillator(),flt=audioCtx.createBiquadFilter(),g=audioCtx.createGain();
+            o.type='sawtooth';o.frequency.value=f;
+            flt.type='lowpass';
+            flt.frequency.setValueAtTime(600,t0+start);
+            flt.frequency.linearRampToValueAtTime(2200,t0+start+0.06);
+            flt.frequency.linearRampToValueAtTime(1100,t0+start+dur);
+            g.gain.setValueAtTime(0.0001,t0+start);
+            g.gain.exponentialRampToValueAtTime(0.12,t0+start+0.04);
+            g.gain.setValueAtTime(0.12,t0+start+dur*0.7);
+            g.gain.exponentialRampToValueAtTime(0.0001,t0+start+dur);
+            o.connect(flt);flt.connect(g);g.connect(audioCtx.destination);
+            o.start(t0+start);o.stop(t0+start+dur+0.05);
+        });
+    }catch(e){}
+}
+function updateSoundButton(){const b=document.getElementById('sound-btn');if(b)b.textContent=soundMuted?'🔇':'🔊';}
+function toggleSound(){
+    soundMuted=!soundMuted;
+    try{localStorage.setItem('spanishSound',soundMuted?'off':'on');}catch(e){}
+    updateSoundButton();
+    if(!soundMuted)playHorn();   // turning it back on: hear what it sounds like
 }
 
 // ===== TECLADO DE ACENTOS =====
@@ -2008,55 +2409,58 @@ function setupAccentKeyboards(){
 }
 
 // ===== CONJUGACIONES =====
-function loadNewVerb(){currentVerb=irregularVerbs[Math.floor(Math.random()*irregularVerbs.length)];document.getElementById('conj-question').textContent=`¿Cómo se conjuga "${currentVerb.verb}" en ${currentVerb.tense}?`;document.getElementById('verb-info').textContent=`Persona: ${currentVerb.person}`;document.getElementById('conj-answer').value='';document.getElementById('conj-feedback').innerHTML='';}
+function loadNewVerb(){currentVerb=drawFrom('irregularVerbs',irregularVerbs);document.getElementById('conj-question').textContent=`¿Cómo se conjuga "${currentVerb.verb}" en ${currentVerb.tense}?`;document.getElementById('verb-info').textContent=`Persona: ${currentVerb.person}`;document.getElementById('conj-answer').value='';document.getElementById('conj-feedback').innerHTML='';}
 function checkConjugation(){const a=document.getElementById('conj-answer').value.trim().toLowerCase();const f=document.getElementById('conj-feedback');scores.conjugaciones.attempts++;if(a===currentVerb.answer.toLowerCase()){scores.conjugaciones.correct++;f.className='feedback correct';f.textContent='¡Correcto! 🎉';setTimeout(loadNewVerb,1500);}else{f.className='feedback incorrect';f.innerHTML=`Incorrecto. Respuesta: <strong>${currentVerb.answer}</strong>`;}updateScore('conjugaciones');}
 
 // ===== SER VS ESTAR =====
-function loadNewSerEstar(){currentSerEstar=serEstarExercises[Math.floor(Math.random()*serEstarExercises.length)];document.getElementById('ser-estar-sentence').textContent=currentSerEstar.text;const o=document.getElementById('ser-estar-options');o.innerHTML='';selectedOption=null;currentSerEstar.options.forEach((opt,i)=>{const b=document.createElement('button');b.className='option-btn';b.textContent=opt;b.onclick=()=>{selectedOption=i;document.querySelectorAll('#ser-estar-options .option-btn').forEach((btn,j)=>btn.classList.toggle('selected',j===i));};o.appendChild(b);});document.getElementById('ser-estar-feedback').innerHTML='';}
+function loadNewSerEstar(){currentSerEstar=drawFrom('serEstarExercises',serEstarExercises);document.getElementById('ser-estar-sentence').textContent=currentSerEstar.text;const o=document.getElementById('ser-estar-options');o.innerHTML='';selectedOption=null;currentSerEstar.options.forEach((opt,i)=>{const b=document.createElement('button');b.className='option-btn';b.textContent=opt;b.onclick=()=>{selectedOption=i;document.querySelectorAll('#ser-estar-options .option-btn').forEach((btn,j)=>btn.classList.toggle('selected',j===i));};o.appendChild(b);});document.getElementById('ser-estar-feedback').innerHTML='';}
 function checkSerEstar(){if(selectedOption===null){alert('Selecciona una opción');return;}const f=document.getElementById('ser-estar-feedback');scores.serEstar.attempts++;if(selectedOption===currentSerEstar.correct){scores.serEstar.correct++;f.className='feedback correct';f.innerHTML=`¡Correcto! 🎉<br><span style="font-weight:normal;font-size:0.9em;">${currentSerEstar.explanation}</span>`;setTimeout(loadNewSerEstar,2500);}else{f.className='feedback incorrect';f.innerHTML=`Incorrecto. Respuesta: <strong>${currentSerEstar.options[currentSerEstar.correct]}</strong><br><span style="font-weight:normal;font-size:0.9em;">${currentSerEstar.explanation}</span>`;}updateScore('serEstar');}
 
 // ===== RÉGIMEN VERBAL =====
-function loadNewRegimen(){currentRegimen=regimenExercises[Math.floor(Math.random()*regimenExercises.length)];document.getElementById('regimen-sentence').textContent=currentRegimen.text;const o=document.getElementById('regimen-options');o.innerHTML='';selectedOption=null;currentRegimen.options.forEach((opt,i)=>{const b=document.createElement('button');b.className='option-btn';b.textContent=opt;b.onclick=()=>{selectedOption=i;document.querySelectorAll('#regimen-options .option-btn').forEach((btn,j)=>btn.classList.toggle('selected',j===i));};o.appendChild(b);});document.getElementById('regimen-feedback').innerHTML='';}
+function loadNewRegimen(){currentRegimen=drawFrom('regimenExercises',regimenExercises);document.getElementById('regimen-sentence').textContent=currentRegimen.text;const o=document.getElementById('regimen-options');o.innerHTML='';selectedOption=null;currentRegimen.options.forEach((opt,i)=>{const b=document.createElement('button');b.className='option-btn';b.textContent=opt;b.onclick=()=>{selectedOption=i;document.querySelectorAll('#regimen-options .option-btn').forEach((btn,j)=>btn.classList.toggle('selected',j===i));};o.appendChild(b);});document.getElementById('regimen-feedback').innerHTML='';}
 function checkRegimen(){if(selectedOption===null){alert('Selecciona una opción');return;}const f=document.getElementById('regimen-feedback');scores.regimen.attempts++;if(selectedOption===currentRegimen.correct){scores.regimen.correct++;f.className='feedback correct';f.innerHTML=`¡Correcto! 🎉<br><span style="font-weight:normal;font-size:0.9em;">${currentRegimen.explanation}</span>`;setTimeout(loadNewRegimen,2500);}else{f.className='feedback incorrect';f.innerHTML=`Incorrecto. Respuesta: <strong>${currentRegimen.options[currentRegimen.correct]}</strong><br><span style="font-weight:normal;font-size:0.9em;">${currentRegimen.explanation}</span>`;}updateScore('regimen');}
 
 // ===== PEDIR VS PREGUNTAR =====
-function loadNewPedir(){currentPedir=pedirPreguntarExercises[Math.floor(Math.random()*pedirPreguntarExercises.length)];document.getElementById('pedir-sentence').textContent=currentPedir.text;const o=document.getElementById('pedir-options');o.innerHTML='';selectedOption=null;currentPedir.options.forEach((opt,i)=>{const b=document.createElement('button');b.className='option-btn';b.textContent=opt;b.onclick=()=>{selectedOption=i;document.querySelectorAll('#pedir-options .option-btn').forEach((btn,j)=>btn.classList.toggle('selected',j===i));};o.appendChild(b);});document.getElementById('pedir-feedback').innerHTML='';}
+function loadNewPedir(){currentPedir=drawFrom('pedirPreguntarExercises',pedirPreguntarExercises);document.getElementById('pedir-sentence').textContent=currentPedir.text;const o=document.getElementById('pedir-options');o.innerHTML='';selectedOption=null;currentPedir.options.forEach((opt,i)=>{const b=document.createElement('button');b.className='option-btn';b.textContent=opt;b.onclick=()=>{selectedOption=i;document.querySelectorAll('#pedir-options .option-btn').forEach((btn,j)=>btn.classList.toggle('selected',j===i));};o.appendChild(b);});document.getElementById('pedir-feedback').innerHTML='';}
 function checkPedir(){if(selectedOption===null){alert('Selecciona una opción');return;}const f=document.getElementById('pedir-feedback');scores.pedir.attempts++;if(selectedOption===currentPedir.correct){scores.pedir.correct++;f.className='feedback correct';f.innerHTML=`¡Correcto! 🎉<br><span style="font-weight:normal;font-size:0.9em;">${currentPedir.explanation}</span>`;setTimeout(loadNewPedir,2500);}else{f.className='feedback incorrect';f.innerHTML=`Incorrecto. Respuesta: <strong>${currentPedir.options[currentPedir.correct]}</strong><br><span style="font-weight:normal;font-size:0.9em;">${currentPedir.explanation}</span>`;}updateScore('pedir');}
 
 // ===== VERBOS DE MOVIMIENTO =====
-function loadNewMovimiento(){currentMovimiento=movimientoExercises[Math.floor(Math.random()*movimientoExercises.length)];document.getElementById('movimiento-sentence').textContent=currentMovimiento.sentence;const o=document.getElementById('movimiento-options');o.innerHTML='';selectedOption=null;currentMovimiento.options.forEach((opt,i)=>{const b=document.createElement('button');b.className='option-btn';b.textContent=opt;b.onclick=()=>{selectedOption=i;document.querySelectorAll('#movimiento-options .option-btn').forEach((btn,j)=>btn.classList.toggle('selected',j===i));};o.appendChild(b);});document.getElementById('movimiento-feedback').innerHTML='';}
+function loadNewMovimiento(){currentMovimiento=drawFrom('movimientoExercises',movimientoExercises);document.getElementById('movimiento-sentence').textContent=currentMovimiento.sentence;const o=document.getElementById('movimiento-options');o.innerHTML='';selectedOption=null;currentMovimiento.options.forEach((opt,i)=>{const b=document.createElement('button');b.className='option-btn';b.textContent=opt;b.onclick=()=>{selectedOption=i;document.querySelectorAll('#movimiento-options .option-btn').forEach((btn,j)=>btn.classList.toggle('selected',j===i));};o.appendChild(b);});document.getElementById('movimiento-feedback').innerHTML='';}
 function checkMovimiento(){if(selectedOption===null){alert('Selecciona una opción');return;}const f=document.getElementById('movimiento-feedback');scores.movimiento.attempts++;const isCorrect=typeof currentMovimiento.correct==='number'?selectedOption===currentMovimiento.correct:currentMovimiento.options[selectedOption]===currentMovimiento.correct;if(isCorrect){scores.movimiento.correct++;f.className='feedback correct';f.innerHTML=`¡Correcto! 🎉<br><span style="font-weight:normal;font-size:0.9em;">${currentMovimiento.explanation}</span>`;setTimeout(loadNewMovimiento,2500);}else{f.className='feedback incorrect';const correctAnswer=typeof currentMovimiento.correct==='number'?currentMovimiento.options[currentMovimiento.correct]:currentMovimiento.correct;f.innerHTML=`Incorrecto. Respuesta: <strong>${correctAnswer}</strong><br><span style="font-weight:normal;font-size:0.9em;">${currentMovimiento.explanation}</span>`;}updateScore('movimiento');}
 
 // ===== CALCOS =====
-function loadNewCalcos(){currentCalcos=calcosExercises[Math.floor(Math.random()*calcosExercises.length)];document.getElementById('calcos-sentence').textContent=currentCalcos.text;const o=document.getElementById('calcos-options');o.innerHTML='';selectedOption=null;currentCalcos.options.forEach((opt,i)=>{const b=document.createElement('button');b.className='option-btn';b.textContent=opt;b.onclick=()=>{selectedOption=i;document.querySelectorAll('#calcos-options .option-btn').forEach((btn,j)=>btn.classList.toggle('selected',j===i));};o.appendChild(b);});document.getElementById('calcos-feedback').innerHTML='';}
+function loadNewCalcos(){currentCalcos=drawFrom('calcosExercises',calcosExercises);document.getElementById('calcos-sentence').textContent=currentCalcos.text;const o=document.getElementById('calcos-options');o.innerHTML='';selectedOption=null;currentCalcos.options.forEach((opt,i)=>{const b=document.createElement('button');b.className='option-btn';b.textContent=opt;b.onclick=()=>{selectedOption=i;document.querySelectorAll('#calcos-options .option-btn').forEach((btn,j)=>btn.classList.toggle('selected',j===i));};o.appendChild(b);});document.getElementById('calcos-feedback').innerHTML='';}
 function checkCalcos(){if(selectedOption===null){alert('Selecciona una opción');return;}const f=document.getElementById('calcos-feedback');scores.calcos.attempts++;if(selectedOption===currentCalcos.correct){scores.calcos.correct++;f.className='feedback correct';f.innerHTML=`¡Correcto! 🎉<br><span style="font-weight:normal;font-size:0.9em;">${currentCalcos.explanation}</span>`;setTimeout(loadNewCalcos,2500);}else{f.className='feedback incorrect';f.innerHTML=`Incorrecto. Respuesta: <strong>${currentCalcos.options[currentCalcos.correct]}</strong><br><span style="font-weight:normal;font-size:0.9em;">${currentCalcos.explanation}</span>`;}updateScore('calcos');}
 
+// MANDATOS (same pattern as the other multiple-choice sections)
+function loadNewMandatos(){currentMandatos=drawFrom('mandatosExercises',mandatosExercises);document.getElementById('mandatos-sentence').textContent=currentMandatos.text;const o=document.getElementById('mandatos-options');o.innerHTML='';selectedOption=null;currentMandatos.options.forEach((opt,i)=>{const b=document.createElement('button');b.className='option-btn';b.textContent=opt;b.onclick=()=>{selectedOption=i;document.querySelectorAll('#mandatos-options .option-btn').forEach((btn,j)=>btn.classList.toggle('selected',j===i));};o.appendChild(b);});document.getElementById('mandatos-feedback').innerHTML='';}
+function checkMandatos(){if(selectedOption===null){alert('Selecciona una opción');return;}const f=document.getElementById('mandatos-feedback');scores.mandatos.attempts++;if(selectedOption===currentMandatos.correct){scores.mandatos.correct++;f.className='feedback correct';f.innerHTML=`¡Correcto! 🎉<br><span style="font-weight:normal;font-size:0.9em;">${currentMandatos.explanation}</span>`;setTimeout(loadNewMandatos,2500);}else{f.className='feedback incorrect';f.innerHTML=`Incorrecto. Respuesta: <strong>${currentMandatos.options[currentMandatos.correct]}</strong><br><span style="font-weight:normal;font-size:0.9em;">${currentMandatos.explanation}</span>`;}updateScore('mandatos');}
+
 // ===== A PERSONAL =====
-function loadNewAPersonal(){currentAPersonal=aPersonalExercises[Math.floor(Math.random()*aPersonalExercises.length)];document.getElementById('a-personal-sentence').textContent=currentAPersonal.text;const o=document.getElementById('a-personal-options');o.innerHTML='';selectedOption=null;currentAPersonal.options.forEach((opt,i)=>{const b=document.createElement('button');b.className='option-btn';b.textContent=opt;b.onclick=()=>{selectedOption=i;document.querySelectorAll('#a-personal-options .option-btn').forEach((btn,j)=>btn.classList.toggle('selected',j===i));};o.appendChild(b);});document.getElementById('a-personal-feedback').innerHTML='';}
+function loadNewAPersonal(){currentAPersonal=drawFrom('aPersonalExercises',aPersonalExercises);document.getElementById('a-personal-sentence').textContent=currentAPersonal.text;const o=document.getElementById('a-personal-options');o.innerHTML='';selectedOption=null;currentAPersonal.options.forEach((opt,i)=>{const b=document.createElement('button');b.className='option-btn';b.textContent=opt;b.onclick=()=>{selectedOption=i;document.querySelectorAll('#a-personal-options .option-btn').forEach((btn,j)=>btn.classList.toggle('selected',j===i));};o.appendChild(b);});document.getElementById('a-personal-feedback').innerHTML='';}
 function checkAPersonal(){if(selectedOption===null){alert('Selecciona una opción');return;}const f=document.getElementById('a-personal-feedback');scores.aPersonal.attempts++;if(selectedOption===currentAPersonal.correct){scores.aPersonal.correct++;f.className='feedback correct';f.innerHTML=`¡Correcto! 🎉<br><span style="font-weight:normal;font-size:0.9em;">${currentAPersonal.explanation}</span>`;setTimeout(loadNewAPersonal,2500);}else{f.className='feedback incorrect';f.innerHTML=`Incorrecto. Respuesta: <strong>${currentAPersonal.options[currentAPersonal.correct]}</strong><br><span style="font-weight:normal;font-size:0.9em;">${currentAPersonal.explanation}</span>`;}updateScore('aPersonal');}
 
 // ===== ARTÍCULOS =====
-function loadNewArticulos(){currentArticulos=articulosExercises[Math.floor(Math.random()*articulosExercises.length)];document.getElementById('articulos-sentence').textContent=currentArticulos.text;const o=document.getElementById('articulos-options');o.innerHTML='';selectedOption=null;currentArticulos.options.forEach((opt,i)=>{const b=document.createElement('button');b.className='option-btn';b.textContent=opt;b.onclick=()=>{selectedOption=i;document.querySelectorAll('#articulos-options .option-btn').forEach((btn,j)=>btn.classList.toggle('selected',j===i));};o.appendChild(b);});document.getElementById('articulos-feedback').innerHTML='';}
+function loadNewArticulos(){currentArticulos=drawFrom('articulosExercises',articulosExercises);document.getElementById('articulos-sentence').textContent=currentArticulos.text;const o=document.getElementById('articulos-options');o.innerHTML='';selectedOption=null;currentArticulos.options.forEach((opt,i)=>{const b=document.createElement('button');b.className='option-btn';b.textContent=opt;b.onclick=()=>{selectedOption=i;document.querySelectorAll('#articulos-options .option-btn').forEach((btn,j)=>btn.classList.toggle('selected',j===i));};o.appendChild(b);});document.getElementById('articulos-feedback').innerHTML='';}
 function checkArticulos(){if(selectedOption===null){alert('Selecciona una opción');return;}const f=document.getElementById('articulos-feedback');scores.articulos.attempts++;if(selectedOption===currentArticulos.correct){scores.articulos.correct++;f.className='feedback correct';f.innerHTML=`¡Correcto! 🎉<br><span style="font-weight:normal;font-size:0.9em;">${currentArticulos.explanation}</span>`;setTimeout(loadNewArticulos,2500);}else{f.className='feedback incorrect';f.innerHTML=`Incorrecto. Respuesta: <strong>${currentArticulos.options[currentArticulos.correct]}</strong><br><span style="font-weight:normal;font-size:0.9em;">${currentArticulos.explanation}</span>`;}updateScore('articulos');}
 
 // ===== PREPOSICIONES =====
-function loadNewPreposition(){currentPreposition=prepositionExercises[Math.floor(Math.random()*prepositionExercises.length)];document.getElementById('prep-sentence').textContent=currentPreposition.sentence;const o=document.getElementById('prep-options');o.innerHTML='';selectedOption=null;currentPreposition.options.forEach((opt,i)=>{const b=document.createElement('button');b.className='option-btn';b.textContent=opt;b.onclick=()=>{selectedOption=i;document.querySelectorAll('#prep-options .option-btn').forEach((btn,j)=>btn.classList.toggle('selected',j===i));};o.appendChild(b);});document.getElementById('prep-feedback').innerHTML='';}
+function loadNewPreposition(){currentPreposition=drawFrom('prepositionExercises',prepositionExercises);document.getElementById('prep-sentence').textContent=currentPreposition.sentence;const o=document.getElementById('prep-options');o.innerHTML='';selectedOption=null;currentPreposition.options.forEach((opt,i)=>{const b=document.createElement('button');b.className='option-btn';b.textContent=opt;b.onclick=()=>{selectedOption=i;document.querySelectorAll('#prep-options .option-btn').forEach((btn,j)=>btn.classList.toggle('selected',j===i));};o.appendChild(b);});document.getElementById('prep-feedback').innerHTML='';}
 function checkPreposition(){if(selectedOption===null){alert('Selecciona una opción');return;}const f=document.getElementById('prep-feedback');scores.preposiciones.attempts++;if(selectedOption===currentPreposition.correct){scores.preposiciones.correct++;f.className='feedback correct';f.innerHTML=`¡Correcto! 🎉<br><span style="font-weight:normal;font-size:0.9em;">${currentPreposition.explanation}</span>`;setTimeout(loadNewPreposition,2500);}else{f.className='feedback incorrect';f.innerHTML=`Incorrecto. Respuesta: <strong>${currentPreposition.options[currentPreposition.correct]}</strong><br><span style="font-weight:normal;font-size:0.9em;">${currentPreposition.explanation}</span>`;}updateScore('preposiciones');}
 
 // ===== OBJETOS =====
-function loadNewObject(){currentObject=objectExercises[Math.floor(Math.random()*objectExercises.length)];document.getElementById('object-question').textContent=`Transforma: "${currentObject.original}"`;document.getElementById('object-hint').textContent=`Pista: ${currentObject.hint}`;document.getElementById('object-answer').value='';document.getElementById('object-feedback').innerHTML='';}
+function loadNewObject(){currentObject=drawFrom('objectExercises',objectExercises);document.getElementById('object-question').textContent=`Transforma: "${currentObject.original}"`;document.getElementById('object-hint').textContent=`Pista: ${currentObject.hint}`;document.getElementById('object-answer').value='';document.getElementById('object-feedback').innerHTML='';}
 function checkObject(){const a=document.getElementById('object-answer').value.trim().toLowerCase();const f=document.getElementById('object-feedback');scores.objetos.attempts++;if(a===currentObject.answer.toLowerCase()){scores.objetos.correct++;f.className='feedback correct';f.textContent='¡Correcto! 🎉';setTimeout(loadNewObject,1500);}else{f.className='feedback incorrect';f.innerHTML=`Incorrecto. Respuesta: <strong>${currentObject.answer}</strong>`;}updateScore('objetos');}
 
 // ===== FRASES =====
-function loadNewSentence(){currentSentence=sentences[Math.floor(Math.random()*sentences.length)];document.getElementById('sentence').textContent=currentSentence.text;const o=document.getElementById('options');o.innerHTML='';selectedOption=null;currentSentence.options.forEach((opt,i)=>{const b=document.createElement('button');b.className='option-btn';b.textContent=opt;b.onclick=()=>{selectedOption=i;document.querySelectorAll('#options .option-btn').forEach((btn,j)=>btn.classList.toggle('selected',j===i));};o.appendChild(b);});document.getElementById('sentence-feedback').innerHTML='';}
+function loadNewSentence(){currentSentence=drawFrom('sentences',sentences);document.getElementById('sentence').textContent=currentSentence.text;const o=document.getElementById('options');o.innerHTML='';selectedOption=null;currentSentence.options.forEach((opt,i)=>{const b=document.createElement('button');b.className='option-btn';b.textContent=opt;b.onclick=()=>{selectedOption=i;document.querySelectorAll('#options .option-btn').forEach((btn,j)=>btn.classList.toggle('selected',j===i));};o.appendChild(b);});document.getElementById('sentence-feedback').innerHTML='';}
 function checkSentence(){if(selectedOption===null){alert('Selecciona una opción');return;}const f=document.getElementById('sentence-feedback');scores.frases.attempts++;if(selectedOption===currentSentence.correct){scores.frases.correct++;f.className='feedback correct';f.innerHTML=`¡Correcto! 🎉<br><span style="font-weight:normal;font-size:0.9em;">${currentSentence.explanation}</span>`;setTimeout(loadNewSentence,2500);}else{f.className='feedback incorrect';f.innerHTML=`Incorrecto. Respuesta: <strong>${currentSentence.options[currentSentence.correct]}</strong><br><span style="font-weight:normal;font-size:0.9em;">${currentSentence.explanation}</span>`;}updateScore('frases');}
 
 // ===== ORDEN =====
-function loadNewOrden(){currentOrden=ordenExercises[Math.floor(Math.random()*ordenExercises.length)];selectedWords=[];const wb=document.getElementById('word-bank');wb.innerHTML='';const shuffled=[...currentOrden.words].sort(()=>Math.random()-0.5);shuffled.forEach((w,i)=>{const b=document.createElement('button');b.className='option-btn';b.textContent=w;b.onclick=()=>addWord(w,i);b.dataset.index=i;wb.appendChild(b);});document.getElementById('sentence-builder').innerHTML='';document.getElementById('orden-feedback').innerHTML='';}
-function addWord(w,i){selectedWords.push({word:w,originalIndex:i});const wb=document.getElementById('word-bank');wb.querySelectorAll('.option-btn')[i].style.display='none';const sb=document.getElementById('sentence-builder');const s=document.createElement('span');s.className='option-btn selected';s.textContent=w;s.style.cursor='pointer';s.onclick=()=>removeWord(selectedWords.length-1);sb.appendChild(s);}
-function removeWord(pos){const removed=selectedWords.splice(pos);removed.forEach(item=>{document.getElementById('word-bank').querySelectorAll('.option-btn')[item.originalIndex].style.display='inline-block';});const spans=document.getElementById('sentence-builder').querySelectorAll('span');for(let i=pos;i<spans.length;i++)spans[i].remove();}
-function resetOrden(){loadNewOrden();}
-function checkOrden(){if(selectedWords.length===0){alert('Ordena las palabras');return;}const ua=selectedWords.map(w=>w.word).join(' ').toLowerCase();const f=document.getElementById('orden-feedback');scores.orden.attempts++;const correct=ua===currentOrden.correct.toLowerCase()||currentOrden.variations.some(v=>ua===v.toLowerCase());if(correct){scores.orden.correct++;f.className='feedback correct';f.textContent='¡Correcto! 🎉';setTimeout(loadNewOrden,1500);}else{f.className='feedback incorrect';f.innerHTML=`Incorrecto. Respuesta: <strong>${currentOrden.correct}</strong>`;}updateScore('orden');}
+// ORDEN: ¿cuál está mal? The three right sentences and the wrong one are shuffled each time.
+let ordenBad=-1;
+function loadNewOrden(){currentOrden=drawFrom('ordenExercises',ordenExercises);const opts=[...currentOrden.ok,currentOrden.bad];for(let i=opts.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[opts[i],opts[j]]=[opts[j],opts[i]];}ordenBad=opts.indexOf(currentOrden.bad);const o=document.getElementById('orden-options');o.innerHTML='';selectedOption=null;opts.forEach((opt,i)=>{const b=document.createElement('button');b.className='option-btn';b.textContent=opt;b.onclick=()=>{selectedOption=i;document.querySelectorAll('#orden-options .option-btn').forEach((btn,j)=>btn.classList.toggle('selected',j===i));};o.appendChild(b);});document.getElementById('orden-feedback').innerHTML='';}
+function checkOrden(){if(selectedOption===null){alert('Selecciona una opción');return;}const f=document.getElementById('orden-feedback');scores.orden.attempts++;const why=ORDEN_TIPOS[currentOrden.type];if(selectedOption===ordenBad){scores.orden.correct++;f.className='feedback correct';f.innerHTML=`¡Correcto! 🎉 Esa es la que está mal.<br><span style="font-weight:normal;font-size:0.9em;">${why}</span>`;setTimeout(loadNewOrden,2500);}else{f.className='feedback incorrect';f.innerHTML=`Esa está bien. La que está mal es: <strong>${currentOrden.bad}</strong><br><span style="font-weight:normal;font-size:0.9em;">${why}</span>`;}updateScore('orden');}
 
 // ===== FLASHCARDS =====
 function loadFlashcard(){const c=flashcards[currentFlashcard];document.getElementById('card-front').textContent=c.spanish;document.getElementById('card-back').textContent=c.example?`${c.english}\n\nEj: ${c.example}`:c.english;document.getElementById('flashcard').classList.remove('flipped');updateFlashcardProgress();}
@@ -2067,7 +2471,7 @@ function updateFlashcardProgress(){document.getElementById('flashcard-progress')
 // ===== ESCRITURA =====
 function scheduleAutoSave(){if(autoSaveTimeout)clearTimeout(autoSaveTimeout);autoSaveTimeout=setTimeout(autoSaveWriting,2000);}
 function autoSaveWriting(){const t=document.getElementById('writing-text').value.trim();if(!t||!currentWritingId)return;const w=getWritings();const i=w.findIndex(x=>x.id===currentWritingId);if(i!==-1){w[i].text=t;w[i].lastModified=new Date().toISOString();localStorage.setItem('spanishWritings',JSON.stringify(w));updateAutoSaveStatus('Guardado');}}
-function saveWriting(){const t=document.getElementById('writing-text').value.trim();if(!t){alert('Escribe algo primero.');return;}const w=getWritings();w.unshift({id:Date.now(),text:t,created:new Date().toISOString(),lastModified:new Date().toISOString()});localStorage.setItem('spanishWritings',JSON.stringify(w));currentWritingId=null;document.getElementById('writing-text').value='';updateAutoSaveStatus('Guardado');displayWritings();setTimeout(()=>updateAutoSaveStatus(''),3000);}
+function saveWriting(){const t=document.getElementById('writing-text').value.trim();if(!t){alert('Escribe algo primero.');return;}const w=getWritings();w.unshift({id:Date.now(),text:t,created:new Date().toISOString(),lastModified:new Date().toISOString()});localStorage.setItem('spanishWritings',JSON.stringify(w));currentWritingId=null;document.getElementById('writing-text').value='';updateAutoSaveStatus('Guardado');displayWritings();award('escriba');saveStats();renderBadges();setTimeout(()=>updateAutoSaveStatus(''),3000);}
 function clearWritingArea(){if(confirm('¿Limpiar el texto?')){document.getElementById('writing-text').value='';currentWritingId=null;updateAutoSaveStatus('');}}
 function copyToClipboard(){const t=document.getElementById('writing-text').value;if(!t.trim()){alert('No hay texto.');return;}navigator.clipboard.writeText(t).then(()=>{updateAutoSaveStatus('✓ Copiado');setTimeout(()=>updateAutoSaveStatus(''),2000);});}
 function getWritings(){const s=localStorage.getItem('spanishWritings');return s?JSON.parse(s):[];}
@@ -2078,6 +2482,8 @@ function updateAutoSaveStatus(m){document.getElementById('auto-save-status').tex
 
 // ===== INICIALIZACIÓN =====
 window.addEventListener('DOMContentLoaded',function(){
+    loadProgress();
+    loadStats();
     loadNewVerb();
     setupAccentKeyboards();
     displayWritings();
